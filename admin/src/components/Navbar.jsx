@@ -20,9 +20,14 @@ const Navbar = () => {
         setShowPopup(false);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    if(showPopup){
+      document.addEventListener("click", handleClickOutside);
+    }else{
+      document.removeEventListener("click", handleClickOutside)
+    }
+    
     return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [showPopup]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 bg-gray-800 text-white px-6 py-3 flex items-center justify-between shadow-lg">

@@ -1,10 +1,36 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Navbar() {
+  const {user,dispatch} = useContext(AuthContext)
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const [logoutopen,setLogoutOpen] = useState(false)
+  
+  const handleLogout = ()=>{
+    dispatch({type:"LOGOUT"})
+    navigate("/login")
+  }
+
+  useEffect(() => {
+    const clickedOutside = (e) => {
+      if (!e.target.closest(".profile")) {
+        setLogoutOpen(false);
+      }
+    };
+
+    if (logoutopen) {
+      document.addEventListener("click", clickedOutside);
+    } else {
+      document.removeEventListener("click", clickedOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", clickedOutside);
+    };
+  }, [logoutopen]);  // Make sure to toggle based on logoutOpen
+
 
   return (
     <nav className="bg-white shadow-md">
@@ -45,7 +71,7 @@ export default function Navbar() {
                 Contact
               </Link>
               {user ? (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 cursor-pointer profile "  onClick={()=>setLogoutOpen(!logoutopen)}>
                   <img
                     src={user.img}
                     alt={user.username}
@@ -57,7 +83,7 @@ export default function Navbar() {
                   </span>
                 </div>
               ) : (
-                <>
+                <div>
                   <Link
                     to="/login"
                     className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-medium transition-colors"
@@ -70,8 +96,9 @@ export default function Navbar() {
                   >
                     Signup
                   </Link>
-                </>
+                </div>
               )}
+              {logoutopen && <button className="bg-blue-800 rounded-lg  text-white py-2 px-3 ring-2 ring-gray-300" onClick={handleLogout}>Logout</button>}
             </div>
           </div>
 
@@ -124,7 +151,7 @@ export default function Navbar() {
       <div
         className={`${isOpen ? "block" : "hidden"} md:hidden transition-all duration-300 ease-in-out`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 cursor-pointer" onClick={()=>setLogoutOpen(!logoutopen)}>
           <Link
             to="/"
             className="text-gray-900 hover:text-[#1E3A8A] block px-3 py-2 rounded-md text-base font-medium transition-colors"
@@ -176,6 +203,7 @@ export default function Navbar() {
               </Link>
             </div>
           )}
+          {logoutopen && <button className="bg-blue-800 rounded-lg  text-white py-2 px-3 ring-2 ring-gray-300" onClick={handleLogout}>Logout</button>}
         </div>
       </div>
     </nav>
