@@ -83,7 +83,7 @@ export default function Navbar() {
                   </span>
                 </div>
               ) : (
-                <div>
+                <div className="flex gap-3">
                   <Link
                     to="/login"
                     className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-medium transition-colors"
