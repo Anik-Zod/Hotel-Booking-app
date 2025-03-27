@@ -36,7 +36,8 @@ __Data Visualization :__ Recharts
 # 📸 Screenshots
 
 ## 🏠 Home Page
-![image](https://github.com/user-attachments/assets/d85b9b30-9844-470d-8014-1fdbc943ccba)
+![image](https://github.com/user-attachments/assets/a152fb09-0e6e-4efa-8f27-2091b298d84c)
+
 
 
 ## 🔑 Login Page
@@ -53,13 +54,16 @@ __Data Visualization :__ Recharts
 ![image](https://github.com/user-attachments/assets/efd4521c-a06f-4410-8d5b-9727d1904588)
 
 ## 📊 Admin Dashboard
-![image](https://github.com/user-attachments/assets/94b5cf82-92eb-40bb-9e0c-310b25a84223)
+![image](https://github.com/user-attachments/assets/69873aed-24cb-4d4f-acef-27c54dd0699b)
 
-## User Detail pages
-![image](https://github.com/user-attachments/assets/0107186a-31ca-44cc-8dd9-405769d3a783)
+
+## All User pages
+![image](https://github.com/user-attachments/assets/bc47b7c7-8d90-4f15-8ca8-9485adadf26d)
+
 
 ## Profile Page
-![image](https://github.com/user-attachments/assets/bd0578fe-b6bd-46a5-af3a-bf52c0d261ea)
+![image](https://github.com/user-attachments/assets/89a1d702-016f-4573-a907-7c98cecc51a6)
+
 
 ## Add new Hotel 
 ![image](https://github.com/user-attachments/assets/c0eb7ac4-244d-4c0d-a07f-00e7d020cece)
