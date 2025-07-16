@@ -14,7 +14,7 @@ export const register = async (req, res, next) => {
     const newUser = new User({
       ...req.body,
       password: hash,
-      isAdmin : req.body.isAdmin === true
+      isAdmin: req.body.isAdmin === true,
     });
     await newUser.save();
     res.status(201).json("User has been created");
@@ -25,7 +25,10 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const email = req.body.email;
+    if (!email) return res.json({ message: "email required" });
+
+    const user = await User.findOne({ email:email });
     if (!user) {
       return next(createError(404, "User not found")); // Stop here if no user is found
     }
@@ -41,7 +44,7 @@ export const login = async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    const{password, isAdmin, ...otherDetails} = user._doc;
+    const { password, isAdmin, ...otherDetails } = user._doc;
 
     // Send the token as a cookie
     res
@@ -49,10 +52,8 @@ export const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json({details:{...otherDetails},isAdmin });
+      .json({ details: { ...otherDetails }, isAdmin });
   } catch (error) {
     return next(error);
   }
 };
-
-

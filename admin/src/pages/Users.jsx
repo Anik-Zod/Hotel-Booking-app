@@ -86,7 +86,7 @@ export default function Users() {
   
   const [open,setOpen] = useState(false);
   
-  const {data,loading,error} = useFetch("/api/users")
+  const {data,loading,error} = useFetch("users","/users")
 
   const [list,setList] = useState()
 

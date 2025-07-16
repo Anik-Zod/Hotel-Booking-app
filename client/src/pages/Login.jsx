@@ -8,7 +8,7 @@ export default function Login() {
   const { user, loading, error, dispatch } = useContext(AuthContext);
 
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -26,8 +26,8 @@ export default function Login() {
     dispatch({ type: "LOGIN_START" });
 
     try {
-      const res = await axios.post("/api/auth/login", {
-        username: credentials.username,
+      const res = await axios.post("http://localhost:8800/api/auth/login", {
+        email: credentials.email,
         password: credentials.password,
       });
 
@@ -62,15 +62,15 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Username
+                Email
               </label>
               <input
                 type="text"
-                id="username"
-                placeholder="Enter your username"
+                id="email"
+                placeholder="Enter your email"
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />

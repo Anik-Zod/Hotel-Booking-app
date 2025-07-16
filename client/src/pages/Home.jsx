@@ -10,7 +10,7 @@ export default function Home() {
       <Navbar/>
       <Header/>
       <Featured/>
-      <PropertyList/>
+      {/* <PropertyList/> */}
       <FeaturedProperties/>
     </>
   )

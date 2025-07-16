@@ -5,8 +5,12 @@ import Footer from "../components/Footer";
 import {
   FaArrowCircleLeft,
   FaArrowCircleRight,
-  FaTimesCircle,
+  FaTimes,
   FaMapMarkerAlt,
+  FaStar,
+  FaWifi,
+  FaCoffee,
+  FaSwimmer,
 } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,132 +20,176 @@ import { AuthContext } from "../context/AuthContext";
 import Reserve from "../components/Reserve";
 
 const Hotel = () => {
-  const{user} = useContext(AuthContext)
-  const [slideNumber, setSlideNumber] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [openModal,setOpenModal] = useState(false);
-  const navigate = useNavigate(); 
+  const { user } = useContext(AuthContext);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [isSliderOpen, setIsSliderOpen] = useState(false);
+  const [isReserveOpen, setIsReserveOpen] = useState(false);
 
+  const navigate = useNavigate();
   const { id } = useParams();
-  
   const { dates, options } = useContext(SearchContext);
-  const days =  dates?.length > 0 ? dayDifference(dates[0].endDate, dates[0].startDate) : 0;
-  function dayDifference(date1, date2) {
-    if (!date1 || !date2) return 1;
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-  }
-  
 
-  const { data, loading, error } = useFetch(`/api/hotels/find/${id}`);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  const stayDuration = dates?.length
+    ? Math.ceil((dates[0].endDate - dates[0].startDate) / (1000 * 60 * 60 * 24))
+    : 1;
 
+  const { data, isLoading, isError, error } = useFetch("book", `/hotels/find/${id}`);
 
-  const handleOpen = (i) => {
-    setSlideNumber(i);
-    setOpen(true);
+  const handleSliderOpen = (index) => {
+    setSlideIndex(index);
+    setIsSliderOpen(true);
   };
 
-  const handleMove = (direction) => {
-    let newSlideNumber;
+  const handleSliderNavigation = (direction) => {
+    const totalSlides = data.photos.length;
+    setSlideIndex((prev) =>
+      direction === "left"
+        ? (prev - 1 + totalSlides) % totalSlides
+        : (prev + 1) % totalSlides
+    );
+  };
 
-    if (direction === "l") {
-      newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
+  const handleReserveClick = () => {
+    if (user) {
+      setIsReserveOpen(true);
     } else {
-      newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
+      navigate("/login");
     }
-    setSlideNumber(newSlideNumber);
   };
 
-  const handleReserve = (e)=>{
-    if(user){
-       setOpenModal(true)
-    }else{
-       navigate("/login")
-    }
+  if (isLoading) {
+    return (
+      <div className="py-20 text-center text-xl text-blue-600">
+        Loading hotel details...
+      </div>
+    );
   }
 
+  if (isError) {
+    return (
+      <div className="py-20 text-center text-xl text-red-600">
+        {error.message}
+      </div>
+    );
+  }
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col bg-gray-50">
       <Navbar />
       <Header type="list" />
-      <div className="container mx-auto p-4">
-        {open && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <FaTimesCircle
-              className="text-white text-3xl cursor-pointer absolute top-4 right-4"
-              onClick={() => setOpen(false)}
-            />
-            <FaArrowCircleLeft
-              className="text-white text-3xl cursor-pointer absolute left-4"
-              onClick={() => handleMove("l")}
-            />
-            <div className="max-w-3xl mx-auto">
-              <img
-                src={data?.photos[slideNumber]}
-                alt=""
-                className="w-full h-auto"
-              />
-            </div>
-            <FaArrowCircleRight
-              className="text-white text-3xl cursor-pointer absolute right-4"
-              onClick={() => handleMove("r")}
-            />
+
+      {/* Image Slider Modal */}
+      {isSliderOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95 px-4">
+          <FaTimes
+            onClick={() => setIsSliderOpen(false)}
+            className="absolute right-6 top-6 cursor-pointer text-3xl text-white transition hover:text-red-400"
+            aria-label="Close slider"
+          />
+          <FaArrowCircleLeft
+            onClick={() => handleSliderNavigation("left")}
+            className="absolute left-6 cursor-pointer text-4xl text-white transition hover:scale-110"
+            aria-label="Previous image"
+          />
+          <img
+            src={data.photos[slideIndex]}
+            alt={`Hotel image ${slideIndex + 1}`}
+            className="max-h-[85vh] rounded-lg object-contain shadow-2xl"
+          />
+          <FaArrowCircleRight
+            onClick={() => handleSliderNavigation("right")}
+            className="absolute right-6 cursor-pointer text-4xl text-white transition hover:scale-110"
+            aria-label="Next image"
+          />
+        </div>
+      )}
+
+      {/* Main Content */}
+      <main className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-12 lg:flex-row lg:px-8">
+        {/* Hotel Details Section */}
+        <section className="flex-1 space-y-6">
+          <h1 className="text-4xl font-extrabold text-gray-900">{data.name}</h1>
+          <div className="flex items-center gap-3 text-gray-700">
+            <FaMapMarkerAlt className="text-xl text-red-500" />
+            <span className="text-lg">{data.address}</span>
           </div>
-        )}
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <h1 className="text-2xl font-bold mb-2">{data?.name}</h1>
-          <div className="flex items-center mb-2">
-            <FaMapMarkerAlt className="text-red-500 mr-2" />
-            <span>{data?.address}</span>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">
+              <FaStar /> {data.rating || "9.8"}
+            </span>
+            <span className="text-gray-600">
+              {stayDuration} night{stayDuration > 1 ? "s" : ""}
+            </span>
           </div>
-          <span className="block mb-2">
-            Excellent location – ${data?.distance} from center
-          </span>
-          <span className="block mb-4">
-            Book a stay over ${data?.cheapestPrice} at this property and get a
-            free airport taxi
-          </span>
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            {data?.photos?.map((photo, i) => (
+
+          <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {data.photos.map((photo, index) => (
               <div
-                className="cursor-pointer"
-                key={i}
-                onClick={() => handleOpen(i)}
+                key={index}
+                onClick={() => handleSliderOpen(index)}
+                className="cursor-pointer overflow-hidden rounded-lg shadow-md transition hover:scale-105"
               >
-                <img src={photo} alt="" className="w-full h-auto rounded-lg" />
+                <img
+                  src={photo}
+                  alt={`Hotel preview ${index + 1}`}
+                  className="h-48 w-full object-cover"
+                />
               </div>
             ))}
           </div>
-          <div className="flex justify-between">
-            <div>
-              <h1 className="text-xl font-bold mb-2">{data?.title}</h1>
-              <p>{data?.desc}</p>
-            </div>
-            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-              <h1 className="text-lg font-bold mb-2">
-                Perfect for a {days}-night stay!
-              </h1>
-              <span className="block mb-2">
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2 className="text-xl font-bold mb-4">
-                <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
-                nights)
-              </h2>
-              <button onClick={handleReserve} className="bg-blue-500 text-white py-2 px-4 rounded-lg">
-                Reserve or Book Now!
-              </button>
-            </div>
+          <article className="mt-6 text-gray-700 leading-relaxed">
+            {data.desc}
+          </article>
+        </section>
+
+        {/* Booking Sidebar */}
+        <aside className="sticky top-32 w-full max-w-sm rounded-xl bg-white p-6 shadow-lg">
+          <h2 className="mb-4 text-2xl font-semibold text-gray-800">
+            Your Stay Summary
+          </h2>
+          <div className="mb-2 flex items-baseline gap-2">
+            <span className="text-3xl font-bold text-gray-900">
+              ${data.cheapestPrice}
+            </span>
+            <span className="text-gray-600">/ night</span>
           </div>
-        </div>
-        <MailList />
-        <Footer />
-      </div>
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+          <ul className="mt-4 flex flex-wrap gap-4 text-gray-700">
+            {[
+              { Icon: FaWifi, label: "Free Wi-Fi" },
+              { Icon: FaCoffee, label: "Breakfast Included" },
+              { Icon: FaSwimmer, label: "Swimming Pool" },
+            ].map(({ Icon, label }, index) => (
+              <li
+                key={index}
+                className="flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 shadow-sm"
+              >
+                <Icon className="text-blue-600" />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 text-gray-800">
+            Total for {options.room} room{options.room > 1 ? "s" : ""},{" "}
+            {stayDuration} night{stayDuration > 1 ? "s" : ""}:
+          </div>
+          <div className="my-2 text-2xl font-bold text-indigo-700">
+            ${stayDuration * data.cheapestPrice * options.room}
+          </div>
+          <button
+            onClick={handleReserveClick}
+            className="w-full rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 py-3 text-lg font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-blue-700"
+          >
+            Reserve or Book Now
+          </button>
+        </aside>
+      </main>
+
+      <MailList />
+      <Footer />
+
+      {isReserveOpen && (
+        <Reserve setOpen={setIsReserveOpen} hotelId={id} />
+      )}
     </div>
   );
 };

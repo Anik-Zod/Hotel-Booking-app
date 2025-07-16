@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 
 const INITIAL_STATE = {
-  city: "Berlin",
+  city: "Chittagong",
   dates: [
     {
       startDate: new Date(),
@@ -16,7 +16,6 @@ const INITIAL_STATE = {
   },
 };
 
-// আগে এখানে ছিল
 
 const SearchReducer = (state, action) => {
   switch (action.type) {

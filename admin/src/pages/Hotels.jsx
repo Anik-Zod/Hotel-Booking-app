@@ -86,8 +86,8 @@ export default function Hotels() {
   const [open,setOpen] = useState(false);
 
   const[list,setList]=useState()
-  const{data, loading, error} = useFetch(`/api/hotels`)
-
+  const{data, isLoading,isError,error} = useFetch('hotels',`/hotels`)
+  console.log(data)
   useEffect(()=>{
     setList(data)
   },[data])

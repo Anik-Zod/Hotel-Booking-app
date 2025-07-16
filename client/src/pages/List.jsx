@@ -15,152 +15,125 @@ const List = () => {
   const [max, setMax] = useState(999);
   const [openDate, setOpenDate] = useState(false);
 
-  const { data, loading, error, reFetch } = useFetch(
-    `/api/hotels?city=${destination}&min=${min}&max=${max}`
+  const { data, isLoading, isError, refetch, error } = useFetch("list",
+    `/hotels?city=${destination}&min=${min}&max=${max}`
   );
-  if (loading) return <p> Please Wait... </p>;
-  if (error) return <p>{error.message}</p>;
 
   const handleClick = () => {
     dispatch({
       type: "NEW_SEARCH",
-      payload: {
-        city: destination,
-        dates: dates,
-        options: options,
-      },
+      payload: { city: destination, dates, options },
     });
-
-    // Fetch the data
-    reFetch();
+    refetch();
   };
 
-  console.log(destination,dates,options);
-  
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <Header type="list" />
-      <div className="container mx-auto p-4">
-        <div className="flex flex-col lg:flex-row">
-          <div className="lg:w-1/4 p-4 bg-white border border-gray-300 rounded-lg shadow-md mb-4 lg:mb-0">
-            <h1 className="text-2xl font-bold mb-4">Search</h1>
-            <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2">
-                Destination
-              </label>
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Search Sidebar */}
+          <div className="col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">Search Filters</h2>
+
+            {/* Destination Input */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Destination</label>
               <input
-                placeholder={destination}
                 type="text"
+                placeholder={destination}
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
-            <div className="mb-4 relative">
-              <label className="block text-sm font-semibold mb-2">
-                Check-in Date
-              </label>
+
+            {/* Date Picker */}
+            <div className="mb-6 relative">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Check-in Date</label>
               <input
                 type="text"
                 value={
-                  dates && dates[0].startDate && dates[0].endDate
-                    ? `${format(dates[0].startDate, "MMM dd, yyyy")} - ${format(
-                        dates[0].endDate,
-                        "MMM dd, yyyy"
-                      )} (${differenceInDays(
-                        dates[0].endDate,
-                        dates[0].startDate
-                      )} nights)`
+                  dates?.[0]?.startDate && dates?.[0]?.endDate
+                    ? `${format(dates[0].startDate, "MMM dd, yyyy")} - ${format(dates[0].endDate, "MMM dd, yyyy")} (${differenceInDays(dates[0].endDate, dates[0].startDate)} nights)`
                     : "Select Dates"
                 }
-                className="w-full p-2 border border-gray-300 rounded-lg cursor-pointer"
                 onClick={() => setOpenDate(!openDate)}
                 readOnly
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-white"
               />
               {openDate && (
-                <div className="absolute left-0 mt-2 bg-white rounded-md shadow-md p-3 z-50 border border-gray-200">
+                <div className="absolute z-50 mt-2 shadow-lg rounded-xl border bg-white">
                   <DateRange
-                    onChange={(item) => dispatch({ type: "NEW_SEARCH", payload: { ...options, dates: [item.selection] } })}
+                    onChange={(item) =>
+                      dispatch({ type: "NEW_SEARCH", payload: { ...options, dates: [item.selection] } })
+                    }
                     minDate={new Date()}
                     ranges={dates}
-                    className="rounded-md"
                     direction="horizontal"
+                    className="rounded-xl"
                   />
                 </div>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2">Options</label>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Min price per night</span>
-                  <input
-                    onChange={(e) => setMin(e.target.value)}
-                    type="number"
-                    className="w-20 p-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Max price per night</span>
-                  <input
-                    onChange={(e) => setMax(e.target.value)}
-                    type="number"
-                    className="w-20 p-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Adult</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="w-20 p-2 border border-gray-300 rounded-lg"
-                    value={options.adult}
-                    onChange={(e) =>
-                      dispatch({ type: "NEW_SEARCH", payload: { ...options, adult: Number(e.target.value) } })
-                    }
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Children</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className="w-20 p-2 border border-gray-300 rounded-lg"
-                    value={options.children}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "NEW_SEARCH",
-                        payload: { ...options, children: Number(e.target.value) },
-                      })
-                    }
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Room</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="w-20 p-2 border border-gray-300 rounded-lg"
-                    value={options.room}
-                    onChange={(e) =>
-                      dispatch({ type: "NEW_SEARCH", payload: { ...options, room: Number(e.target.value) } })
-                    }
-                  />
-                </div>
+
+            {/* Options */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Price Range & Guests</label>
+              <div className="space-y-4">
+                {[{ label: "Min price per night", value: min, setter: setMin },
+                  { label: "Max price per night", value: max, setter: setMax },
+                ].map(({ label, value, setter }) => (
+                  <div key={label} className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">{label}</span>
+                    <input
+                      type="number"
+                      value={value}
+                      onChange={(e) => setter(Number(e.target.value))}
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-400 focus:outline-none"
+                    />
+                  </div>
+                ))}
+                {["adult", "children", "room"].map((field) => (
+                  <div key={field} className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600 capitalize">{field}</span>
+                    <input
+                      type="number"
+                      min={field === "children" ? 0 : 1}
+                      value={options[field]}
+                      onChange={(e) =>
+                        dispatch({
+                          type: "NEW_SEARCH",
+                          payload: { ...options, [field]: Number(e.target.value) },
+                        })
+                      }
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-400 focus:outline-none"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
+
             <button
               onClick={handleClick}
-              className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+              className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200"
             >
-              Search
+              Search Hotels
             </button>
           </div>
-          <div className="lg:w-3/4 p-4 space-y-4 overflow-y-auto">
-            {data.map((item) => (
-              <SearchItem item={item} key={item._id} />
-            ))}
+
+          {/* Results List */}
+          <div className="col-span-1 lg:col-span-3 space-y-6">
+            {isLoading ? (
+              <p className="text-center text-xl font-semibold text-blue-600">Loading...stays...</p>
+            ) : isError ? (
+              <p className="text-center text-red-500 font-medium">{error.message}</p>
+            ) : !data || data.length === 0 ? (
+              <p className="text-center text-gray-500 text-lg">No hotels found. Try adjusting your filters!</p>
+            ) : (
+              data.map((item) => <SearchItem item={item} key={item._id} />)
+            )}
           </div>
         </div>
       </div>

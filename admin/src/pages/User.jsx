@@ -14,7 +14,7 @@ import {
 
 export default function User() {
   const { id } = useParams();
-  const { data, loading, error } = useFetch(`/api/users/${id}`);
+  const { data, isLoading,isError,error } = useFetch('user',`/users/${id}`);
 
   // Dummy data for the chart
   const info = [
@@ -28,8 +28,8 @@ export default function User() {
   ];
 
   // Handle loading and error states
-  if (loading) return <div className="text-center py-8">Loading...</div>;
-  if (error) return <div className="text-center py-8 text-red-500">Error: {error.message}</div>;
+  if (isLoading) return <div className="text-center py-8">Loading...</div>;
+  if (isError) return <div className="text-center py-8 text-red-500">Error: {error.message}</div>;
 
   return (
     <div className="flex gap-6 p-6">
@@ -40,8 +40,8 @@ export default function User() {
           {/* User Avatar */}
           <div className="relative">
             <img
-              src={data.img}
-              alt={data.username}
+              src={data?.img}
+              alt={data?.username}
               className="w-20 h-20 rounded-full bg-gray-100 object-cover border-4 border-white shadow-md"
             />
             {/* Online Status Indicator (Optional) */}

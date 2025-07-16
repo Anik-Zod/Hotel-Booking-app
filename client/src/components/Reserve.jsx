@@ -50,7 +50,7 @@ export default function Reserve({ setOpen, hotelId }) {
       // Run all room updates concurrently
       await Promise.all(
         selectedRooms.map(async (roomId) => {
-          const res = await axios.put(`/api/rooms/availability/${roomId}`, { dates: alldates });
+          const res = await axios.put(`http://localhost:8800/api/rooms/availability/${roomId}`, { dates: alldates });
           return res.data;
         })
       );
@@ -62,10 +62,10 @@ export default function Reserve({ setOpen, hotelId }) {
     }
   };
 
-  const { data, loading, error } = useFetch(`/api/hotels/rooms/${hotelId}`);
+  const { data, isLoading, error, isError } = useFetch("-",`/hotels/rooms/${hotelId}`);
 
-  if (loading) return <div className="flex justify-center items-center h-screen text-lg font-semibold">Loading...</div>;
-  if (error) return <div className="flex justify-center items-center h-screen text-red-500 font-semibold">Error loading rooms</div>;
+  if (isLoading) return <div className="flex justify-center items-center h-screen text-lg font-semibold">Loading...</div>;
+  if (isError) return <div className="flex justify-center items-center h-screen text-red-500 font-semibold">Error loading rooms</div>;
 
   // Filter out invalid data (e.g., null or empty rooms)
   const filteredData = data.filter(item => item !== null);

@@ -1,6 +1,6 @@
 import Hotel from "../models/Hotel.js";
 import { createError } from "../utils/error.js";
-import Room from "../models/Room.js"
+import Room from "../models/Room.js";
 export const createHotel = async (req, res, next) => {
   const newData = new Hotel(req.body);
   try {
@@ -43,7 +43,7 @@ export const deleteHotel = async (req, res, next) => {
 };
 
 export const getHotels = async (req, res, next) => {
-  const { min = 1, max = 999, limit=30, ...others } = req.query;
+  const { min = 1, max = 999, limit = 30, ...others } = req.query;
   try {
     const result = await Hotel.find({
       ...others,
@@ -120,3 +120,60 @@ export const getHotelRooms = async (req, res, next) => {
   }
 };
 
+// aggragate function : get individual city hotel with first image
+export const featured = async (req, res) => {
+  try {
+    const hotels = await Hotel.aggregate([
+      {
+        $group: {
+          _id: "$city",
+          count: { $sum: 1 },
+          desc:{$first:"$desc"},
+          minPrice:{$min:"$cheapestPrice"},
+          image: {$first:{$arrayElemAt:["$photos",0]}},
+        },
+      },
+      {
+        $project:{
+          city:"$_id",
+          count:1,
+          image:1,
+          desc:1,
+          minPrice:1,
+          _id:0
+        }
+      }
+    ]);
+    return res.json(hotels);
+  } catch (error) {
+    return res.json({ message: error.message });
+  }
+};
+
+//aggragte function :get expensive hotesls: 
+export const expensive = async (req,res)=>{
+    try {
+      const hotels = await Hotel.aggregate([
+        {
+          $sort:{cheapestPrice:-1}
+        },
+        {
+          $limit:5
+        },
+        {
+          $project:{
+            name:1,
+            photos:{$arrayElemAt:["$photos",0]},
+            cheapestPrice:1,
+            desc:1,
+            city:1,
+            distance:1,
+            _id:0
+          }
+        }
+      ])
+       return res.json(hotels);
+    } catch (error) {
+       return res.json({ message: error.message });
+    }
+}
