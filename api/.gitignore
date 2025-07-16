@@ -1,2 +1,13 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Environment variables
 .env
-node_modules
+
+# Windows system files
+Thumbs.db
+Desktop.ini
