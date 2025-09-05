@@ -53,7 +53,7 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                to="#"
+                to="https://hotel-booking-app-g1jt.vercel.app"
                 className="text-white bg-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 Visite Admin Dashboard
@@ -172,7 +172,7 @@ export default function Navbar() {
             Contact
           </Link>
           <Link
-            to="/contact"
+            to="https://hotel-booking-app-g1jt.vercel.app"
             className="text-white bg-[#1E3A8A] block w-[200px] px-3 py-2 rounded-md text-base font-medium transition-colors"
           >
             Visite Admin Dashboard
