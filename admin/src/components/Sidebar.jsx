@@ -14,6 +14,7 @@ import {
   FaChartBar,
   FaFile,
 } from "react-icons/fa";
+import { useState } from "react";
 
 function SidebarItem({ to, icon: Icon, label }) {
   return (
@@ -28,8 +29,10 @@ function SidebarItem({ to, icon: Icon, label }) {
 }
 
 export default function Sidebar() {
+  
+  
   return (
-    <div className=" bg-gray-800 text-white p-5 min-h-screen shadow-lg">
+    <div className={` bg-gray-800 text-white p-5 min-h-screen shadow-lg `}>
       {/* Main Section */}
       <div className="mb-4">
         <span className="text-gray-500 uppercase text-xs font-bold tracking-wider">

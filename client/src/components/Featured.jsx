@@ -52,7 +52,7 @@ export default function Featured() {
   }
 
   return (
-    <section className="px-4 py-16 bg-gray-50">
+    <section className="px-4 mt-9 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-12">
           Our services in Different Cities
