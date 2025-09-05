@@ -1,9 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoute from "./routes/auth.js";
-import usersRoute from "./routes/users.js";
-import hotelsRoute from "./routes/hotels.js";
-import roomsRoute from "./routes/rooms.js";
+import authsRoute from "./routes/auth.route.js";
+import usersRoute from "./routes/users.route.js";
+import hotelsRoute from "./routes/hotels.route.js";
+import roomsRoute from "./routes/rooms.route.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./db.js";
 import cors from "cors";
@@ -26,7 +26,7 @@ app.use(
 );
 
 // Routes
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authsRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
