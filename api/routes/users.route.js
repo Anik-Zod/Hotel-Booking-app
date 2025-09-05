@@ -13,9 +13,9 @@ usersRoute.put("/:id",verifyUser, updateUser);
 usersRoute.delete("/:id",verifyUser,deleteUser);
 
 // get All
-usersRoute.get("/",verifyAdmin, getUsers);
+usersRoute.get("/", getUsers);
 
 // get Specific
-usersRoute.get("/:id",verifyUser,getUser);
+usersRoute.get("/:id",getUser);
 
 export default usersRoute;
