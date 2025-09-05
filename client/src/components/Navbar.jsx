@@ -53,19 +53,14 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                to="/about"
-                className="text-gray-900 hover:text-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                to="#"
+                className="text-white bg-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                About
+                Visite Admin Dashboard
               </Link>
+
               <Link
-                to="/services"
-                className="text-gray-900 hover:text-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Services
-              </Link>
-              <Link
-                to="/contact"
+                to="#"
                 className="text-gray-900 hover:text-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 Contact
