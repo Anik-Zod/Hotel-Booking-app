@@ -16,25 +16,10 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-const allowedOrigins = [
-  "https://hotel-booking-app-bcnf-2eaafz6zk-anikdas169-gmailcoms-projects.vercel.app",
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-].filter(Boolean); // remove undefined if env is missing
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (e.g., mobile apps, Postman)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*",          // allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
