@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: [ "https://hotel-booking-app-bcnf.vercel.app", process.env.FRONTEND_URL,"http://localhost:5173"],
+    origin: [ "https://hotel-booking-app-bcnf-2eaafz6zk-anikdas169-gmailcoms-projects.vercel.app/", process.env.FRONTEND_URL,"http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
