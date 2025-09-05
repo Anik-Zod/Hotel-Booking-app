@@ -176,6 +176,12 @@ export default function Navbar() {
           >
             Contact
           </Link>
+          <Link
+            to="/contact"
+            className="text-white bg-[#1E3A8A] block w-[200px] px-3 py-2 rounded-md text-base font-medium transition-colors"
+          >
+            Visite Admin Dashboard
+          </Link>
           {user ? (
             <div className="flex items-center space-x-2 px-3 py-2">
               <img
@@ -201,6 +207,7 @@ export default function Navbar() {
               >
                 Signup
               </Link>
+              
             </div>
           )}
           {logoutopen && <button className="bg-blue-800 rounded-lg  text-white py-2 px-3 ring-2 ring-gray-300" onClick={handleLogout}>Logout</button>}

@@ -16,9 +16,7 @@ export default function Featured() {
       stars.push(
         <svg
           key={i}
-          className={`w-4 h-4 ${
-            i < fullStars ? "text-yellow-400" : "text-gray-300"
-          }`}
+          className={`w-4 h-4 ${i < fullStars ? "text-yellow-400" : "text-gray-300"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -57,7 +55,8 @@ export default function Featured() {
         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-12">
           Our services in Different Cities
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {/* Responsive Grid: 2 columns on mobile, 2 on small, 3 on medium, 4 on large */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {data?.map((item, i) => {
             const rating = getFakeRating();
             return (
@@ -65,29 +64,28 @@ export default function Featured() {
                 key={i}
                 className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
               >
-                <div className="relative h-40 overflow-hidden">
+                {/* Smaller image height for mobile */}
+                <div className="relative h-28 sm:h-32 md:h-36 lg:h-40 overflow-hidden">
                   <img
                     src={item.image}
                     alt={`Property in ${item.city}`}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full shadow">
+                  <span className="absolute top-1 left-1 sm:top-2 sm:left-2 bg-blue-600 text-white text-xs sm:text-xs px-2 py-0.5 rounded-full shadow">
                     {item.city}
                   </span>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-semibold text-gray-800 truncate">
+                <div className="p-2 sm:p-3 md:p-4">
+                  <h3 className="text-xs sm:text-sm md:text-base font-semibold text-gray-800 truncate">
                     {item.name}
                   </h3>
-                  <p className="text-green-600 font-bold text-sm mt-1">
+                  <p className="text-green-600 font-bold text-xs sm:text-sm mt-1">
                     ${item.minPrice}{" "}
                     <span className="font-normal text-gray-500">/ night</span>
                   </p>
-                  <div className="flex items-center space-x-1 mt-2">
+                  <div className="flex items-center space-x-1 mt-1 sm:mt-2">
                     <span className="flex">{renderStars(rating)}</span>
-                    <span className="text-xs text-gray-600 font-medium">
-                      {rating}
-                    </span>
+                    <span className="text-xs text-gray-600 font-medium">{rating}</span>
                   </div>
                 </div>
               </div>
