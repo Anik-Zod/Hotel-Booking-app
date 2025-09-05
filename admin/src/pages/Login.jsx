@@ -7,8 +7,8 @@ export default function Login() {
   const { user, loading, error, dispatch } = useContext(AuthContext);
 
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: "anikdas169@gmail.com",
+    password: "123456",
   });
 
   const handleChange = (e) => {
