@@ -35,7 +35,8 @@ const List = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Search Sidebar */}
           <div className="col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Search Filters</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Search Filters</h2>
+            <p className="text-red-500 mb-4">Please use Capital leters</p>
 
             {/* Destination Input */}
             <div className="mb-6">
