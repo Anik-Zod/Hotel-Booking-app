@@ -17,11 +17,8 @@ export default function Home() {
       <Header/>
       <CardFan/>
       <Featured/>
-      <PropertyList/>
-      <div className='hidden md:block'>
-         <FeaturedProperties/>
-        </div>
       <Testimonial/>
+      <PropertyList/>
       <Pricing/>
       <Partners/>
       <FooterBanner/>
