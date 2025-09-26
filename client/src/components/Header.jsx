@@ -52,7 +52,7 @@ const Header = ({ type }) => {
 
   return (
     <div className="bg-blue-900 text-white flex justify-center relative py-6">
-      <div className={`w-full max-w-[1024px] ${type === "list" ? "mb-0" : "mb-24"}`}>
+      <div className={`w-full max-w-[1024px] ${type === "list" ? "mb-0" : "mb-24"} container`}>
         {/* Navigation Icons */}
         <div className="flex flex-wrap gap-2 sm:gap-4 mb-8 justify-center">
           {[
@@ -74,18 +74,18 @@ const Header = ({ type }) => {
 
         {type !== "list" && (
           <>
-            <h1 className="text-xl sm:text-3xl font-bold  text-center">
+            <h1 className="pt-6 text-3xl md:text-5xl font-bold  text-center">
               A lifetime of discounts? It's Genius.
             </h1>
-            <p className="my-3 sm:my-4 text-sm sm:text-lg text-center md:text-center">
+            <p className="my-3 py-6 sm:my-4 text-[18px] px-10 text-[#ffb700]/90 md:text-xl font-semibold text-center md:text-center">
               Get rewarded for your travels – unlock instant savings of 10% or
               more with a free Lamabooking account.
             </p>
 
             {/* Search Box */}
-            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 p-3 md:p-4 bg-white shadow-lg rounded-lg max-w-4xl mx-auto mt-6 relative">
+            <div className="ring-4 ring-[#ffb700] flex flex-col md:flex-row items-center gap-3 md:gap-4 p-3 md:p-4 bg-white shadow-lg rounded-lg max-w-4xl mx-auto mt-6 relative">
               {/* Destination Input */}
-              <div className="flex items-center border rounded-lg px-3 py-2 w-full">
+              <div className="flex items-center border rounded-lg px-3 py-2 w-full ">
                 <FaBed className="text-gray-500 mr-2" />
                 <input
                   type="text"
@@ -178,10 +178,10 @@ const Header = ({ type }) => {
               {/* Search Button */}
               <Link to="/hotels" className="w-full md:w-auto">
                 <button
-                  className="flex items-center justify-center bg-blue-600 text-white rounded-full w-full md:w-56 h-12 md:h-14 hover:bg-blue-700 transition"
+                  className="flex items-center justify-center bg-[#1e3a8a] text-white w-full py-4 md:py-4 md:px-4 rounded-full hover:bg-blue-700 transition"
                   onClick={handleSearch}
                 >
-                  <FaSearch className="text-lg" />
+                  <FaSearch className="text-lg font-bold size-6" />
                 </button>
               </Link>
             </div>
