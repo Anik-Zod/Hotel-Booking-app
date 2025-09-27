@@ -1,17 +1,18 @@
-import React from 'react'
+import React from "react";
 
-function SectionHeader({title,description,button}) {
+function SectionHeader({ title, description, button }) {
   return (
     <div>
-        <div className='container'>
-            <div>
-                 <p className='w-max mx-auto ring-1 my-8 rounded-xl py-2 px-4'>{button}</p>                    
-                <h2 className='text-3xl md:text-6xl font-bold text-center mb-4 text-[#1E3A8A]'>{title}</h2>
-                <p className='text-center text-2xl text-black/80 mt-10 mb-10 max-w-xl mx-auto '>{description}</p>
-            </div>
-        </div>
+      <div className="container ">
+        <h2 className="text-[24px] sm:text-center font-extrabold sm:text-3xl   text-gray-800  tracking-tight font-sans">
+          {title}
+        </h2>
+        <p className="mb-10 mt-4 sm:text-center text-[14px] tracking-wider sm:text-xl font-serif">
+          {description}
+        </p>
+      </div>
     </div>
-  )
+  );
 }
 
-export default SectionHeader
+export default SectionHeader;

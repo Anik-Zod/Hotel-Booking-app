@@ -32,10 +32,10 @@ export default function Testimonial() {
     <section className="py-12 bg-gray-50">
       <SectionHeader title="What People Say about us" description="From intuitive design to powerful features, our app has become an essential tool for users around the world." button="Get Started" m/>
       <div className="container ">
-        <div className="flex flex-wrap justify-center gap-8 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]">
+        <div className="flex justify-center gap-8 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]">
           <TestimonialCard lists={firstColumn} duration={14} />
-          <TestimonialCard lists={secondColumn} duration={10} className="hidden md:block"/>
-          <TestimonialCard lists={thirdColumn} duration={14} className="hidden lg:block" />
+          <TestimonialCard lists={secondColumn} duration={10} className="hidden lg:block"/>
+          <TestimonialCard lists={thirdColumn} duration={14} className="hidden sm:block" />
         </div>
       </div>
     </section>

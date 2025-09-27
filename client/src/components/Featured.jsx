@@ -1,4 +1,5 @@
 import useFetch from "../hooks/useFetch";
+import SectionHeader from "./SectionHeader";
 
 export default function Featured() {
   const { data, isLoading, error, isError } = useFetch(
@@ -50,11 +51,10 @@ export default function Featured() {
   }
 
   return (
-    <section className="px-4 mt-9 bg-gray-50">
+    <section className="px-4 mt-9">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-12">
-          Our services in Different Cities
-        </h2>
+        <SectionHeader title="Our services in Different Cities" description="Most popular choices for travellers from Bangladesh" button="Explore More" />
+
         {/* Responsive Grid: 2 columns on mobile, 2 on small, 3 on medium, 4 on large */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {data?.map((item, i) => {

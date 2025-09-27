@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchItem = ({ item }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex flex-col md:flex-row mb-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div onClick={() => navigate(`/hotels/${item._id}`)} className="flex flex-col md:flex-row mb-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       <img
         src={item.photos[0]}
         alt={item.name}
@@ -57,7 +60,7 @@ const SearchItem = ({ item }) => {
             Includes taxes and fees
           </span>
           <Link to={`/hotels/${item._id}`}>
-            <button className="w-full bg-blue-600 text-white text-sm py-2 rounded-md hover:bg-blue-700 transition-colors">
+            <button className="w-full bg-[#003B95] text-white text-sm py-2 rounded-md hover:bg-blue-700 transition-colors">
               See availability
             </button>
           </Link>

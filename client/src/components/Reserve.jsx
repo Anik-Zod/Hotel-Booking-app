@@ -99,7 +99,7 @@ export default function Reserve({ setOpen, hotelId }) {
                         value={roomNumber._id}
                         disabled={!isAvailable(roomNumber)}
                         onChange={handleSelect}
-                        className="w-5 h-5 accent-blue-500"
+                        className="w-5 h-5 accent-[#003B95]"
                       />
                       <span className="text-sm font-medium">Room {roomNumber.number}</span>
                     </label>
@@ -111,7 +111,7 @@ export default function Reserve({ setOpen, hotelId }) {
         </div>
         <button
           onClick={handleClick}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg mt-4 text-lg font-semibold hover:bg-blue-700 transition"
+          className="w-full bg-[#003B95] text-white py-3 rounded-lg mt-4 text-lg font-semibold hover:bg-blue-700 transition"
         >
           Reserve Now
         </button>

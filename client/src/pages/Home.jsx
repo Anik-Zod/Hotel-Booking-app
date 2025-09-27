@@ -16,11 +16,11 @@ export default function Home() {
       <Navbar/>
       <Header/>
       <CardFan/>
+      <PropertyList/>
+      <Partners/>
       <Featured/>
       <Testimonial/>
-      <PropertyList/>
       <Pricing/>
-      <Partners/>
       <FooterBanner/>
       <LastFooter/>
     </>

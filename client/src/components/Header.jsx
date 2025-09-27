@@ -75,17 +75,16 @@ const Header = ({ type }) => {
         {type !== "list" && (
           <>
             <h1 className="pt-6 text-3xl md:text-5xl font-bold  text-center">
-              A lifetime of discounts? It's Genius.
+              Find your next stay
             </h1>
-            <p className="my-3 py-6 sm:my-4 text-[18px] px-10 text-[#ffb700]/90 md:text-xl font-semibold text-center md:text-center">
-              Get rewarded for your travels – unlock instant savings of 10% or
-              more with a free Lamabooking account.
+            <p className="truncate my-3 pb-6 sm:my-4 text-[18px] px-10 text-[#ffb700]/90 md:text-xl font-semibold  md:text-center">
+              Search low prices on hotels, homes and much more...
             </p>
 
             {/* Search Box */}
             <div className="ring-4 ring-[#ffb700] flex flex-col md:flex-row items-center gap-3 md:gap-4 p-3 md:p-4 bg-white shadow-lg rounded-lg max-w-4xl mx-auto mt-6 relative">
               {/* Destination Input */}
-              <div className="flex items-center border rounded-lg px-3 py-2 w-full ">
+              <div className="flex items-center border  px-3 py-2 w-full ">
                 <FaBed className="text-gray-500 mr-2" />
                 <input
                   type="text"
@@ -98,7 +97,7 @@ const Header = ({ type }) => {
 
               {/* Date Picker */}
               <div
-                className="flex items-center border rounded-lg px-3 py-2 w-full cursor-pointer relative"
+                className="flex border items-center   px-3 py-2 w-full cursor-pointer relative"
                 onClick={() => setOpenDate(!openDate)}
               >
                 <FaCalendarDay className="text-gray-500 mr-2" />
@@ -123,7 +122,7 @@ const Header = ({ type }) => {
               </div>
 
               {/* Travelers Options */}
-              <div className="relative w-full">
+              <div className="border relative w-full">
                 <div
                   className="flex items-center border rounded-lg px-3 py-2 cursor-pointer w-full"
                   onClick={() => setOpenOption(!openOption)}

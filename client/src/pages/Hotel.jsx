@@ -18,6 +18,7 @@ import useFetch from "../hooks/useFetch";
 import { SearchContext } from "../context/SearchContext";
 import { AuthContext } from "../context/AuthContext";
 import Reserve from "../components/Reserve";
+import { LastFooter } from "../components/LastFooter";
 
 const Hotel = () => {
   const { user } = useContext(AuthContext);
@@ -59,7 +60,7 @@ const Hotel = () => {
 
   if (isLoading) {
     return (
-      <div className="py-20 text-center text-xl text-blue-600">
+      <div className="py-20 text-center text-xl text-[]">
         Loading hotel details...
       </div>
     );
@@ -163,7 +164,7 @@ const Hotel = () => {
                 key={index}
                 className="flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 shadow-sm"
               >
-                <Icon className="text-blue-600" />
+                <Icon className="text-[#003B95]" />
                 <span>{label}</span>
               </li>
             ))}
@@ -177,19 +178,18 @@ const Hotel = () => {
           </div>
           <button
             onClick={handleReserveClick}
-            className="w-full rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 py-3 text-lg font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-blue-700"
+            className="w-full rounded-lg bg-[#003B95] py-3 text-lg font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-blue-700"
           >
             Reserve or Book Now
           </button>
         </aside>
       </main>
 
-      <MailList />
-      <Footer />
 
       {isReserveOpen && (
         <Reserve setOpen={setIsReserveOpen} hotelId={id} />
       )}
+      <LastFooter />
     </div>
   );
 };

@@ -46,7 +46,7 @@ const List = () => {
                 placeholder={destination}
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
               />
             </div>
 
@@ -92,7 +92,7 @@ const List = () => {
                       type="number"
                       value={value}
                       onChange={(e) => setter(Number(e.target.value))}
-                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-400 focus:outline-none"
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-none"
                     />
                   </div>
                 ))}
@@ -109,7 +109,7 @@ const List = () => {
                           payload: { ...options, [field]: Number(e.target.value) },
                         })
                       }
-                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-blue-400 focus:outline-none"
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-none"
                     />
                   </div>
                 ))}
@@ -118,16 +118,16 @@ const List = () => {
 
             <button
               onClick={handleClick}
-              className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200"
+              className="w-full py-3 bg-[#003B95] text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200"
             >
               Search Hotels
             </button>
           </div>
 
           {/* Results List */}
-          <div className="col-span-1 lg:col-span-3 space-y-6">
+          <div  className="col-span-1 lg:col-span-3 space-y-6 cursor-pointer">
             {isLoading ? (
-              <p className="text-center text-xl font-semibold text-blue-600">Loading...stays...</p>
+              <p className="text-center text-xl font-semibold text-[#003B95]">Loading...stays...</p>
             ) : isError ? (
               <p className="text-center text-red-500 font-medium">{error.message}</p>
             ) : !data || data.length === 0 ? (
