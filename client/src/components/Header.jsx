@@ -80,7 +80,7 @@ const Header = () => {
 
         {/* Header Text */}
         <div className=" text-center px-4">
-          <h1 className="text-3xl inline-flex md:text-5xl font-bold">
+          <h1 className="text-3xl inline-flex md:text-5xl ">
             {/* Find your next stay */}
             {text.split("").map((char, i) => (
               <motion.p
@@ -93,7 +93,7 @@ const Header = () => {
               </motion.p>
             ))}
           </h1>
-          <p className="mt-3 text-lg md:text-xl text-white tracking-tight">
+          <p className="mt-3 text-lg font-extralight md:text-xl text-white tracking-tight">
             Find Flights, Hotels, Visa & Holidays
           </p>
         </div>

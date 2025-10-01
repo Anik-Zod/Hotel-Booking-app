@@ -6,7 +6,7 @@ function SectionHeader({ title, description, button }) {
     <div className="overflow-x-clip">
       <div className="container border-l-6 border-blue  ">
         <motion.div
-          initial={{ opacity:0,x: -200 }}
+          initial={{ opacity:0,x: -20 }}
           whileInView={{ opacity:1,x: 0 }}
           viewport={{amount:0.3}}
           transition={{ duration: 0.5,ease:"easeOut"}}
@@ -17,7 +17,7 @@ function SectionHeader({ title, description, button }) {
           </h1>
         </motion.div>
         <motion.p
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{amount:0.3}}
           transition={{ duration: 0.6,ease:"easeOut" }}
