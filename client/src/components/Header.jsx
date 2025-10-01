@@ -51,7 +51,7 @@ const Header = () => {
   };
 
   return (
-    <div className="will-change-transform z-10 bg-blue mb-50 md:mb-16 text-white flex justify-center relative py-20  overflow-x-clip">
+    <div className="z-10 bg-blue mb-50 md:mb-16 text-white flex justify-center relative py-20  overflow-x-clip">
       <div className="flex flex-col justify-center">
         {/* Navigation Icons */}
         <div className="flex flex-wrap gap-3 sm:gap-5 mb-8 justify-center">
@@ -63,12 +63,13 @@ const Header = () => {
             { icon: FaTaxi, label: "Airport taxis" },
           ].map((item, index) => (
             <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             // Animate to visible state
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4}}
-            whileHover={{ scale: 1.08, boxShadow: "0px 4px 16px #00000033" }}
+            transition={{ duration: 0.4 }}
+            
+            
               key={index}
               className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/60 cursor-pointer hover:bg-white hover:text-blue-900 transition text-sm sm:text-base"
             >
@@ -80,7 +81,7 @@ const Header = () => {
 
         {/* Header Text */}
         <div className=" text-center px-4">
-          <h1 className="text-3xl inline-flex md:text-5xl ">
+          <h1 className="text-3xl  inline-flex md:text-5xl font-light">
             {/* Find your next stay */}
             {text.split("").map((char, i) => (
               <motion.p
@@ -99,12 +100,12 @@ const Header = () => {
         </div>
 
         {/* Search Box */}
-        <div className="z-50 absolute left-1/2 -translate-x-1/2 w-full  -bottom-55 md:-bottom-10  flex justify-center">
+        <div className="absolute left-1/2 -translate-x-1/2 w-full  -bottom-55 md:-bottom-10  flex justify-center">
           <motion.div
             initial={{ opacity:0,y: 30 }}
             animate={{ opacity:1,y: 0 }}
             transition={{ duration: 0.5 }}
-            className=" ring-4  ring-[#ffb700] flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
+            className="will-change-transform ring-4  ring-[#ffb700] flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
           >
             {/* Destination Input */}
             <div className="flex items-center border border-gray-300 rounded-lg px-3 py-3 w-full">

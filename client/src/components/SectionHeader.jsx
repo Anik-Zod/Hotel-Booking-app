@@ -6,13 +6,13 @@ function SectionHeader({ title, description, button }) {
     <div className="overflow-x-clip">
       <div className="container border-l-6 border-blue  ">
         <motion.div
-          initial={{ opacity:0,x: -20 }}
+          initial={{ opacity:0,x: -30 }}
           whileInView={{ opacity:1,x: 0 }}
-          viewport={{amount:0.3}}
+          viewport={{amount:0.8}}
           transition={{ duration: 0.5,ease:"easeOut"}}
           className="will-change-transform"
         >
-          <h1 className="text-[24px] pl-2 font-extrabold sm:text-3xl text-blue tracking-wide ">
+          <h1 className=" text-[24px]  pl-2 font-semibold sm:text-3xl text-blue tracking-wider ">
             {title}
           </h1>
         </motion.div>
