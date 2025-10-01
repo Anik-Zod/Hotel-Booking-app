@@ -46,9 +46,10 @@ export default function PropertyList() {
                 {/* Image section */}
                 <div className="relative">
                   <img
-                    className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-110"
+                    className=" w-full h-52 object-cover transition-transform duration-700 group-hover:scale-110"
                     src={img || "/placeholder.svg"}
                     alt={data[i]?.type}
+                    loading="lazy"
                   />
 
                   {/* Gradient overlay */}

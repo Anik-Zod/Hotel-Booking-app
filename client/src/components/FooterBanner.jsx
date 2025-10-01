@@ -5,7 +5,7 @@ function FooterBanner() {
     <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12">
             <div className="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
-                <p className="w-auto text-2xl font-bold tracking-wider text-blue">Hotel Bookin App</p>
+                <p className="w-auto text-2xl font-bold tracking-wider text-blue">Hotel Booking App</p>
 
                 <p className="text-base leading-relaxed text-gray-600 mt-7">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
 

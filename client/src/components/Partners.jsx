@@ -40,42 +40,41 @@ function Partners() {
       <div className="container">
         <div className=" flex flex-col overflow-x-clip sm:flex-row  items-center ">
           <div className="border-l-6   text-xl tracking-wide border-l-blue pl-4 relative min-w-[230px] flex-0">
-            <motion.p 
-             initial={{x:-400}}
-             animate={{x:0}}
-             transition={{duration:1.5}}
-              
-            >Proud partner at Hubspot & Segment</motion.p>
+            <motion.p
+              initial={{ x: -400 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 1.5 }}
+            >
+              Proud partner at Hubspot & Segment
+            </motion.p>
           </div>
           <div className="mt-10 sm:mt-0 mask-none sm:mask-[linear-gradient(to_right,transparent,black_10%,transparent)]">
-          <motion.div
-            animate={{ x: "-50%" }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "linear",
-              repeatType: "loop",
-            }}
-            whileHover={{
-    transition: { duration: 5 } // slow it down on hover
-  }}
-            className=""
-          >
-            <motion.div className="flex gap-25 pr-25 translate-x-[0px]">
-              {items.concat(items).map((item, index) => (
-                <div
-                  key={index}
-                  className="inline-flex items-center  flex-1  gap-5 filter grayscale hover:filter-none cursor-pointer "
-                >
-                  <img src={item.image} alt="" className="size-14 filter "/>
-                  <h1 className="text-[24px] bg-gradient-to-r from-blue via-yellow-400 to-green-500 text-transparent bg-clip-text  tracking-wide font-semibold ">
-                    {item.title}
-                  </h1>
-                </div>
-              ))}
+            <motion.div
+              animate={{ x: "-50%" }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear",
+                repeatType: "loop",
+              }}
+            
+              className="will-change-transform"
+            >
+              <motion.div className="flex gap-25 pr-25 translate-x-[0px]">
+                {items.concat(items).map((item, index) => (
+                  <div
+                    key={index}
+                    className="inline-flex items-center  flex-1  gap-5 filter grayscale hover:filter-none cursor-pointer "
+                  >
+                    <img src={item.image} alt="" className="size-14 filter " />
+                    <h1 className="text-[24px] bg-gradient-to-r from-blue via-yellow-400 to-green-500 text-transparent bg-clip-text  tracking-wide font-semibold ">
+                      {item.title}
+                    </h1>
+                  </div>
+                ))}
+              </motion.div>
+              {}
             </motion.div>
-            {}
-          </motion.div>
           </div>
         </div>
       </div>

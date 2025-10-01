@@ -82,6 +82,7 @@ export default function Featured() {
                 <img
                   src={item.image}
                   alt="hotel image"
+                  loading="lazy"
                   className="object-cover h-40 w-40 md:h-60 md:w-60 rounded-[15px] pointer-events-none"
                 />
                 <div className="py-3">
