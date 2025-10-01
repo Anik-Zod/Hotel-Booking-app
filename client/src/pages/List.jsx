@@ -28,13 +28,13 @@ const List = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       <Navbar />
-      <Header type="list" />
+      {/* <Header type="list" /> */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Search Sidebar */}
-          <div className="col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+          <div className="col-span-1 bg-gray-50 p-6 rounded-xl  border border-gray-200">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">Search Filters</h2>
             <p className="text-red-500 mb-4">Please use Capital leters</p>
 

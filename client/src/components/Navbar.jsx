@@ -146,34 +146,34 @@ export default function Navbar() {
       <div
         className={`${isOpen ? "block" : "hidden"} md:hidden transition-all duration-300 ease-in-out`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 cursor-pointer" onClick={()=>setLogoutOpen(!logoutopen)}>
+        <div className="px-2 gap-3 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col justify-end items-end cursor-pointer" onClick={()=>setLogoutOpen(!logoutopen)}>
           <Link
             to="/"
-            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
+            className="w-[200px] inline-flex justify-center items-center  text-white border hover:text-white/50  px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
+            className="w-[200px] inline-flex justify-center items-center  text-white border hover:text-white/50  px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             About
           </Link>
           <Link
             to="/services"
-            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
+            className="w-[200px] inline-flex justify-center items-center  text-white border hover:text-white/50  px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Services
           </Link>
           <Link
             to="/contact"
-            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
+            className="w-[200px] inline-flex justify-center items-center  text-white border hover:text-white/50  px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Contact
           </Link>
           <Link
             to="https://hotel-booking-app-g1jt.vercel.app"
-            className="text-blue bg-white block w-[200px] px-3 py-2  rounded-md text-base font-normal hover:bg-white/70 transition-colors"
+            className="text-blue border bg-white block w-[200px] px-3 py-2  rounded-md text-base font-normal hover:bg-white/70 transition-colors"
           >
             Visite  Admin  Dashboard
           </Link>
@@ -190,19 +190,22 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="space-y-2">
+
+              <div className="flex  gap-5 ">
               <Link
                 to="/login"
-                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 mt-5 rounded-md text-base font-normal tracking-widest text-center transition-colors"
+                className="bg-[#1E3A8A] w-[150px] inline-flex justify-center items-center border text-white hover:bg-[#1E3A8A]/90  px-3 py-2 mt-0 rounded-md text-base font-normal tracking-widest  transition-colors"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 rounded-md text-base font-normal tracking-widest text-center transition-colors"
+                className="bg-[#1E3A8A] w-[150px] inline-flex justify-center items-center border text-white hover:bg-[#1E3A8A]/90  px-3 py-2 rounded-md text-base font-normal tracking-widest  transition-colors"
               >
                 Signup
               </Link>
-              
+              </div>
+
             </div>
           )}
           {logoutopen && <button className="bg-blue-800 rounded-lg  text-white py-2 px-3 ring-2 ring-gray-300" onClick={handleLogout}>Logout</button>}
