@@ -51,7 +51,7 @@ export default function Login() {
             "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
         }}
       >
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full backdrop-blur-sm bg-opacity-90">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full backdrop-blur-xs bg-opacity-90">
           <h2 className="text-3xl font-semibold text-center mb-4 text-gray-800">
             Welcome Back!
           </h2>
@@ -72,7 +72,7 @@ export default function Login() {
                 id="email"
                 placeholder="Enter your email"
                 onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -88,14 +88,14 @@ export default function Login() {
                 id="password"
                 placeholder="Enter your password"
                 onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+              className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-colors"
             >
               {loading ? "Logging in..." : "Login"}
             </button>

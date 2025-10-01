@@ -34,10 +34,10 @@ export default function Signup() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-fadeIn">
         {/* Header with gradient background */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white">
+        <div className="bg-linear-to-r from-blue-600 to-blue-800 p-6 text-white">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Create Your Account</h1>
             <button
@@ -78,7 +78,7 @@ export default function Signup() {
                   type="text"
                   name="username"
                   id="username"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your name"
                 />
               </div>
@@ -105,7 +105,7 @@ export default function Signup() {
                   type="text"
                   name="img"
                   id="img"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Paste your image URL"
                 />
               </div>
@@ -130,7 +130,7 @@ export default function Signup() {
                   type="email"
                   name="email"
                   id="email"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your email"
                 />
               </div>
@@ -158,7 +158,7 @@ export default function Signup() {
                   type="text"
                   name="country"
                   id="country"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your country"
                 />
               </div>
@@ -186,7 +186,7 @@ export default function Signup() {
                   type="text"
                   name="city"
                   id="city"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your city"
                 />
               </div>
@@ -210,7 +210,7 @@ export default function Signup() {
                   type="text"
                   name="phone"
                   id="phone"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -238,7 +238,7 @@ export default function Signup() {
                   type="password"
                   name="password"
                   id="password"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-colors"
                   placeholder="Enter your password"
                 />
               </div>
@@ -257,7 +257,7 @@ export default function Signup() {
                       }
                       name="isAdmin"
                       id="isAdmin"
-                      className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-600 border-gray-300 rounded-sm focus:ring-blue-500"
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -274,7 +274,7 @@ export default function Signup() {
             {error && (
               <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
                 <div className="flex">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-5 w-5 text-red-500"
                       xmlns="http://www.w3.org/2000/svg"
@@ -300,7 +300,7 @@ export default function Signup() {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-colors shadow-md"
+                className="w-full py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-colors shadow-md"
               >
                 Create Account
               </button>

@@ -54,7 +54,7 @@ export default function FeaturedProperties() {
           {data?.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition transform hover:-translate-y-0.5 flex flex-col overflow-hidden"
+              className="bg-white rounded-lg border border-gray-200 shadow-xs hover:shadow-md transition transform hover:-translate-y-0.5 flex flex-col overflow-hidden"
               style={{ maxWidth: "280px" }}
             >
               <div className="relative h-36 w-full overflow-hidden">
@@ -63,12 +63,12 @@ export default function FeaturedProperties() {
                   alt={item.name || "Featured property"}
                   className="w-full h-full object-cover transition-transform duration-400 hover:scale-105"
                 />
-                <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
                   ${item.cheapestPrice} / night
                 </span>
               </div>
 
-              <div className="p-4 flex flex-col flex-grow">
+              <div className="p-4 flex flex-col grow">
                 <h3 className="text-md font-semibold text-gray-900 truncate">
                   {item.name}
                 </h3>
@@ -93,7 +93,7 @@ export default function FeaturedProperties() {
 
                 <StarRating rating={3.5 + (index % 2)} />
 
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2 flex-grow">
+                <p className="text-gray-600 text-sm mt-2 line-clamp-2 grow">
                   {item.desc || "No description available."}
                 </p>
 

@@ -30,9 +30,9 @@ const thirdColumn = testimonials.slice(6, 9);
 export default function Testimonial() {
   return (
     <section className="py-12 bg-gray-50">
+      <div className="container">
       <SectionHeader title="What People Say about us" description="From intuitive design to powerful features, our app has become an essential tool for users around the world." button="Get Started" m/>
-      <div className="container ">
-        <div className="flex justify-center gap-8 [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]">
+        <div className="flex justify-center gap-8 mask-[linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]">
           <TestimonialCard lists={firstColumn} duration={14} />
           <TestimonialCard lists={secondColumn} duration={10} className="hidden lg:block"/>
           <TestimonialCard lists={thirdColumn} duration={14} className="hidden sm:block" />
@@ -44,7 +44,7 @@ export default function Testimonial() {
 
 function TestimonialCard({ lists, duration,className }) {
   return (
-    <div className={twMerge("overflow-hidden h-[30rem] w-80", className)}>
+    <div className={twMerge("overflow-hidden h-120 w-80", className)}>
       <motion.div
         animate={{ y: "-50%" }}
         transition={{ duration: duration, repeat: Infinity, repeatType: "loop", ease: "linear" }}

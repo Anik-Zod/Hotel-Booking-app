@@ -46,7 +46,7 @@ const List = () => {
                 placeholder={destination}
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-[#003B95]"
               />
             </div>
 
@@ -92,7 +92,7 @@ const List = () => {
                       type="number"
                       value={value}
                       onChange={(e) => setter(Number(e.target.value))}
-                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-none"
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-hidden"
                     />
                   </div>
                 ))}
@@ -109,7 +109,7 @@ const List = () => {
                           payload: { ...options, [field]: Number(e.target.value) },
                         })
                       }
-                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-none"
+                      className="w-24 px-3 py-1 border border-gray-300 rounded-md focus:ring-[#003B95] focus:outline-hidden"
                     />
                   </div>
                 ))}

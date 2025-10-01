@@ -1,4 +1,3 @@
-
 import CheckIcon from "../assets/check.svg";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
@@ -58,20 +57,25 @@ const pricingTiers = [
 
 export const Pricing = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-gray-50">
       <div className="container">
-        <SectionHeader title="Pricing" button="Get Started" description="Free forever. Upgrade for unlimited tasks, better security, and exclusive features." />
+        <SectionHeader
+          title="Pricing"
+          button="Get Started"
+          description="Free forever. Upgrade for unlimited tasks, better security, and exclusive features."
+        />
+
         <div className="flex flex-col  gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
           {pricingTiers.map(
-            ({
-              title,
-              monthlyPrice,
-              buttonText,
-              popular,
-              inverse,
-              features,
-            }) => (
-              <div key={title}
+            (
+              { title, monthlyPrice, buttonText, popular, inverse, features },
+              i
+            ) => (
+              <motion.div
+                initial={{ y: i*100 }}
+                transition={{ duration: 1 }}
+                whileInView={{ y: 0 }}
+                key={title}
                 className={twMerge(
                   "w-full max-w-sm p-8 border rounded-3xl flex flex-col shadow-xl",
                   inverse === true && "border-black bg-black text-white"
@@ -87,7 +91,10 @@ export const Pricing = () => {
                     {title}
                   </h3>
                   {popular === true && (
-                    <div key={title} className="inline-flex text-sm px-4 py-1.5 rounded-xl border border-white/20">
+                    <div
+                      key={title}
+                      className="inline-flex text-sm px-4 py-1.5 rounded-xl border border-white/20"
+                    >
                       <motion.span
                         animate={{
                           backgroundPositionX: "100%",
@@ -98,7 +105,7 @@ export const Pricing = () => {
                           ease: "linear",
                           repeatType: "loop",
                         }}
-                        className="bg-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF)] [background-size:200%] text-transparent bg-clip-text font-medium"
+                        className="bg-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF)] bg-size-[200%] text-transparent bg-clip-text font-medium"
                       >
                         Popular
                       </motion.span>
@@ -123,13 +130,20 @@ export const Pricing = () => {
                 </button>
                 <ul key={title} className="flex flex-col gap-5 mt-8">
                   {features.map((feature) => (
-                    <li key={feature} className="text-sm flex items-center gap-4">
-                      <img src={CheckIcon} alt="check icon" className="size-4"/>
+                    <li
+                      key={feature}
+                      className="text-sm flex items-center gap-4"
+                    >
+                      <img
+                        src={CheckIcon}
+                        alt="check icon"
+                        className="size-4"
+                      />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             )
           )}
         </div>

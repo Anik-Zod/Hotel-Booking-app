@@ -1,7 +1,5 @@
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
-import MailList from "../components/MailList";
-import Footer from "../components/Footer";
 import {
   FaArrowCircleLeft,
   FaArrowCircleRight,
@@ -18,7 +16,8 @@ import useFetch from "../hooks/useFetch";
 import { SearchContext } from "../context/SearchContext";
 import { AuthContext } from "../context/AuthContext";
 import Reserve from "../components/Reserve";
-import { LastFooter } from "../components/LastFooter";
+import FooterBanner from "../components/FooterBanner";
+
 
 const Hotel = () => {
   const { user } = useContext(AuthContext);
@@ -162,7 +161,7 @@ const Hotel = () => {
             ].map(({ Icon, label }, index) => (
               <li
                 key={index}
-                className="flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 shadow-sm"
+                className="flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 shadow-xs"
               >
                 <Icon className="text-[#003B95]" />
                 <span>{label}</span>
@@ -189,7 +188,7 @@ const Hotel = () => {
       {isReserveOpen && (
         <Reserve setOpen={setIsReserveOpen} hotelId={id} />
       )}
-      <LastFooter />
+      <FooterBanner/>
     </div>
   );
 };

@@ -83,7 +83,7 @@ export default function Reserve({ setOpen, hotelId }) {
         <div className="space-y-4 max-h-[60vh] overflow-y-auto">
           {filteredData.map((item) => (
             item && (
-              <div key={item._id} className="border p-4 rounded-lg shadow-sm">
+              <div key={item._id} className="border p-4 rounded-lg shadow-xs">
                 <div className="text-lg font-semibold">{item.title}</div>
                 <p className="text-gray-500 text-sm mb-2">{item.desc}</p>
                 <div className="text-sm">Max People: <b>{item.maxPeople}</b></div>

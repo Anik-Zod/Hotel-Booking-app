@@ -33,35 +33,35 @@ export default function Navbar() {
 
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-blue shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-[#1E3A8A]">
+            <Link to="/" className="text-2xl font-bold text-white">
               BookingApp
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
+            <div className="ml-10 flex items-center lg:space-x-5">
               <Link
                 to="/"
-                className="text-gray-900 hover:text-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-white hover:text-white/50 px-3 py-2 rounded-md text-2xs font-normal tracking-widest transition-colors"
               >
                 Home
               </Link>
               <Link
                 to="https://hotel-booking-app-g1jt.vercel.app"
-                className="text-white bg-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-white bg-[#1E3A8A] px-3 py-2 rounded-md text-2xs font-normal tracking-widest transition-colors"
               >
                 Visite Admin Dashboard
               </Link>
 
               <Link
                 to="#"
-                className="text-gray-900 hover:text-[#1E3A8A] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="text-white hover:text-white px-3 py-2 rounded-md text-2xs font-normal tracking-widest transition-colors"
               >
                 Contact
               </Link>
@@ -72,8 +72,8 @@ export default function Navbar() {
                     alt={user.username}
                     className="w-8 h-8 rounded-full object-cover border-2 border-[#1E3A8A]"
                   />
-                  <span className="text-sm text-gray-600 lowercase">Hi, </span>
-                  <span className="font-bold text-[#1E3A8A] uppercase">
+                  <span className="text-2xs text-green-400 lowercase">Hi, </span>
+                  <span className="font-bold text-white uppercase">
                     {user.username}
                   </span>
                 </div>
@@ -81,13 +81,13 @@ export default function Navbar() {
                 <div className="flex gap-3">
                   <Link
                     to="/login"
-                    className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-2xs font-normal tracking-widest transition-colors"
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
-                    className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-2xs font-normal tracking-widest transition-colors"
                   >
                     Signup
                   </Link>
@@ -102,7 +102,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-[#1E3A8A] focus:outline-none focus:ring-2 focus:ring-[#1E3A8A]"
+              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white/50 focus:outline-hidden focus:ring-2 focus:ring-[#1E3A8A]"
               aria-label="Toggle menu"
               aria-expanded={isOpen}
             >
@@ -149,33 +149,33 @@ export default function Navbar() {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 cursor-pointer" onClick={()=>setLogoutOpen(!logoutopen)}>
           <Link
             to="/"
-            className="text-gray-900 hover:text-[#1E3A8A] block px-3 py-2 rounded-md text-base font-medium transition-colors"
+            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="text-gray-900 hover:text-[#1E3A8A] block px-3 py-2 rounded-md text-base font-medium transition-colors"
+            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             About
           </Link>
           <Link
             to="/services"
-            className="text-gray-900 hover:text-[#1E3A8A] block px-3 py-2 rounded-md text-base font-medium transition-colors"
+            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Services
           </Link>
           <Link
             to="/contact"
-            className="text-gray-900 hover:text-[#1E3A8A] block px-3 py-2 rounded-md text-base font-medium transition-colors"
+            className="text-white hover:text-white/50 block px-3 py-2 rounded-md text-base font-normal tracking-widest transition-colors"
           >
             Contact
           </Link>
           <Link
             to="https://hotel-booking-app-g1jt.vercel.app"
-            className="text-white bg-[#1E3A8A] block w-[200px] px-3 py-2 rounded-md text-base font-medium transition-colors"
+            className="text-blue bg-white block w-[200px] px-3 py-2  rounded-md text-base font-normal hover:bg-white/70 transition-colors"
           >
-            Visite Admin Dashboard
+            Visite  Admin  Dashboard
           </Link>
           {user ? (
             <div className="flex items-center space-x-2 px-3 py-2">
@@ -184,7 +184,7 @@ export default function Navbar() {
                 alt={user.username}
                 className="w-8 h-8 rounded-full object-cover border-2 border-[#1E3A8A]"
               />
-              <span className="font-bold text-[#1E3A8A] uppercase">
+              <span className="font-bold text-white uppercase">
                 {user.username}
               </span>
             </div>
@@ -192,13 +192,13 @@ export default function Navbar() {
             <div className="space-y-2">
               <Link
                 to="/login"
-                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 rounded-md text-base font-medium text-center transition-colors"
+                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 mt-5 rounded-md text-base font-normal tracking-widest text-center transition-colors"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 rounded-md text-base font-medium text-center transition-colors"
+                className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 block px-3 py-2 rounded-md text-base font-normal tracking-widest text-center transition-colors"
               >
                 Signup
               </Link>

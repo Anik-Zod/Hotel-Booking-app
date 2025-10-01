@@ -36,25 +36,39 @@ const items = [
 
 function Partners() {
   return (
-    <section className="py-16">
+    <section className="py-24 bg-gray-50 z-0">
       <div className="container">
-        <SectionHeader title="Our Partners" description="We collaborate with industry leaders to bring you the best solutions." button="Become a Partner" />
-        <div className="flex flex-col items-center gap-10 my-6 w-full  overflow-x-hidden [mask-image:linear-gradient(to_right,transparent,black,transparent)]">
-          <h1 className="text-[16px]">Join 4,000+ companies already growing</h1>
+        <div className=" flex flex-col overflow-x-clip sm:flex-row  items-center ">
+          <div className="border-l-6   text-xl tracking-wide border-l-blue pl-4 relative min-w-[230px] flex-0">
+            <motion.p 
+             initial={{x:-400}}
+             animate={{x:0}}
+             transition={{duration:1.5}}
+              
+            >Proud partner at Hubspot & Segment</motion.p>
+          </div>
+          <div className="mt-10 sm:mt-0 mask-none sm:mask-[linear-gradient(to_right,transparent,black_10%,transparent)]">
           <motion.div
             animate={{ x: "-50%" }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+              repeatType: "loop",
+            }}
+            whileHover={{
+    transition: { duration: 5 } // slow it down on hover
+  }}
+            className=""
           >
-            <motion.div
-              className="flex gap-16 pr-16 translate-x-[460px]"
-            >
+            <motion.div className="flex gap-25 pr-25 translate-x-[0px]">
               {items.concat(items).map((item, index) => (
                 <div
                   key={index}
-                  className="inline-flex items-center  flex-1  gap-2"
+                  className="inline-flex items-center  flex-1  gap-5 filter grayscale hover:filter-none cursor-pointer "
                 >
-                  <img src={item.image} alt="" />
-                  <h1 className="text-[24px] text-black/70 tracking-wide font-semibold">
+                  <img src={item.image} alt="" className="size-14 filter "/>
+                  <h1 className="text-[24px] bg-gradient-to-r from-blue via-yellow-400 to-green-500 text-transparent bg-clip-text  tracking-wide font-semibold ">
                     {item.title}
                   </h1>
                 </div>
@@ -62,11 +76,11 @@ function Partners() {
             </motion.div>
             {}
           </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 
 export default Partners;

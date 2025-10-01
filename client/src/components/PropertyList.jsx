@@ -30,8 +30,8 @@ export default function PropertyList() {
   ];
 
   return (
-    <section className="py-12 ">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="pt-8 pb-8 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 md:container">
         <SectionHeader title="Stay at our top unique properties" description="Save on stays for 3 October - 5 October" button="Get Started" /> 
 
         <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-5 gap-x-2 gap-y-4 grid-flow-row-dense">
@@ -39,7 +39,7 @@ export default function PropertyList() {
             images.map((img, i) => (
               <div
                 key={i}
-                className={`bg-black/10  rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group 
+                className={` rounded-2xl border hover:shadow-2xl transition-all duration-300 overflow-hidden group 
           ${i == 1 || i == 2 ? "col-span-2" : ""} 
           ${i == images.length - 1 ? "col-span-3" : ""}`}
               >
@@ -52,10 +52,10 @@ export default function PropertyList() {
                   />
 
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
 
                   {/* Badge */}
-                  <div className="absolute top-3 right-3 bg-white/50 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-semibold text-[#003B95] shadow">
+                  <div className=" absolute top-3 right-3 bg-white backdrop-blur-xs px-3 py-1.5 rounded-full text-xs font-semibold text-[#003B95] shadow-sm">
                     {data[i]?.count}+ listings
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export default function PropertyList() {
                       /night
                     </p>
                     <div className="flex items-center">
-                      <span className="text-yellow-500 text-sm">&#9733;</span>
+                      <span className="text-yellow-700 text-sm animate-ping">&#9733;</span>
                       <p className="text-sm font-medium ml-1">N/A</p>
                     </div>
                   </div>
