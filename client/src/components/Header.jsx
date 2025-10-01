@@ -99,7 +99,7 @@ const Header = () => {
         </div>
 
         {/* Search Box */}
-        <div className="absolute left-1/2 -translate-x-1/2 w-full  -bottom-55 md:-bottom-10  flex justify-center">
+        <div className="z-50 absolute left-1/2 -translate-x-1/2 w-full  -bottom-55 md:-bottom-10  flex justify-center">
           <motion.div
             initial={{ opacity:0,y: 30 }}
             animate={{ opacity:1,y: 0 }}

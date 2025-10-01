@@ -76,7 +76,7 @@ const Hotel = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <Navbar />
-      <Header type="list" />
+      {/* <Header type="list" /> */}
 
       {/* Image Slider Modal */}
       {isSliderOpen && (
@@ -177,7 +177,7 @@ const Hotel = () => {
           </div>
           <button
             onClick={handleReserveClick}
-            className="w-full rounded-lg bg-[#003B95] py-3 text-lg font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-blue-700"
+            className="cursor-pointer w-full rounded-lg bg-[#003B95] py-3 text-lg font-medium text-white shadow-md transition hover:from-indigo-700 hover:to-blue-700"
           >
             Reserve or Book Now
           </button>

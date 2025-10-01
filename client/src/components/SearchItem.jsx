@@ -60,7 +60,7 @@ const SearchItem = ({ item }) => {
             Includes taxes and fees
           </span>
           <Link to={`/hotels/${item._id}`}>
-            <button className="w-full bg-[#003B95] text-white text-sm py-4 rounded-md hover:bg-blue-700 transition-colors">
+            <button className="cursor-pointer w-full bg-[#003B95] text-white text-sm py-4 rounded-md hover:bg-blue/80 transition-colors">
               See availability
             </button>
           </Link>
