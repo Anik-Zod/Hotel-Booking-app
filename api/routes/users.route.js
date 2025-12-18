@@ -1,21 +1,12 @@
 import express from "express";
-import {  deleteUser, getUser, getUsers, updateUser } from "../controllers/user.controller.js";
-import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
+import { getUser } from "../controllers/user.controller.js";
+
+
 
 const usersRoute = express.Router();
 
+// get user
+usersRoute.get("/me", getUser);
 
-
-// Update 
-usersRoute.put("/:id",verifyUser, updateUser);
-
-// Delete 
-usersRoute.delete("/:id",verifyUser,deleteUser);
-
-// get All
-usersRoute.get("/", getUsers);
-
-// get Specific
-usersRoute.get("/:id",getUser);
 
 export default usersRoute;

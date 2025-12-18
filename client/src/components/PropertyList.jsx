@@ -1,86 +1,172 @@
-import { Section } from "lucide-react";
-import useFetch from "../hooks/useFetch";
+import {
+  ArrowUpRight,
+  Star,
+  Home,
+  Wifi,
+  Dumbbell,
+  Waves,
+  Flame,
+  ShieldCheck,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+import { useNavigate } from "react-router-dom";
 
 export default function PropertyList() {
-  const { data, loading, error } = useFetch("/api/hotels/countByType");
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center py-16">
-        <div className="animate-pulse text-blue-600 font-medium">
-          Loading property types...
-        </div>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="bg-red-50 border-l-4 border-red-500 p-4 my-8 mx-auto max-w-2xl">
-        <p className="text-red-700 font-medium">Error: {error.message}</p>
-      </div>
-    );
-
-  const images = [
-    "https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1",
-    "https://livingsn.com/wp-content/uploads/2022/10/309001509_107004208843733_595515860799337454_n.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXc6eOdzPasQvk4J-jp3XnWW6jEAFg8dve-w&s",
-    "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dmlsbGF8ZW58MHx8MHx8fDA%3D",
-    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/689052811.jpg?k=f4e2d176f38a9421490197dd1796127fdbf15ffbfe18d283d131a056d4cfbdd5&o=",
+  const data = [
+    {
+      type: "Hotels",
+      count: 34,
+      price: 120,
+      rooms: 2,
+      rating: 4.5,
+      amenities: ["WiFi", "Pool", "Gym"],
+      verified: true,
+    },
+    {
+      type: "Apartments",
+      count: 12,
+      price: 90,
+      rooms: 1,
+      rating: 4.0,
+      amenities: ["WiFi", "Parking"],
+      verified: true,
+    },
+    {
+      type: "Resorts",
+      count: 8,
+      price: 200,
+      rooms: 3,
+      rating: 4.8,
+      amenities: ["Pool", "Spa", "Gym"],
+      verified: true,
+    },
+    {
+      type: "Villas",
+      count: 5,
+      price: 350,
+      rooms: 4,
+      rating: 4.9,
+      amenities: ["Pool", "WiFi", "Kitchen"],
+      verified: true,
+    },
+    {
+      type: "Cabins",
+      count: 3,
+      price: 150,
+      rooms: 2,
+      rating: 4.6,
+      amenities: ["WiFi", "Fireplace"],
+      verified: false,
+    },
   ];
 
+  const images = [
+    "hotel.jpg",
+    "hotel2.jpg",
+    "hotel3.jpg",
+    "hotel4.jpg",
+    "hotel5.jpg",
+  ];
+
+  const amenityIcon = (name) => {
+    if (name === "WiFi") return <Wifi size={14} />;
+    if (name === "Gym") return <Dumbbell size={14} />;
+    if (name === "Pool") return <Waves size={14} />;
+    if (name === "Fireplace") return <Flame size={14} />;
+    return null;
+  };
+
+  const navigate = useNavigate()
+
   return (
-    <section className="pt-8 pb-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 md:container">
-        <SectionHeader title="Stay at our top unique properties" description="Save on stays for 3 October - 5 October" button="Get Started" /> 
+    <section className="py-20 bg-gradient-to-b container to-white ">
+      <div className="max-w-7xl mx-auto ">
+        {/* Header */}
 
-        <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-5 gap-x-2 gap-y-4 grid-flow-row-dense">
-          {data &&
-            images.map((img, i) => (
-              <div
-                key={i}
-                className={` rounded-2xl border hover:shadow-2xl transition-all duration-300 overflow-hidden group 
-          ${i == 1 || i == 2 ? "col-span-2" : ""} 
-          ${i == images.length - 1 ? "col-span-3" : ""}`}
-              >
-                {/* Image section */}
-                <div className="relative">
-                  <img
-                    className=" w-full h-52 object-cover transition-transform duration-700 group-hover:scale-110"
-                    src={img || "/placeholder.svg"}
-                    alt={data[i]?.type}
-                    loading="lazy"
-                  />
+        <SectionHeader title="Explore our" highlight="top properties" description="Find the perfect stay from 3 October – 5 October" />
+        {/* Cards Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-4">
+          {data.map((item, i) => (
+            <motion.article
+              key={i}
+              className="group relative h-[300px] sm:h-[340px] lg:h-[370px] rounded-3xl overflow-hidden bg-white shadow-lg hover:shadow-2xl"
+            >
+              {/* Image */}
+              <img
+                src={images[i]}
+                alt={item.type}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              />
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
-                  {/* Badge */}
-                  <div className=" absolute top-3 right-3 bg-white backdrop-blur-xs px-3 py-1.5 rounded-full text-xs font-semibold text-[#003B95] shadow-sm">
-                    {data[i]?.count}+ listings
-                  </div>
-                </div>
+              {/* Badges */}
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-blue-700 shadow">
+                  {item.count}+ stays
+                </span>
 
-                {/* Content */}
-                <div className="p-5 space-y-3">
-                  <h2 className="text-lg font-semibold text-gray-900 capitalize group-hover:text-[#003B95] transition-colors">
-                    {data[i]?.type}
-                  </h2>
-
-                  <div className="flex justify-between items-center">
-                    <p className="text-gray-600 text-sm">
-                      Starting from{" "}
-                      <span className="font-semibold text-[#003B95]">$99</span>
-                      /night
-                    </p>
-                    <div className="flex items-center">
-                      <span className="text-yellow-700 text-sm animate-ping">&#9733;</span>
-                      <p className="text-sm font-medium ml-1">N/A</p>
-                    </div>
-                  </div>
-                </div>
+                <span className="flex items-center gap-1 rounded-full bg-emerald-500/90 px-2.5 py-1 text-[11px] font-semibold text-white shadow">
+                  <ShieldCheck size={12} /> Verified
+                </span>
               </div>
-            ))}
+
+              {/* Content */}
+              <div className="absolute bottom-0 w-full px-4 pb-4">
+                <h3 className="text-lg sm:text-xl font-semibold text-white">
+                  {item.type}
+                </h3>
+
+                {/* Rating & Price */}
+                <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-white text-sm">
+                  <div className="flex items-center gap-1 bg-white/40 px-3 py-1 rounded-full w-max">
+                    <Star
+                      size={14}
+                      className="text-yellow-400"
+                      fill="currentColor"
+                    />
+                    <span>{item.rating}</span>
+                  </div>
+
+                  <span className="bg-white/30 px-2.5 py-1 rounded-full w-max">
+                    From <span className="font-bold">${item.price}</span>
+                  </span>
+                </div>
+
+                {/* Divider */}
+                <div className="sm:my-3 my-1 h-px bg-white/30" />
+
+                {/* Rooms */}
+                <div className="flex items-center gap-1 text-white text-sm">
+                  <Home size={14} />
+                  <span>{item.rooms} rooms</span>
+                </div>
+
+                {/* Amenities */}
+                <div className="hidden sm:flex flex-wrap gap-2 mt-3">
+                  {item.amenities.slice(0, 3).map((a, idx) => (
+                    <span
+                      key={idx}
+                      className="flex items-center gap-1 rounded-full bg-white/30 px-2 py-0.5 text-xs text-white backdrop-blur hover:bg-yellow-500 transition"
+                    >
+                      {amenityIcon(a)}
+                      {a}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <button
+                onClick={()=>navigate("/hotels")}
+                className="mt-4 w-full rounded-xl bg-white/95 py-2.5 text-sm font-semibold text-slate-900 shadow hover:bg-white transition active:scale-[0.98]">
+                  View details
+                </button>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

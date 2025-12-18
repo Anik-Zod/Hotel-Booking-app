@@ -8,74 +8,59 @@ import nietzscheImage from "../assets/Logomark (5).png";
 import SectionHeader from "./SectionHeader";
 
 const items = [
-  {
-    title: "Boltshift",
-    image: boltImage,
-  },
-  {
-    title: "Lightbox",
-    image: lightboxImage,
-  },
-  {
-    title: "FeatherDev",
-    image: featherDevImage,
-  },
-  {
-    title: "Spherule",
-    image: spheruleImage,
-  },
-  {
-    title: "GlobalBank",
-    image: globalBankImage,
-  },
-  {
-    title: "Nietzsche",
-    image: nietzscheImage,
-  },
+  { title: "Boltshift", image: boltImage },
+  { title: "Lightbox", image: lightboxImage },
+  { title: "FeatherDev", image: featherDevImage },
+  { title: "Spherule", image: spheruleImage },
+  { title: "GlobalBank", image: globalBankImage },
+  { title: "Nietzsche", image: nietzscheImage },
 ];
 
 function Partners() {
   return (
-    <section className="py-24 bg-gray-50 z-0">
-      <div className="container">
-        <div className=" flex flex-col overflow-x-clip sm:flex-row  items-center ">
-          <div className="border-l-6   text-xl tracking-wide border-l-blue pl-4 relative min-w-[230px] flex-0">
-            <motion.p
-              initial={{ x: -400 }}
-              animate={{ x: 0 }}
-              transition={{ duration: 1.5 }}
-            >
-              Proud partner at Hubspot & Segment
-            </motion.p>
-          </div>
-          <div className="mt-10 sm:mt-0 mask-none sm:mask-[linear-gradient(to_right,transparent,black_10%,transparent)]">
-            <motion.div
-              animate={{ x: "-50%" }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-                repeatType: "loop",
-              }}
-            
-              className="will-change-transform"
-            >
-              <motion.div className="flex gap-25 pr-25 translate-x-[0px]">
-                {items.concat(items).map((item, index) => (
-                  <div
-                    key={index}
-                    className="inline-flex items-center  flex-1  gap-5 filter grayscale hover:filter-none cursor-pointer "
-                  >
-                    <img src={item.image} alt="" className="size-14 filter " />
-                    <h1 className="text-[24px] bg-gradient-to-r from-blue via-yellow-400 to-green-500 text-transparent bg-clip-text  tracking-wide font-semibold ">
-                      {item.title}
-                    </h1>
-                  </div>
-                ))}
-              </motion.div>
-              {}
-            </motion.div>
-          </div>
+    <section className="py-16 sm:py-20  lg:py-24 bg-white overflow-hidden container mx-auto">
+
+      <SectionHeader
+        title="Our Global"
+        highlight="partners"
+        description="We collaborate with carefully selected hotels, resorts, and property owners to bring you verified stays."
+      />
+
+      <div className="relative mt-10 sm:mt-14">
+        {/* FIX: Removed 'sm:' from mask. 
+            Used a more balanced gradient: Transparent -> Black (full opacity) -> Transparent 
+        */}
+        <div className="[mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+          <motion.div
+            animate={{ x: "-50%" }}
+            transition={{
+              duration: 25, // Slightly slower for a more premium feel
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="flex w-fit will-change-transform"
+          >
+            {/* We render the list twice for a seamless loop. 
+                Added a larger gap to prevent logos from feeling crowded on mobile.
+            */}
+            <div className="flex items-center gap-12 lg:gap-24 pr-12 lg:pr-24">
+              {[...items, ...items].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 shrink-0 opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-8 w-auto sm:h-10 md:h-13 object-contain"
+                  />
+                  <span className="font-bold tracking-tight text-slate-700 text-sm sm:text-base md:text-lg whitespace-nowrap">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

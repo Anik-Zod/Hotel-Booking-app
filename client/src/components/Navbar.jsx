@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { Menu, X, ChevronDown, User, LogOut, Settings, Bell } from "lucide-react";
 
 export default function Navbar() {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [logoutopen, setLogoutOpen] = useState(false);
 
@@ -13,205 +15,160 @@ export default function Navbar() {
     navigate("/login");
   };
 
+  // Close dropdown on click outside
   useEffect(() => {
     const clickedOutside = (e) => {
-      if (!e.target.closest(".profile")) {
+      if (!e.target.closest(".profile-container")) {
         setLogoutOpen(false);
       }
     };
+    document.addEventListener("mousedown", clickedOutside);
+    return () => document.removeEventListener("mousedown", clickedOutside);
+  }, []);
 
-    if (logoutopen) {
-      document.addEventListener("click", clickedOutside);
-    } else {
-      document.removeEventListener("click", clickedOutside);
-    }
-
-    return () => {
-      document.removeEventListener("click", clickedOutside);
-    };
-  }, [logoutopen]);
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Hotels", path: "/hotels" },
+    { name: "Offers", path: "/hotDeals" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
-    <nav className="bg-blue shadow-md relative z-50">
+    <nav className="sticky top-0 z-[100] bg-slate-900/90 backdrop-blur-md border-b border-white/10 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-white">
-              BookingApp
+        <div className="flex items-center justify-between h-20">
+          
+          {/* Logo Section */}
+          <div className="flex items-center gap-2 group">
+            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
+              <span className="text-black font-black text-xl">B</span>
+            </div>
+            <Link to="/" className="text-2xl font-bold text-white tracking-tighter">
+              Booking<span className="text-amber-500 font-light">App</span>
             </Link>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-5">
-            <Link
-              to="/"
-              className="text-white hover:text-white/50 px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              to="https://hotel-booking-app-g1jt.vercel.app"
-              className="text-white bg-[#1E3A8A] px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-            >
-              Visit Admin Dashboard
-            </Link>
-            <Link
-              to="#"
-              className="text-white hover:text-white px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-            >
-              Contact
-            </Link>
-            {user ? (
-              <div
-                className="flex items-center space-x-2 cursor-pointer profile"
-                onClick={() => setLogoutOpen(!logoutopen)}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  location.pathname === link.path ? "text-amber-400" : "text-slate-300 hover:text-white"
+                }`}
               >
-                <img
-                  src={user.img}
-                  alt={user.username}
-                  className="w-8 h-8 rounded-full object-cover border-2 border-[#1E3A8A]"
-                />
-                <span className="text-2xs text-green-400 lowercase">Hi, </span>
-                <span className="font-bold text-white uppercase">
-                  {user.username}
-                </span>
-              </div>
-            ) : (
-              <>
+                {link.name}
+                {location.pathname === link.path && (
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-400 rounded-full" />
+                )}
+              </Link>
+            ))}
+
+            {/* User Actions */}
+            <div className="flex items-center pl-6 border-l border-white/10 space-x-6">
+              {user ? (
+                <div className="relative profile-container">
+                  <button
+                    onClick={() => setLogoutOpen(!logoutopen)}
+                    className="flex items-center space-x-3 bg-white/5 hover:bg-white/10 p-1 pr-4 rounded-full transition-all border border-white/10"
+                  >
+                    <img
+                      src={user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`}
+                      alt="profile"
+                      className="w-8 h-8 rounded-full border border-amber-500/50 object-cover"
+                    />
+                    <span className="text-sm font-semibold text-white">{user.name}</span>
+                    <ChevronDown size={14} className={`text-slate-400 transition-transform ${logoutopen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Professional Dropdown */}
+                  {logoutopen && (
+                    <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-2xl py-2 border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-200">
+                      <div className="px-4 py-3 border-b border-slate-50">
+                        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Account</p>
+                        <p className="text-sm font-medium text-slate-900 truncate">{user.email || 'Member'}</p>
+                      </div>
+                      <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 transition">
+                        <User size={16} /> Profile Settings
+                      </Link>
+                      <button 
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition border-t border-slate-50"
+                      >
+                        <LogOut size={16} /> Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <Link
-                  to="/login"
-                  className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
+                  to="/auth"
+                  className="bg-amber-500 hover:bg-amber-400 text-black px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-amber-500/20"
                 >
-                  Login
+                  Join Now
                 </Link>
-                <Link
-                  to="/signup"
-                  className="bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-                >
-                  Signup
-                </Link>
-              </>
-            )}
-            {logoutopen && (
-              <button
-                className="bg-blue-800 rounded-lg text-white py-2 px-3 ring-2 ring-gray-300"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            )}
+              )}
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsOpen(true)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white/50"
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-slate-300 hover:text-white transition-colors"
             >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Sidebar Mobile Menu */}
-      <div
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-        onClick={() => setIsOpen(false)}
-      ></div>
+      {/* Modern Mobile Sidebar */}
+      <div className={`fixed inset-0 z-[110] md:hidden transition-all duration-500 ${isOpen ? "visible" : "invisible"}`}>
+        <div 
+          className={`absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity ${isOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={() => setIsOpen(false)}
+        />
+        <div className={`absolute right-0 w-80 h-full bg-slate-900 shadow-2xl transform transition-transform duration-500 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+          <div className="p-8 flex flex-col h-full">
+            <div className="flex justify-between items-center mb-12">
+              <span className="text-xl font-bold text-white">Navigation</span>
+              <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white"><X /></button>
+            </div>
+            
+            <div className="space-y-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className="block text-2xl font-semibold text-slate-300 hover:text-amber-400 transition"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
 
-      <div
-        className={`fixed top-0 left-0 w-64 h-full bg-blue shadow-lg z-50 transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="flex justify-between items-center p-4 border-b border-white/20">
-          <span className="text-white font-bold text-xl">Menu</span>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-white focus:outline-none"
-          >
-            ✕
-          </button>
-        </div>
-        <div className="flex flex-col p-4 space-y-2">
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="text-white px-3 py-2 rounded-md hover:bg-white/20"
-          >
-            Home
-          </Link>
-          <Link
-            to="https://hotel-booking-app-g1jt.vercel.app"
-            onClick={() => setIsOpen(false)}
-            className="text-white px-3 py-2 rounded-md hover:bg-white/20"
-          >
-            Visit Admin Dashboard
-          </Link>
-          <Link
-            to="#"
-            onClick={() => setIsOpen(false)}
-            className="text-white px-3 py-2 rounded-md hover:bg-white/20"
-          >
-            Contact
-          </Link>
-          {user ? (
-            <>
-              <div className="flex items-center gap-3 px-3 py-2">
-                <img
-                  src={user.img}
-                  alt={user.username}
-                  className="w-8 h-8 rounded-full object-cover border-2 border-[#1E3A8A]"
-                />
-                <span className="text-white font-bold uppercase">
-                  {user.username}
-                </span>
-              </div>
-              <button
-                className="bg-blue-800 rounded-lg text-white py-2 px-3"
-                onClick={() => {
-                  handleLogout();
-                  setIsOpen(false);
-                }}
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                onClick={() => setIsOpen(false)}
-                className="bg-[#1E3A8A] text-white px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                onClick={() => setIsOpen(false)}
-                className="bg-[#1E3A8A] text-white px-3 py-2 rounded-md text-sm font-normal tracking-widest transition-colors"
-              >
-                Signup
-              </Link>
-            </>
-          )}
+            <div className="mt-auto pt-8 border-t border-white/10">
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="w-full bg-red-500/10 text-red-500 py-4 rounded-xl font-bold"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/auth"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full bg-amber-500 text-black text-center py-4 rounded-xl font-bold"
+                >
+                  Get Started
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </nav>

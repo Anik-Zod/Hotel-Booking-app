@@ -6,21 +6,19 @@ import PropertyList from '../components/PropertyList'
 import FooterBanner from '../components/FooterBanner'
 import Partners from '../components/Partners'
 import Testimonial from '../components/Testimonial'
-import { Pricing } from '../components/Pricing'
+import { Offer } from '../components/Offer'
+
 
 
 export default function Home() {
   return (
     <>
-      <Navbar/>
       <Header/>
-    
-      <Partners/>
       <PropertyList/>
-      <Testimonial/>
       <Featured/>
-      <Pricing/>
-      <FooterBanner/>
+      <Offer/>
+      <Partners/>
+      <Testimonial/>
     </>
   )
 }

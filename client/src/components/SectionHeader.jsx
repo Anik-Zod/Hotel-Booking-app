@@ -1,30 +1,25 @@
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-function SectionHeader({ title, description, button }) {
+
+function SectionHeader({ title, description, highlight }) {
   return (
-    <div className="overflow-x-clip">
-      <div className="container border-l-6 border-blue  ">
-        <motion.div
-          initial={{ opacity:0,x: -30 }}
-          whileInView={{ opacity:1,x: 0 }}
-          viewport={{amount:0.8}}
-          transition={{ duration: 0.5,ease:"easeOut"}}
-          className="will-change-transform"
-        >
-          <h1 className=" text-[24px]  pl-2 font-semibold sm:text-3xl text-blue tracking-wider ">
-            {title}
-          </h1>
-        </motion.div>
-        <motion.p
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{amount:0.3}}
-          transition={{ duration: 0.6,ease:"easeOut" }}
-          className="mb-10 mt-4 pl-2.5 max-w-[500px] text-[14px] tracking-wider sm:text-xl font-serif"
-        >
-          {description}
-        </motion.p>
+    <div className={twMerge("gap-6 mb-10 flex justify-center text-center")}>
+      <div className="">
+        <div className="space-y-3 ">
+          <div className="inline-flex items-center gap-2 bg-yellow-50 text-yellow-600 px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wide border border-blue-100 ">
+            <Sparkles size={14} />
+            Limited Time Deals
+          </div>
+          <h2 className="text-3xl  font-black text-gray-900 tracking-tight">
+            {title} <span className="text-[#FE9A00] ml-3"> {highlight}</span>
+          </h2>
+          <p className="text-gray-500 max-w-md text-sm  leading-relaxed">
+            {description}
+          </p>
+        </div>
       </div>
     </div>
   );

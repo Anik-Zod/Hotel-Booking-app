@@ -1,40 +1,37 @@
 import express from "express";
 import dotenv from "dotenv";
-import authsRoute from "./routes/auth.route.js";
-import usersRoute from "./routes/users.route.js";
+import cors from "cors";
+import connectDB from "./db.js";
 import hotelsRoute from "./routes/hotels.route.js";
 import roomsRoute from "./routes/rooms.route.js";
-import cookieParser from "cookie-parser";
-import connectDB from "./db.js";
-import cors from "cors";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./utils/auth.js";
 
 dotenv.config();
-
 const app = express();
 
-// Middleware
-app.use(cookieParser());
-app.use(express.json());
-
+// CORS Middleware (before any route)
 app.use(
   cors({
-    origin: [ process.env.FRONTEND_URL,process.env.ADMIN_URL],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// Routes
-app.use("/api/auth", authsRoute);
-app.use("/api/users", usersRoute);
+
+app.all("/api/auth/*splat", toNodeHandler(auth));
+
+// Use express.json() for your other API routes
+app.use(express.json());
+
+// Your API routes
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
-app.use("/", (req, res) => {
-  return res.json({ message: "server is running" });
-});
 
-// Global Error Handling Middleware
+
+
+// Global error handler
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong";

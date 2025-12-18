@@ -1,27 +1,29 @@
-import { motion, spring } from "motion/react";
+import { motion } from "motion/react";
 import {
   FaBed,
-  FaCalendarDay,
   FaCar,
   FaSearch,
   FaUser,
   FaPlane,
   FaTaxi,
 } from "react-icons/fa";
-import { DateRange } from "react-date-range";
+
 import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { format } from "date-fns";
+
 import { Link } from "react-router-dom";
 import { SearchContext } from "../context/SearchContext";
+import CityInput from "./search/CityInput";
+import DateInput from "./search/DateInput";
+import OptionsInput from "./search/OptionsInput";
 
 const text = "Find your next stay";
 
 const Header = () => {
   const { city, dispatch } = useContext(SearchContext);
   const [destination, setDestination] = useState(city);
-  const [openDate, setOpenDate] = useState(false);
+
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
@@ -29,7 +31,7 @@ const Header = () => {
       key: "selection",
     },
   ]);
-  const [openOption, setOpenOption] = useState(false);
+
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
@@ -63,13 +65,11 @@ const Header = () => {
             { icon: FaTaxi, label: "Airport taxis" },
           ].map((item, index) => (
             <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            // Animate to visible state
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            
-            
+              initial={{ opacity: 0, y: 20 }}
+              // Animate to visible state
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
               key={index}
               className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/60 cursor-pointer hover:bg-white hover:text-blue-900 transition text-sm sm:text-base"
             >
@@ -102,105 +102,22 @@ const Header = () => {
         {/* Search Box */}
         <div className="absolute left-1/2 -translate-x-1/2 w-full  -bottom-55 md:-bottom-10  flex justify-center">
           <motion.div
-            initial={{ opacity:0,y: 30 }}
-            animate={{ opacity:1,y: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="will-change-transform ring-4  ring-[#ffb700] flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
+            className="ring-4 ring-[#ffb700] flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
           >
-            {/* Destination Input */}
-            <div className="flex items-center border border-gray-300 rounded-lg px-3 py-3 w-full">
-              <FaBed className="text-gray-500 mr-2" />
-              <input
-                type="text"
-                placeholder="Where to?"
-                className="outline-none text-sm w-full text-gray-800"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-              />
+            <div className="w-full">
+              <CityInput setDestination={setDestination} />
             </div>
 
-            {/* Date Picker */}
-            <div
-              className="flex items-center border border-gray-300 rounded-lg px-3 py-3 w-full cursor-pointer relative"
-              onClick={() => setOpenDate(!openDate)}
-            >
-              <FaCalendarDay className="text-gray-500 mr-2" />
-              <span className="text-sm text-gray-600">
-                {`${format(dates[0].startDate, "MMM d")} - ${format(
-                  dates[0].endDate,
-                  "MMM d"
-                )}`}
-              </span>
+            <DateInput setDates={setDates} dates={dates} className="absolute top-20 "/> 
 
-              {openDate && (
-                <div className="absolute top-14 left-0 bg-white shadow-lg p-4 rounded-lg z-50">
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => setDates([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={dates}
-                    minDate={new Date()}
-                  />
-                </div>
-              )}
-            </div>
+            <OptionsInput options={options} handleChange={handleChange}/>
 
-            {/* Travelers Options */}
-            <div className="border border-gray-300 rounded-lg relative w-full min-w-[250px]">
-              <div
-                className="flex items-center px-3 py-3 cursor-pointer"
-                onClick={() => setOpenOption(!openOption)}
-              >
-                <FaUser className="text-gray-500 mr-2" />
-                <span className="text-sm text-gray-600">
-                  {`${options.adult} adults · ${options.children} children · ${options.room} room`}
-                </span>
-              </div>
-
-              {openOption && (
-                <div className="absolute top-14 left-0 w-full sm:w-64 bg-white shadow-xl rounded-lg p-4 z-50">
-                  {["adult", "children", "room"].map((opt) => (
-                    <div
-                      key={opt}
-                      className="flex justify-between items-center py-2"
-                    >
-                      <span className="capitalize text-gray-700">{opt}</span>
-                      <div className="flex items-center space-x-2">
-                        <button
-                          className="px-3 py-1 bg-gray-200 text-black rounded-md hover:bg-gray-300 disabled:opacity-50"
-                          onClick={() => handleChange(opt, -1)}
-                          disabled={
-                            opt === "adult" || opt === "room"
-                              ? options[opt] <= 1
-                              : options[opt] <= 0
-                          }
-                        >
-                          -
-                        </button>
-                        <span className="text-gray-700">{options[opt]}</span>
-                        <button
-                          className="px-3 py-1 z-10 bg-gray-200 rounded-md hover:bg-gray-300"
-                          onClick={() => handleChange(opt, 1)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  <button
-                    className="w-full mt-3 bg-blue text-white py-2 rounded-lg hover:bg-blue-900 transition"
-                    onClick={() => setOpenOption(false)}
-                  >
-                    Done
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Search Button */}
             <Link to="/hotels" className="w-full md:w-auto">
               <button
-                className="flex items-center justify-center bg-[#1e3a8a] text-white w-full py-3 md:px-6 rounded-lg hover:bg-blue-900 transition cursor-pointer"
+                className="flex items-center justify-center bg-[#FE9A00] text-white w-full py-3 md:px-6 rounded-lg hover:bg-[#d48206] transition cursor-pointer"
                 onClick={handleSearch}
               >
                 <FaSearch className="text-lg mr-2" />
