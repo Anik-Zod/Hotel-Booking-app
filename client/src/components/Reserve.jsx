@@ -1,12 +1,22 @@
 import { MdClose } from "react-icons/md";
 import useFetch from "../hooks/useFetch";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 import axios from "axios";
 
-export default function Reserve({ setOpen, hotelId }) {
-  const { dates } = useContext(SearchContext);
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import CheckoutPage from "./stripe/CheckoutPage";
+import { useClickOutside } from "../hooks/useClickOutside";
+import { CheckCheck } from "lucide-react";
+import { toast } from "react-toastify";
+
+
+export default function Reserve({ setOpen, hotelId , TotalPrice}) {
+  const { selectedDates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const[openCheckout,setOpenCheckout] = useState(false)
+  const { user, dispatch } = useContext(AuthContext);
 
   const handleSelect = (e) => {
     const { checked, value } = e.target;
@@ -16,6 +26,10 @@ export default function Reserve({ setOpen, hotelId }) {
         : selectedRooms.filter((item) => item !== value)
     );
   };
+  const navigate = useNavigate()
+  const checkoutRef = useRef(null)
+
+  useClickOutside(checkoutRef,()=>setOpenCheckout(false))
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -28,9 +42,9 @@ export default function Reserve({ setOpen, hotelId }) {
     }
     return list;
   };
-
-  const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
-
+  
+  const alldates = getDatesInRange(selectedDates[0]?.startDate, selectedDates[0]?.endDate);
+  
   const isAvailable = (roomNumber) => {
     if (
       !roomNumber.unavailableDate ||
@@ -42,41 +56,28 @@ export default function Reserve({ setOpen, hotelId }) {
     return !roomNumber.unavailableDate.some((unavailable) => {
       const unavailableTimestamp = new Date(unavailable).getTime();
 
-      console.log("Checking against unavailable date:", unavailableTimestamp);
 
       return alldates.some(
         (selectedDate) => selectedDate === unavailableTimestamp
       );
     });
   };
-
+  
   const handleClick = async () => {
-    try {
-      // Run all room updates concurrently
-      await Promise.all(
-        selectedRooms.map(async (roomId) => {
-          const res = await axios.put(
-            `http://localhost:8800/api/rooms/availability/${roomId}`,
-            { dates: alldates }
-          );
-          return res.data;
-        })
-      );
-      setOpen(false); // Close modal after all updates are done
-      alert("Rooms updated successfully!");
-    } catch (error) {
-      console.error("Error updating room availability:", error);
-      alert(
-        "An error occurred while updating room availability. Please try again."
-      );
+    if(selectedDates.length < 1 ) return  
+    if(selectedRooms.length < 1){
+      toast.error("select rooms")
+      return
     }
-  };
+    setOpenCheckout(true)
 
+  };
+  
   const { data, isLoading, error, isError } = useFetch(
-    "-",
+    hotelId,
     `/hotels/rooms/${hotelId}`
   );
-
+  
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-screen text-lg font-semibold">
@@ -90,16 +91,17 @@ export default function Reserve({ setOpen, hotelId }) {
       </div>
     );
 
-  // Filter out invalid data (e.g., null or empty rooms)
-  const filteredData = data.filter((item) => item !== null);
+    // Filter out invalid data (e.g., null or empty rooms)
+    const filteredData = data.filter((item) => item !== null);
+    
 
-  return (
+    return (
     <div className="backdrop-blur-sm rounded-[32px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] w-full overflow-hidden border border-gray-100 ">
       {/* Sticky Header with Backdrop Blur */}
       <div className=" px-8 py-6 bg-white/80 backdrop-blur-md border-b border-gray-100 flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">
-            Select Rooms
+            Available Rooms
           </h2>
           <div className="flex items-center gap-2 mt-2">
             <span className="relative flex h-2 w-2">
@@ -192,7 +194,7 @@ export default function Reserve({ setOpen, hotelId }) {
                                   : "text-slate-400"
                               }`}
                             >
-                              {roomNumber.number}
+                              {roomNumber.number ||"no room"}
                             </span>
                             <span
                               className={`text-[9px] font-black uppercase tracking-widest mt-1 ${
@@ -240,7 +242,8 @@ export default function Reserve({ setOpen, hotelId }) {
           className="w-full relative group h-16 bg-[#30394d] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_-12px_rgba(0,59,149,0.35)] active:scale-[0.98]"
         >
           <div className="absolute inset-0 w-1/4 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-          <span className="relative text-white font-black text-lg tracking-tight">
+          <span
+          className="relative text-white font-black text-lg tracking-tight">
             Confirm & Reserve
           </span>
         </button>
@@ -256,6 +259,18 @@ export default function Reserve({ setOpen, hotelId }) {
           ))}
         </div>
       </div>
+
+      {openCheckout && (
+          <div ref={checkoutRef} className="fixed inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-white">
+            <CheckoutPage
+              amount={Math.round(TotalPrice * 100)}
+              userId={user?._id}
+              items={selectedRooms}
+              dates={alldates}
+              selectedRooms={selectedRooms}
+            />
+         </div>
+      )}
     </div>
   );
 }

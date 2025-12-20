@@ -35,15 +35,44 @@ export const updateRoom = async (req, res, next) => {
 
 export const updateRoomAvailability = async (req, res, next) => {
   try {
-    await Room.updateOne(
-      { "roomNumbers._id": req.params.id }, // Removed extra space
-      { $push: { "roomNumbers.$.unavailableDate": req.body.dates  } }
+    const { roomIds, dates } = req.body;
+
+    // Validate input
+    if (!Array.isArray(roomIds) || roomIds.length === 0) {
+      return res.status(400).json({ message: "roomIds must be a non-empty array" });
+    }
+    if (!Array.isArray(dates) || dates.length === 0) {
+      return res.status(400).json({ message: "dates must be a non-empty array" });
+    }
+
+    // Update availability
+    const result = await Room.updateMany(
+      { "roomNumbers._id": { $in: roomIds } },
+      {
+        $push: {
+          "roomNumbers.$[room].unavailableDates": { $each: dates },
+        },
+      },
+      {
+        arrayFilters: [{ "room._id": { $in: roomIds } }],
+      }
     );
-    res.status(200).json({ message: "Room availability updated successfully" });
+
+    // Check if anything was modified
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "No matching room numbers found" });
+    }
+
+    res.status(200).json({
+      message: "Room availability updated successfully",
+      modifiedCount: result.modifiedCount,
+    });
   } catch (error) {
     next(error);
   }
 };
+
+
 
 
 export const deleteRoom = async (req, res, next) => {

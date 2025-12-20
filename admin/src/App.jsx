@@ -35,82 +35,41 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const Layout = () => (
-  <div className="flex flex-col min-h-screen mt-16">
+<div className="flex bg-[#111827] h-screen overflow-hidden">
+  <Sidebar />
+  {/* The 'min-w-0' is the secret fix for grid lag */}
+  <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
     <Navbar />
-    <div className="flex overflow-hidden">
-      <div className="md:block w-[300px] hidden">
-         <Sidebar />
-      </div>
-      <main className="overflow-x-hidden bg-gray-100">
-        <Outlet />
-      </main>
-
-    </div>
-    <Footer />
+    <main className="flex-1 overflow-y-auto">
+       <Outlet />
+    </main>
   </div>
+</div>
 );
 
 const App = () => (
   <Router>
     <Routes>
       <Route element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="users"
-          element={
-            <ProtectedRoute>
-              <Users />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="hotels"
-          element={
-            <ProtectedRoute>
-              <Hotels />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="rooms"
-          element={
-            <ProtectedRoute>
-              <Rooms />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoute>
-              <User />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="users/:id"
-          element={
-            <ProtectedRoute>
-              <User />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="hotels/:id"
-          element={
-            <ProtectedRoute>
-              <Hotel />
-            </ProtectedRoute>
-          }
-        />
+        {/* Protected Routes */}
+        {[
+          { path: "/", element: <Home /> },
+          { path: "users", element: <Users /> },
+          { path: "hotels", element: <Hotels /> },
+          { path: "rooms", element: <Rooms /> },
+          { path: "profile", element: <User /> },
+          { path: "users/:id", element: <User /> },
+          { path: "hotels/:id", element: <Hotel /> },
+        ].map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<ProtectedRoute>{route.element}</ProtectedRoute>}
+          />
+        ))}
       </Route>
+      
+      {/* Public Routes */}
       <Route path="login" element={<Login />} />
     </Routes>
   </Router>

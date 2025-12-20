@@ -1,17 +1,17 @@
 import express from "express";
 import { countByType,countByCity,createHotel, deleteHotel, getHotel, getHotels, updateHotel, getHotelRooms, featured, expensive } from "../controllers/hotel.controller.js";
-import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
+
 
 const hotelsRoute = express.Router();
 
 // Create route
-hotelsRoute.post("/",verifyAdmin, createHotel);
+hotelsRoute.post("/", createHotel);
 
 // Update route
-hotelsRoute.put("/:id",verifyAdmin, updateHotel);
+hotelsRoute.put("/:id", updateHotel);
 
 // Delete route
-hotelsRoute.delete("/:id",verifyAdmin, deleteHotel);
+hotelsRoute.delete("/:id", deleteHotel);
 
 // get All
 hotelsRoute.get("/", getHotels);

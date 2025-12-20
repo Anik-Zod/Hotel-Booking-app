@@ -3,3 +3,24 @@
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Smooth, hardware-accelerated scrollbar */
+.custom-scroll::-webkit-scrollbar { width: 5px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb { 
+  background: rgba(245, 158, 11, 0.2); 
+  border-radius: 10px; 
+}
+
+/* Prevents the 'jitter' during sidebar expansion */
+.no-select {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Hardware acceleration for the main containers */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}

@@ -18,7 +18,7 @@ export default function Contact() {
       <header className="px-6 pt-32 pb-20 max-w-7xl mx-auto border-b border-zinc-900">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-6"
         >

@@ -117,11 +117,11 @@ const Header = () => {
 
             <Link to="/hotels" className="w-full md:w-auto">
               <button
-                className="flex items-center justify-center bg-[#FE9A00] text-white w-full py-3 md:px-6 rounded-lg hover:bg-[#d48206] transition cursor-pointer"
+                className="flex gap-2 items-center justify-center bg-[#FE9A00] text-white w-full py-[9px] md:px-4 rounded-lg hover:bg-[#d48206] transition cursor-pointer"
                 onClick={handleSearch}
               >
-                <FaSearch className="text-lg mr-2" />
-                <span className="font-semibold">Search</span>
+                <FaSearch size={12} />
+                <span className="font-light">Search</span>
               </button>
             </Link>
           </motion.div>

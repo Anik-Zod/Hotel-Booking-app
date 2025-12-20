@@ -19,9 +19,9 @@ import useFetch from "../hooks/useFetch";
 import { SearchContext } from "../context/SearchContext";
 import { AuthContext } from "../context/AuthContext";
 import Reserve from "../components/Reserve";
-import DateInput from "../components/search/DateInput"
-import OptionsInput from "../components/search/OptionsInput"
-
+import DateInput from "../components/search/DateInput";
+import OptionsInput from "../components/search/OptionsInput";
+import { toast } from "react-toastify";
 
 const Hotel = () => {
   const { user } = useContext(AuthContext);
@@ -31,7 +31,7 @@ const Hotel = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   // const { dates, options } = useContext(SearchContext);
-  
+
   //form state
   const [dates, setDates] = useState([
     {
@@ -40,55 +40,61 @@ const Hotel = () => {
       key: "selection",
     },
   ]);
-  
+
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
     room: 1,
   });
-  
+
+
+  const { city, selectedDates } = useContext(SearchContext);
+
+
+
   const handleChange = (type, amount) => {
     setOptions((prev) => ({
       ...prev,
       [type]: Math.max(0, prev[type] + amount),
     }));
   };
-  
+
   const stayDuration = dates?.length
-  ? Math.ceil((dates[0].endDate - dates[0].startDate) / (1000 * 60 * 60 * 24))
-  : 1;
-  
+    ? Math.ceil((dates[0].endDate - dates[0].startDate) / (1000 * 60 * 60 * 24))
+    : 1;
+
   const { data, isLoading, isError, error } = useFetch(
     "book",
     `/hotels/find/${id}`
   );
-  
+
   const handleSliderOpen = (index) => {
     setSlideIndex(index);
     setIsSliderOpen(true);
   };
-  
+
   const handleSliderNavigation = (direction) => {
     const totalSlides = data.photos.length;
     setSlideIndex((prev) =>
       direction === "left"
-    ? (prev - 1 + totalSlides) % totalSlides
-    : (prev + 1) % totalSlides
-  );
-};
+        ? (prev - 1 + totalSlides) % totalSlides
+        : (prev + 1) % totalSlides
+    );
+  };
 
-const handleReserveClick = () => {
-  if (user && data.cheapestPrice ) {
-    setIsReserveOpen(true);
-  } else {
-    navigate("/auth");
-  }
-};
+  const handleReserveClick = () => {
 
-const TotalPrice =
-  (data?.cheapestPrice || 0) *
-  (stayDuration > 0 ? stayDuration : 1) *
-  (options.room > 0 ? options.room : 1);
+    if (user && data.cheapestPrice) {
+      setIsReserveOpen(true);
+    } else {
+      navigate("/auth");
+    }
+  };
+
+  const TotalPrice =
+    (data?.cheapestPrice || 0) *
+    (stayDuration > 0 ? stayDuration : 1) *
+    (options.room > 0 ? options.room : 1);
 
   if (isLoading)
     return (
@@ -102,7 +108,7 @@ const TotalPrice =
     );
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 container mt-12">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 container mt-12 ">
       {/* Image Slider Modal */}
       {isSliderOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/98 backdrop-blur-md transition-all">
@@ -149,7 +155,8 @@ const TotalPrice =
         {/* left flex  */}
         <div className="space-y-3 lg:w-2/3 ">
           <div className="flex items-center gap-3">
-            <span className="rounded-full bg-blue px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            <span className="rounded-full bg-blue px-3 py-1 text-xs font-bold uppercase tracking-wider text-white"
+            >
               Premium Hotel
             </span>
             <div className="flex text-amber-400">
@@ -237,7 +244,16 @@ const TotalPrice =
         </div>
 
         {/* right flex  */}
-        <div className="lg:col-span-1 lg:w-1/3">
+        <div className="lg:col-span-1 lg:w-1/3 overflow-x-clip">
+          {isReserveOpen && (
+            <div className="fixed  z-40 left-0 bottom-4 mt-28 w-max sm:mt-0 sm:left-1/2   sm:-translate-x-1/2 ">
+              <Reserve
+                setOpen={setIsReserveOpen}
+                hotelId={id}
+                TotalPrice={TotalPrice}
+              />
+            </div>
+          )}
           <aside className="sticky top-0 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-200/60">
             <div className="bg-blue p-6 text-white">
               <h3 className="text-xl font-bold">Property Highlights</h3>
@@ -266,12 +282,16 @@ const TotalPrice =
                   </p>
                 </div>
               </div>
-               
-               <div className="space-y-1 mb-1">
-                 <DateInput className="absolute top-40 lg:top-70 lg:fixed  lg:right-127 shadow-2xl z-40 " setDates={setDates} dates={dates} />
-                 <OptionsInput options={options} handleChange={handleChange} />
-               </div>
-              
+
+              <div className="space-y-1 mb-1">
+                <DateInput
+                  className="absolute top-40 lg:top-50 lg:fixed  lg:right-110 shadow-2xl z-40 "
+                  setDates={setDates}
+                  dates={dates}
+                />
+                <OptionsInput options={options} handleChange={handleChange} />
+              </div>
+
               <div className="mb-8 rounded-2xl bg-slate-50 p-5 ring-1 ring-inset ring-slate-200">
                 <div className="flex items-baseline justify-between">
                   <span className="text-sm font-medium text-slate-500">
@@ -357,24 +377,12 @@ const TotalPrice =
         </div>
       </main>
 
-      {isReserveOpen && 
-      <div className="fixed z-40 left-1/2 top-1/2 mt-10 -translate-x-1/2 -translate-y-1/2">
-        <Reserve setOpen={setIsReserveOpen} hotelId={id} />
-      </div>
-        }
-      {isReserveOpen && <div className="absolute backdrop-blur-[3px]  inset-0"/>} 
+      {isReserveOpen && (
+        <div className="fixed bg-black/10 backdrop-blur-[3px]  inset-0" />
+      )}
     </div>
   );
 };
 
 export default Hotel;
 
-// <div className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-//   <div className="text-right">
-//     <p className="text-lg font-bold text-slate-900">Excellent</p>
-//     <p className="text-sm text-slate-500">1,240 verified reviews</p>
-//   </div>
-//   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue text-2xl font-bold text-white shadow-lg shadow-blue">
-//     {data.rating || "8.9"}
-//   </div>
-// </div>

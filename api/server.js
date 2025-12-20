@@ -6,6 +6,7 @@ import hotelsRoute from "./routes/hotels.route.js";
 import roomsRoute from "./routes/rooms.route.js";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./utils/auth.js";
+import stripeRouter from "./routes/payment.route.js"
 
 dotenv.config();
 const app = express();
@@ -28,7 +29,7 @@ app.use(express.json());
 // Your API routes
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
-
+app.use('/api/stripe',stripeRouter)
 
 
 // Global error handler

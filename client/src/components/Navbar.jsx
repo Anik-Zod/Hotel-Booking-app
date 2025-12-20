@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Menu, X, ChevronDown, User, LogOut, Settings, Bell } from "lucide-react";
+import MobileNav from "./MobileNav";
+import { authClient } from "../../lib/auth-client";
 
 export default function Navbar() {
   const { user, dispatch } = useContext(AuthContext);
@@ -10,7 +12,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [logoutopen, setLogoutOpen] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
+    await authClient.signOut()
     dispatch({ type: "LOGOUT" });
     navigate("/login");
   };
@@ -29,8 +32,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Hotels", path: "/hotels" },
-    { name: "Offers", path: "/hotDeals" },
     { name: "Contact", path: "/contact" },
+    { name: "Offers", path: "/hotDeals" },
   ];
 
   return (
@@ -54,6 +57,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.path}
+                
                 className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${
                   location.pathname === link.path ? "text-amber-400" : "text-slate-300 hover:text-white"
                 }`}
@@ -89,7 +93,7 @@ export default function Navbar() {
                         <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Account</p>
                         <p className="text-sm font-medium text-slate-900 truncate">{user.email || 'Member'}</p>
                       </div>
-                      <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 transition">
+                      <Link to="#" className="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 transition">
                         <User size={16} /> Profile Settings
                       </Link>
                       <button 
@@ -124,53 +128,30 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Modern Mobile Sidebar */}
-      <div className={`fixed inset-0 z-[110] md:hidden transition-all duration-500 ${isOpen ? "visible" : "invisible"}`}>
-        <div 
-          className={`absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity ${isOpen ? "opacity-100" : "opacity-0"}`}
-          onClick={() => setIsOpen(false)}
-        />
-        <div className={`absolute right-0 w-80 h-full bg-slate-900 shadow-2xl transform transition-transform duration-500 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-          <div className="p-8 flex flex-col h-full">
-            <div className="flex justify-between items-center mb-12">
-              <span className="text-xl font-bold text-white">Navigation</span>
-              <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white"><X /></button>
-            </div>
-            
-            <div className="space-y-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className="block text-2xl font-semibold text-slate-300 hover:text-amber-400 transition"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
 
-            <div className="mt-auto pt-8 border-t border-white/10">
-              {user ? (
-                <button
-                  onClick={handleLogout}
-                  className="w-full bg-red-500/10 text-red-500 py-4 rounded-xl font-bold"
-                >
-                  Logout
-                </button>
-              ) : (
-                <Link
-                  to="/auth"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full bg-amber-500 text-black text-center py-4 rounded-xl font-bold"
-                >
-                  Get Started
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Modern Mobile Sidebar */}
+
+  
+  {/* 1. Backdrop Overlay - Dimming the background slightly */}
+  {isOpen && 
+  <div 
+  className="fixed h-screen inset-0 bg-black/50 transition-opacity"
+  onClick={() => setIsOpen(false)}
+  />
+}
+  
+  {/* 2. Side Panel - Solid Blue, Full Height */}
+  <MobileNav
+  handleLogout={handleLogout}
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  user={user}
+  key={user?._id}
+  navLinks={navLinks}
+  />
+
+
+
     </nav>
   );
 }

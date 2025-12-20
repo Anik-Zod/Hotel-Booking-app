@@ -14,7 +14,6 @@ export default function Authentication() {
 
   return (
     <>
-      <Navbar />
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
         {/* Left Marketing Section */}
         <div className="hidden lg:flex flex-1 bg-blue text-white flex-col justify-center p-16 space-y-8">

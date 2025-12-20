@@ -12,6 +12,10 @@ import { AuthContext } from "./context/AuthContext";
 import FooterBanner from "./components/FooterBanner";
 import Navbar from "./components/Navbar";
 import OfferPage from "./pages/OfferPage";
+import Success from "./components/stripe/Success";
+import Failed from "./components/stripe/Failed";
+import ScrollToTop from "./hooks/ScrollToTop";
+import StickyButton from "./components/StickyButton";
 
 
 
@@ -32,6 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop/>
     <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,7 +45,10 @@ function App() {
         <Route path="/auth" element={<Authentication />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/hotDeals" element={<OfferPage/>} />
-      </Routes>
+        <Route path="/success" element={<Success/>} />
+        <Route path="/failed" element={<Failed/>} />
+      </Routes> 
+      <StickyButton/>
       <FooterBanner/>
     </BrowserRouter>
   );

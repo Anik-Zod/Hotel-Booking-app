@@ -55,7 +55,6 @@ export default function Featured() {
     );
   }
 
-  console.log("city=",data)
   return (
     <section className="container">
       <SectionHeader
@@ -75,7 +74,7 @@ export default function Featured() {
           className="flex space-x-6 py-6"
         >
           {data.map((hotel) => (
-            <motion.div key={hotel._id} className="min-w-[260px] ">
+            <motion.div key={hotel.hotelId} className="min-w-[260px] ">
               <TravelCard hotel={hotel} rating={getFakeRating()} />
             </motion.div>
           ))}

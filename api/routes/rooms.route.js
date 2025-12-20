@@ -8,20 +8,21 @@ import {
     updateRoom
 } from "../controllers/room.controller.js";
 
-import { verifyAdmin } from "../utils/verifyToken.js";
+
 
 const roomsRoute = express.Router();
 
 // Create 
-roomsRoute.post("/:hotelId", verifyAdmin, createRoom);
+roomsRoute.post("/:hotelId", createRoom);
+
+roomsRoute.put("/availability", updateRoomAvailability);
 
 // Update 
-roomsRoute.put("/:id", verifyAdmin, updateRoom);
+roomsRoute.put("/:id", updateRoom);
 
-roomsRoute.put("/availability/:id", updateRoomAvailability);
 
 // Delete 
-roomsRoute.delete("/:id/:hotelId", verifyAdmin, deleteRoom);
+roomsRoute.delete("/:id/:hotelId", deleteRoom);
 
 // Get all 
 roomsRoute.get("/", getRooms);
