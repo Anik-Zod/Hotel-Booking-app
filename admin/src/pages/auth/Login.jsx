@@ -6,23 +6,33 @@ import { authClient } from "../../../lib/auth-client";
 
 
 export default function Login() {
+
   const [email, setEmail] = useState("anikdas169@gmail.com");
   const [password, setPassword] = useState("12345678");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      await authClient.signIn.email({ email, password, callbackURL: "/" });
+      const response = await authClient.signIn.email({ email, password });
+      
+      if (response.error) {
+        setError(response.error.message || "Authorization Failed");
+        return;
+      }
+      setUser(response.user);
     } catch (err) {
-      setError("Authorization Failed");
+      setError(err.message || "Authorization Failed");
     } finally {
       setLoading(false);
     }
   };
+
+   
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-[var(--color-global)] text-[var(--color-textColor)] font-sans overflow-hidden">
