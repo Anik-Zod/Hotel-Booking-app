@@ -1,12 +1,11 @@
-import TopBox from "../components/TopBox"
-import ChartBox from "../components/ChartBox"
-import { 
-  barChartBoxRevenue, 
-  barChartBoxVisit, 
-  chartBoxConversion, 
-  chartBoxProduct, 
-  chartBoxRevenue, 
-  chartBoxUser 
+import TopBox from "../components/TopBox";
+import ChartBox from "../components/ChartBox";
+import {
+  barChartBoxRevenue,
+  barChartBoxVisit,
+  chartBoxProduct,
+  chartBoxRevenue,
+  chartBoxUser,
 } from "../Data";
 import BarChartBox from "../components/BarChartBox";
 import PieChartBox from "../components/PieChartBox";
@@ -14,80 +13,71 @@ import BigChartBox from "../components/BigChartBox";
 import { motion } from "framer-motion";
 
 export default function Home() {
-  // Animation variant for a staggered entrance
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
-
-  // Shared card style to maintain perfection
-  const cardStyle = "bg-[#1e2536]/50 backdrop-blur-sm border border-white/5 rounded-2xl shadow-xl hover:border-amber-500/30 transition-all duration-300 overflow-hidden";
-
   return (
-    <motion.div 
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="p-6 bg-[#111827] min-h-screen"
-    >
-      {/* Dashboard Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-black text-white tracking-tight">System Overview</h1>
-        <p className="text-slate-400 text-sm">Welcome back! Here is what's happening today.</p>
+    <div className="flex flex-col gap-3 w-full">
+      {/* The container uses flex */}
+      <div className="flex gap-3 w-full ">
+        {/* flex-1 ensures this div expands to fill space */}
+        <div className="flex-1 min-w-[150px]">
+          <ChartBox data={chartBoxProduct} />
+        </div>
+
+        <div className="flex-1 min-w-[150px]">
+          <ChartBox data={chartBoxRevenue} />
+        </div>
+
+        {/* When these are hidden, the two divs above will stretch to 50% each */}
+        <div className="hidden sm:flex flex-1 min-w-[200px]">
+          <ChartBox data={chartBoxUser} />
+        </div>
+
+        <div className="hidden lg:block flex-1 min-w-[200px]">
+          <ChartBox data={chartBoxRevenue} />
+        </div>
       </div>
 
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
+      {/* 2nd row */}
+      <div className="flex flex-col lg:flex-row gap-3 w-full">
+        {/* Takes up 3 parts of available space */}
+        <div className="flex-[3] min-w-[300px]">
+          <BigChartBox />
+        </div>
 
-        {/* Top box: Most active users/transactions */}
-        <motion.div variants={item} className={`${cardStyle} md:col-span-2 lg:row-span-2 p-6 custom-sidebar-scroll`}>
-          <TopBox />
-        </motion.div>
-
-        {/* Small Analytics Cards */}
-        <motion.div variants={item} className={`${cardStyle} p-6 flex flex-col justify-center`}>
-          <ChartBox data={chartBoxUser}/>
-        </motion.div>
-
-        <motion.div variants={item} className={`${cardStyle} p-6 flex flex-col justify-center`}>
-          <ChartBox data={chartBoxProduct}/>
-        </motion.div>
-
-        {/* Pie Chart: Distribution */}
-        <motion.div variants={item} className={`${cardStyle} md:col-span-2 lg:row-span-2 p-6`}>
+        {/* Takes up 2 parts of available space */}
+        <div className="flex-[2] min-w-[200px]">
           <PieChartBox />
-        </motion.div>
-
-        <motion.div variants={item} className={`${cardStyle} p-6 flex flex-col justify-center`}>
-          <ChartBox data={chartBoxConversion}/>
-        </motion.div>
-
-        <motion.div variants={item} className={`${cardStyle} p-6 flex flex-col justify-center`}>
-          <ChartBox data={chartBoxRevenue}/>
-        </motion.div>
-
-        {/* Large Data Visualization */}
-        <motion.div variants={item} className={`${cardStyle} md:col-span-2 lg:col-span-3 p-6`}>
-          <BigChartBox/>
-        </motion.div>
-
-        {/* Bar Charts: Comparison */}
-        <motion.div variants={item} className={`${cardStyle} p-6`}>
-          <BarChartBox data={barChartBoxVisit}/>
-        </motion.div>
-
-        <motion.div variants={item} className={`${cardStyle} p-6`}>
-          <BarChartBox data={barChartBoxRevenue}/>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+
+      {/* 3rd row */}
+      {/* Parent Row: Added 'items-stretch' to ensure columns are equal height */}
+<div className="flex flex-col lg:flex-row gap-3 w-full items-stretch">
+  
+  {/* Column 1: TopBox sets the height for the whole row */}
+  <div className="flex-1 min-w-[200px]">
+    <TopBox />
+  </div>
+
+  {/* Column 2: This must be a flex container to pass height down */}
+  <div className="flex-1 min-w-[200px] flex flex-col">
+    <div className="flex flex-col h-full gap-3">
+      
+      {/* Chart 1: Used flex-1 to take up the remaining 50% height */}
+      <div className="flex-1 min-h-[150px] bg-white/10 rounded-lg">
+        <BarChartBox data={barChartBoxVisit} />
+      </div>
+      
+      {/* Chart 2: Removed h-full, used flex-1 to grow vertically */}
+      <div className="flex-1 min-h-[150px] bg-white/10 rounded-lg">
+        <BarChartBox data={barChartBoxRevenue} />
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+    </div>
   );
 }
+
+

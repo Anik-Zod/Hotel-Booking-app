@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { inferAdditionalFields } from "better-auth/client/plugins";
+import { admin } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGODB_URL);
 const db = client.db();
@@ -42,5 +43,8 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 7, // seconds → 7 days
   },
   
-  trustedOrigins: [process.env.FRONTEND_URL],
+   plugins: [admin({
+    adminUserIds:["693fc1771916a0b3074004c0"]
+   })],
+  trustedOrigins: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
 });

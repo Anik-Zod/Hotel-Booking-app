@@ -4,12 +4,71 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+--color-primary: #3dd6c6;
+--color-primary-dull: #1b6f6a;
+
+--color-bg: #041f26;
+--color-bg-dull: #021318;
+
+--color-textColor: #ecfeff;
+--color-textDull: #7fa5a8;
+
+--color-global: #01090d;
+
+
+}
+
+:root {
+  --primary: #818cf8;
+  --bg: #1f2535;
+  --bg-secondary: #253349;
+  --textcolor: #ffffff;
+  --accent: #fe9a00;
+  --dark-bg: #262e40;
+  --pink: #dd1590;
+  --border: #606de0;
+  --text-on-primary: #000000;
+  --chart-bg: #020617;
+  --chart-title: #fff;
+  --chart-body: #c7d2fe;
+  --chart-border: #1e293b;
+  --success: #22c55e;
+  --error: #f43f5e;
+  --purple: #8884d8;
+  --orange: #ff8042;
+  --green: #82ca9d;
+  --bg-gradient-start: #111827;
+  --bg-gradient-middle: #0f172a;
+  --bg-gradient-end: #1e293b;
+}
+
 /* Smooth, hardware-accelerated scrollbar */
-.custom-scroll::-webkit-scrollbar { width: 5px; }
-.custom-scroll::-webkit-scrollbar-track { background: transparent; }
-.custom-scroll::-webkit-scrollbar-thumb { 
-  background: rgba(245, 158, 11, 0.2); 
-  border-radius: 10px; 
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
 }
 
 /* Prevents the 'jitter' during sidebar expansion */
@@ -18,9 +77,84 @@
   -webkit-user-drag: none;
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 /* Hardware acceleration for the main containers */
 .gpu-layer {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000;
+}
+
+/* Enhanced focus states for accessibility */
+.focus-ring:focus {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/* Smooth animations for chart containers */
+.chart-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(245, 158, 11, 0.1);
+  border-top: 3px solid #f59e0b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

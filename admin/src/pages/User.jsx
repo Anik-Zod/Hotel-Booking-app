@@ -1,21 +1,33 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import { Line } from "react-chartjs-2";
 import {
-  ResponsiveContainer,
-  LineChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
   Legend,
-  Line,
-} from "recharts";
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function User() {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useFetch("user", `/users/${id}`);
-
+  console.log("Fetched user data:", data);
+  
   const info = [
     { name: "Page A", uv: 4000, pv: 2400 },
     { name: "Page B", uv: 3000, pv: 1398 },
@@ -111,26 +123,58 @@ export default function User() {
           User Activity
         </h2>
         <div className="w-full h-64 sm:h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={info}
-              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-              <XAxis dataKey="name" stroke="#666" />
-              <YAxis stroke="#666" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  borderRadius: "8px",
-                  border: "none",
-                }}
-              />
-              <Legend wrapperStyle={{ paddingTop: 10 }} />
-              <Line type="monotone" dataKey="pv" stroke="#3b82f6" />
-              <Line type="monotone" dataKey="uv" stroke="#10b981" />
-            </LineChart>
-          </ResponsiveContainer>
+          <Line
+            data={{
+              labels: info.map(item => item.name),
+              datasets: [
+                {
+                  label: 'pv',
+                  data: info.map(item => item.pv),
+                  borderColor: '#3b82f6',
+                  backgroundColor: 'transparent',
+                  tension: 0.1,
+                },
+                {
+                  label: 'uv',
+                  data: info.map(item => item.uv),
+                  borderColor: '#10b981',
+                  backgroundColor: 'transparent',
+                  tension: 0.1,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'top',
+                },
+                tooltip: {
+                  backgroundColor: '#fff',
+                  titleColor: '#000',
+                  bodyColor: '#000',
+                  borderRadius: 8,
+                  border: 'none',
+                },
+              },
+              scales: {
+                x: {
+                  grid: {
+                    display: true,
+                    color: '#ddd',
+                  },
+                },
+                y: {
+                  grid: {
+                    display: true,
+                    color: '#ddd',
+                  },
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>
