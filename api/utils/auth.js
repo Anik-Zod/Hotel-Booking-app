@@ -30,17 +30,18 @@ export const auth = betterAuth({
     },
   },
   
-  cookies: {
+cookies: {
   session: {
     name: "better-auth.session",
     options: {
       httpOnly: true,
-      secure: true,            // REQUIRED in production
-      sameSite: "none",        // REQUIRED for cross-domain
+      secure: true,
+      sameSite: "lax", // ✅ correct for same-domain
       path: "/",
     },
   },
 },
+
 
 
   socialProviders: {
