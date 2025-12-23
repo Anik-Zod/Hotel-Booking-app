@@ -30,6 +30,19 @@ export const auth = betterAuth({
     },
   },
   
+  cookies: {
+  session: {
+    name: "better-auth.session",
+    options: {
+      httpOnly: true,
+      secure: true,            // REQUIRED in production
+      sameSite: "none",        // REQUIRED for cross-domain
+      path: "/",
+    },
+  },
+},
+
+
   socialProviders: {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID,
