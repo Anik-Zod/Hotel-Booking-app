@@ -19,11 +19,8 @@ import Rooms from "./pages/Rooms";
 import { useAuthStore } from "./stores/auth.store";
 import { authClient } from "../lib/auth-client";
 
-const ProtectedRoute = ({ user, authLoaded }) => {
-  // Wait until we definitely know whether the user is logged in
-  if (!authLoaded) {
-    return <div className="text-center mt-10">Loading...</div>;
-  }
+const ProtectedRoute = ({ user }) => {
+
 
   if (!user) {
     // Not logged in → send to login
@@ -33,10 +30,7 @@ const ProtectedRoute = ({ user, authLoaded }) => {
   return <Outlet />;
 };
 
-const LoginRoute = ({ user, authLoaded }) => {
-  if (!authLoaded) {
-    return <div className="text-center mt-10">Loading...</div>;
-  }
+const LoginRoute = ({ user }) => {
 
   if (user) {
     return <Navigate to="/" replace />;
@@ -61,29 +55,12 @@ const Layout = () => (
 
 export default function App() {
   const user = useAuthStore((state) => state.user);
-  const setUser = useAuthStore((state) => state.setUser);
-
-  const { data: session, isLoading, refetch } = authClient.useSession();
-  const [authLoaded, setAuthLoaded] = useState(false);
-
-  useEffect(() => {
-    // Force a session refetch on mount so the auth state actually updates
-    refetch().finally(() => setAuthLoaded(true));
-  }, [refetch]);
-
-  useEffect(() => {
-    if (session?.user) {
-      setUser(session.user);
-    } else {
-      setUser(null);
-    }
-  }, [session, setUser]);
-
+ 
   return (
     <Router>
       <Routes>
         <Route
-          element={<ProtectedRoute user={user} authLoaded={authLoaded} />}
+          element={<ProtectedRoute user={user} />}
         >
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
@@ -98,7 +75,7 @@ export default function App() {
 
         <Route
           path="login"
-          element={<LoginRoute user={user} authLoaded={authLoaded} />}
+          element={<LoginRoute user={user}  />}
         />
 
         <Route path="*" element={<Navigate to="/" replace />} />

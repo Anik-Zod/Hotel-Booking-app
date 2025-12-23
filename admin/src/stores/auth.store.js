@@ -1,7 +1,15 @@
 import { create } from "zustand";
 
 export const useAuthStore = create((set) => ({
-  user: null,
+  user: (() => {
+    try {
+      const stored = localStorage.getItem("user");
+      console.log("Stored user:", JSON.parse(stored).image);
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  })(),
   loading: false,
   error: null,
 

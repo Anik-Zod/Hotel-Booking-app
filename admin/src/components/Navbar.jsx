@@ -67,7 +67,7 @@ const Navbar = () => {
               className={`flex items-center gap-3 px-4 py-2 rounded-full transition-all bg-global ${showPopup ? 'bg-white/10' : 'hover:bg-white/10'}`}
             >
               <img
-                src={user.image || "https://ui-avatars.com/api/?name=Admin"}
+                src={user.image && user.image.startsWith('http') ? user.image : `https://ui-avatars.com/api/?name=${user.name || 'Admin'}`}
                 className="w-9 h-9 rounded-full border-2 border-primary object-cover"
                 alt="avatar"
               />

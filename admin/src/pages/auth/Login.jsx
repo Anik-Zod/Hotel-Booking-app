@@ -19,12 +19,13 @@ export default function Login() {
     setLoading(true);
     try {
       const response = await authClient.signIn.email({ email, password });
-      
+      console.log("Login response:", response);
+
       if (response.error) {
         setError(response.error.message || "Authorization Failed");
         return;
       }
-      setUser(response.user);
+      setUser(response.data?.user || response.user);
     } catch (err) {
       setError(err.message || "Authorization Failed");
     } finally {

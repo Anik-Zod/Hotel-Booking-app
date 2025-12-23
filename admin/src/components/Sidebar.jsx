@@ -160,7 +160,7 @@ export default function Sidebar() {
                     <div className="flex items-center gap-3">
                       <img
                         src={
-                          user.image || "https://ui-avatars.com/api/?name=Admin"
+                          user.image && user.image.startsWith('http') ? user.image : `https://ui-avatars.com/api/?name=${user.name || user.username || 'Admin'}`
                         }
                         className="w-10 h-10 rounded-full border-2 border-amber-500/30 object-cover"
                         alt="User profile"
