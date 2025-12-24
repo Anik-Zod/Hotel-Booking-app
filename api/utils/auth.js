@@ -30,14 +30,15 @@ export const auth = betterAuth({
     },
   },
   
-  cookies: {
+cookies: {
   session: {
-    name: "better-auth.session",
+    name: "__Secure-better-auth.session", // better prefix for secure cookies
     options: {
       httpOnly: true,
-      secure: false,           // Set to false for local development
-      sameSite: "lax",         // Set to "lax" for local development
+      secure: true,      // MUST be true in production (HTTPS)
+      sameSite: "none",  // REQUIRED for cross‑site cookies
       path: "/",
+      // do NOT set domain here on vercel
     },
   },
 },
