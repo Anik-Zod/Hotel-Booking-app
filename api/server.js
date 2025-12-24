@@ -34,6 +34,20 @@ app.use("/api/rooms", roomsRoute);
 app.use('/api/stripe',stripeRouter)
 app.use('/api/users',usersRoute)
 
+app.get('/auth/google/callback', async (req, res) => {
+  try {
+    // Finish OAuth login with Better Auth
+    const user = await authClient.handleCallback(req, res);
+
+    // Optionally set cookies or session here
+
+    // Redirect user to frontend
+    res.redirect(process.env.FRONTEND_URL); // frontend URL
+  } catch (err) {
+    console.error(err);
+    res.redirect(process.env.FRONTEND_URL);
+  }
+});
 
 
 // Global error handler
