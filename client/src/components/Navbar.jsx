@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../store/authSlice";
+import { logoutUser } from "../store/authSlice";
 import { Menu, X, ChevronDown, User, LogOut, Settings, Bell } from "lucide-react";
 import MobileNav from "./MobileNav";
-import { authClient } from "../../lib/auth-client";
 
 export default function Navbar() {
   const { user, loading } = useSelector((state) => state.auth);
@@ -14,16 +13,17 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [logoutopen, setLogoutOpen] = useState(false);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
+    dispatch(logoutUser());
     setLogoutOpen(false);
-    localStorage.removeItem('user');
-    dispatch(setUser(null));
-    try {
-      await authClient.signOut();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
   };
+
+  // Close dropdown when user logs out
+  useEffect(() => {
+    if (!user) {
+      setLogoutOpen(false);
+    }
+  }, [user]);
 
   // Close dropdown on click outside
   useEffect(() => {

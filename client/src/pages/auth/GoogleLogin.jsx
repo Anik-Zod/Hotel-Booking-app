@@ -24,7 +24,7 @@ export default function GoogleLoginButton() {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: window.location.origin,
+        callbackURL: `${import.meta.env.VITE_BACKEND_AUTH_URL}/auth/google/callback`,
       });
     } catch (err) {
       console.error('Google login failed:', err);

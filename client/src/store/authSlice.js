@@ -23,8 +23,12 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
-  localStorage.removeItem('user');
-  await authClient.signOut();
+  try {
+    localStorage.removeItem('user');
+    await authClient.signOut();
+  } catch (error) {
+    localStorage.removeItem('user');
+  }
   return null;
 });
 
@@ -74,9 +78,11 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = null;
       })
-      .addCase(logoutUser.rejected, (state, action) => {
+      .addCase(logoutUser.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload || null;
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = null;
       });
   },
 });
