@@ -17,7 +17,6 @@ import React from "react";
 import { useAuthStore } from "../stores/auth.store";
 import { authClient } from "../../lib/auth-client";
 
-
 function SidebarItem({
   to,
   icon: Icon,
@@ -66,7 +65,7 @@ export default function Sidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { user, logout } = useAuthStore();
   const location = useLocation();
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,9 +84,9 @@ export default function Sidebar() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const onLogout = async() =>{
-    await authClient.signOut()
-      logout(); 
+  const onLogout = async () => {
+    await authClient.signOut();
+    logout();
     navigate("/login");
   };
 
@@ -114,9 +113,17 @@ export default function Sidebar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="fixed top-4 left-4 z-[110] p-2 md:p-4 bg-bg rounded-xl text-white shadow-lg lg:hidden hover:bg-white/5 transition-colors duration-200"
+          className="fixed top-6  left-5 md:left-1 z-[110] p-2 md:p-4  rounded-xl text-white shadow-lg lg:hidden  transition-colors duration-200"
         >
-          {isMobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          {isMobileOpen ? (
+            <div className="p-1">
+              <FaTimes size={20} />
+            </div>
+          ) : (
+            <div className="">
+              <FaBars size={15}  />
+            </div>
+          )}
         </button>
 
         <AnimatePresence>
@@ -142,7 +149,7 @@ export default function Sidebar() {
                 {/* Header */}
                 <div className="p-6 border-b border-white/10 min-w-[280px]">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10  rounded-xl flex items-center justify-center">
                       <span className="text-black font-black text-lg">B</span>
                     </div>
                     <div>
@@ -160,7 +167,11 @@ export default function Sidebar() {
                     <div className="flex items-center gap-3">
                       <img
                         src={
-                          user.image && user.image.startsWith('http') ? user.image : `https://ui-avatars.com/api/?name=${user.name || user.username || 'Admin'}`
+                          user.image && user.image.startsWith("http")
+                            ? user.image
+                            : `https://ui-avatars.com/api/?name=${
+                                user.name || user.username || "Admin"
+                              }`
                         }
                         className="w-10 h-10 rounded-full border-2 border-amber-500/30 object-cover"
                         alt="User profile"

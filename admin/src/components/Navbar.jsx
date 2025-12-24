@@ -140,7 +140,7 @@ const Navbar = () => {
                   initial={{ opacity: 0,  }}
                   animate={{ opacity: 1,   }}
                   exit={{ opacity: 0 }}
-                  className="absolute -right-3 top-19 w-64 bg-bg border border-primary/30 rounded-lg shadow-md shadow-primary/30 p-2 overflow-hidden"
+                  className="absolute -right-3 top-[78px] w-64 bg-bg border border-primary/30 rounded-lg shadow-md shadow-primary/30 p-2 overflow-hidden"
                 >
                   {/* MOBILE ONLY UTILITIES */}
                   <div className="md:hidden p-2 border-b border-white/5 mb-2">
