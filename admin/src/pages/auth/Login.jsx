@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Shield, ArrowRight, Loader2, Cpu, Globe, Lock } from "lucide-react";
 import { useAuthStore } from "../../stores/auth.store";
 import { authClient } from "../../../lib/auth-client";
-
+import  axiosInstance  from "../../api/axios";
 
 export default function Login() {
 
@@ -13,26 +13,33 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      const response = await authClient.signIn.email({ email, password });
-      console.log("Login response:", response);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-      if (response.error) {
-        setError(response.error.message || "Authorization Failed");
-        return;
+  try {
+    const response = await axiosInstance.post(
+      "/auth/sign-in/email",
+      {
+        email,
+        password,
+        rememberMe: true,
       }
-      setUser(response.data?.user || response.user);
-    } catch (err) {
-      setError(err.message || "Authorization Failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+    );
 
+    console.log("Login success:", response.data);
+    setUser(response.data.user);
+
+  } catch (err) {
+    console.error("Login failed:", err);
+    setError(err.response?.data?.message || "Authorization Failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  console.log("user =",)
    
 
   return (

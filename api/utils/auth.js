@@ -35,8 +35,8 @@ export const auth = betterAuth({
     name: "better-auth.session",
     options: {
       httpOnly: true,
-      secure: true,            // REQUIRED in production
-      sameSite: "none",        // REQUIRED for cross-domain
+      secure: false,           // Set to false for local development
+      sameSite: "lax",         // Set to "lax" for local development
       path: "/",
     },
   },

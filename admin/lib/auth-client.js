@@ -15,3 +15,4 @@ export const authClient = createAuthClient({
     adminClient(),
   ],
 });
+

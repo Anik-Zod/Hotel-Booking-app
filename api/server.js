@@ -8,6 +8,8 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./utils/auth.js";
 import stripeRouter from "./routes/payment.route.js"
 import usersRoute from "./routes/users.route.js";
+import authRouter from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
@@ -21,13 +23,14 @@ app.use(
   })
 );
 
-
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.use(express.json());
+app.use(cookieParser());
 
 // Use express.json() for your other API routes
-app.use(express.json());
 
 // Your API routes
+app.all("/api/auth/*splat", toNodeHandler(auth))
+// app.use("/api/authenticate", authRouter)
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
 app.use('/api/stripe',stripeRouter)
