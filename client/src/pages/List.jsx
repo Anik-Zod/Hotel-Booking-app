@@ -1,13 +1,14 @@
 import Navbar from "../components/Navbar";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import useFetch from "../hooks/useFetch";
-import { SearchContext } from "../context/SearchContext";
 import Card from "../components/HorizontalCard";
 import SidebarFilter from "../components/filter/SidebarFilter";
 import { Home, X } from "lucide-react";
 
 const List = () => {
-  const { city, dates, options, dispatch } = useContext(SearchContext);
+  const { city, selectedDates, options } = useSelector((state) => state.search);
+  const dispatch = useDispatch();
 
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedCities, setSelectedCities] = useState([]);

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
 import List from "./pages/List";
@@ -8,7 +9,7 @@ import Contact from "./pages/Contact"
 import Authentication from "./pages/auth/Authentication";
 
 import { authClient } from "../lib/auth-client";
-import { AuthContext } from "./context/AuthContext";
+import { setUser } from "./store/authSlice";
 import FooterBanner from "./components/FooterBanner";
 import Navbar from "./components/Navbar";
 import OfferPage from "./pages/OfferPage";
@@ -21,18 +22,19 @@ import StickyButton from "./components/StickyButton";
 
 
 function App() {
-  const { dispatch } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   // Get session from Better Auth
   const { data: session, isLoading } = authClient.useSession();
 
-  // Optional: sync user to your context / localStorage
   useEffect(() => {
+    if(user) return; // user already in state
+
     if (session?.user) {
-      dispatch({ type: "LOGIN_SUCCESS", payload: session.user });
-      localStorage.setItem("user", JSON.stringify(session.user));
+      dispatch(setUser(session.user));
     }
-  }, [session, dispatch]);
+  }, [session, dispatch, user]);
 
   return (
     <BrowserRouter>

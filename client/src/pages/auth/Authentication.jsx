@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CheckCircle, Clock, Gift, Headphones } from "lucide-react";
@@ -8,7 +8,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 export default function Authentication() {
-  const { user, loading, error, dispatch } = useContext(AuthContext);
+  const { user, loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const[login,setLogin] = useState(true)
 

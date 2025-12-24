@@ -1,21 +1,28 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../store/authSlice";
 import { Menu, X, ChevronDown, User, LogOut, Settings, Bell } from "lucide-react";
 import MobileNav from "./MobileNav";
 import { authClient } from "../../lib/auth-client";
 
 export default function Navbar() {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [logoutopen, setLogoutOpen] = useState(false);
 
-  const handleLogout = async() => {
-    await authClient.signOut()
-    dispatch({ type: "LOGOUT" });
-    navigate("/auth");
+  const handleLogout = async () => {
+    setLogoutOpen(false);
+    localStorage.removeItem('user');
+    dispatch(setUser(null));
+    try {
+      await authClient.signOut();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   // Close dropdown on click outside

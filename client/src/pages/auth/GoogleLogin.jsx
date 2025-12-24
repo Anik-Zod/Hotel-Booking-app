@@ -1,37 +1,46 @@
-import { authClient } from "../../../lib/auth-client";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, clearError } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { authClient } from "../../../lib/auth-client";
+import { useState } from "react";
 
 export default function GoogleLoginButton() {
-  const { dispatch } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { error, isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleGoogleLogin = async () => {
     setLoading(true);
-    setError("");
+    dispatch(clearError());
 
     try {
-      // Redirect user to Google login
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: import.meta.env.VITE_FRONTEND_URL, // where user should land after login
+        callbackURL: import.meta.env.VITE_FRONTEND_URL,
       });
-
     } catch (err) {
-      console.error(err);
-      setError("Google login failed");
+      console.error('Google login failed:', err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleGoogleLogin} disabled={loading} className="flex gap-3 hover:bg-gray-300 cursor-pointer py-1 rounded-xl  w-full items-center justify-center">
+    <button 
+      onClick={handleGoogleLogin} 
+      disabled={loading} 
+      className="flex gap-3 hover:bg-gray-300 cursor-pointer py-1 rounded-xl w-full items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
       <GoogleIcon/>
-      {loading ? "Logging in..." : "Continue with Google"}
+      {loading ? "Signing in..." : "Continue with Google"}
     </button>
   );
 }

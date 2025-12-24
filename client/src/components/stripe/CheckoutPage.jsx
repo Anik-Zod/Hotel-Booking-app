@@ -1,7 +1,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axiosInstance from "../../api/axios";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -13,7 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 export default function CheckoutPage({amount,items,dates ,selectedRooms}){
   const [clientSecret, setClientSecret] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.auth);
 
   // 🔐 prevents duplicate intent creation
   const intentCreated = useRef(false);

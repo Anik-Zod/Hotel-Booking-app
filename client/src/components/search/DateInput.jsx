@@ -1,13 +1,15 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { newSearch } from "../../store/searchSlice";
 import { DateRange } from "react-date-range";
 import { FaCalendarDay } from "react-icons/fa";
 import { format } from "date-fns";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { twMerge } from "tailwind-merge";
-import { SearchContext } from "../../context/SearchContext";
 
 function DateInput({ className }) {
-  const { selectedDates, dispatch } = useContext(SearchContext);
+  const { selectedDates } = useSelector((state) => state.search);
+  const dispatch = useDispatch();
   const [openDate, setOpenDate] = useState(false);
   const ref = useRef(null);
 
@@ -15,10 +17,7 @@ function DateInput({ className }) {
 
   const handleRangeChange = (item) => {
     const newDates = [item.selection];
-    dispatch({
-      type: "NEW_SEARCH",
-      payload: { selectedDates: newDates },
-    });
+    dispatch(newSearch({ selectedDates: newDates }));
   };
 
   // Make sure we have a valid range to display

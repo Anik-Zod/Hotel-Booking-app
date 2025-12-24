@@ -8,12 +8,13 @@ import {
   FaTaxi,
 } from "react-icons/fa";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { newSearch } from "../store/searchSlice";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import { Link } from "react-router-dom";
-import { SearchContext } from "../context/SearchContext";
 import CityInput from "./search/CityInput";
 import DateInput from "./search/DateInput";
 import OptionsInput from "./search/OptionsInput";
@@ -21,7 +22,8 @@ import OptionsInput from "./search/OptionsInput";
 const text = "Find your next stay";
 
 const Header = () => {
-  const { city, dispatch } = useContext(SearchContext);
+  const { city } = useSelector((state) => state.search);
+  const dispatch = useDispatch();
   const [destination, setDestination] = useState(city);
 
   const [dates, setDates] = useState([
@@ -46,10 +48,7 @@ const Header = () => {
   };
 
   const handleSearch = () => {
-    dispatch({
-      type: "NEW_SEARCH",
-      payload: { city: destination, dates, options },
-    });
+    dispatch(newSearch({ city: destination, dates, options }));
   };
 
   return (

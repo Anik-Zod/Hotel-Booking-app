@@ -13,18 +13,17 @@ import {
   FaPaw,
   FaCheckCircle,
 } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import { SearchContext } from "../context/SearchContext";
-import { AuthContext } from "../context/AuthContext";
 import Reserve from "../components/Reserve";
 import DateInput from "../components/search/DateInput";
 import OptionsInput from "../components/search/OptionsInput";
 import { toast } from "react-toastify";
 
 const Hotel = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.auth);
   const [slideIndex, setSlideIndex] = useState(0);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isReserveOpen, setIsReserveOpen] = useState(false);
@@ -48,7 +47,7 @@ const Hotel = () => {
   });
 
 
-  const { city, selectedDates } = useContext(SearchContext);
+  const { city, selectedDates } = useSelector((state) => state.search);
 
 
 

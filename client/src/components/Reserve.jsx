@@ -1,10 +1,9 @@
 import { MdClose } from "react-icons/md";
 import useFetch from "../hooks/useFetch";
-import { useContext, useRef, useState } from "react";
-import { SearchContext } from "../context/SearchContext";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CheckoutPage from "./stripe/CheckoutPage";
 import { useClickOutside } from "../hooks/useClickOutside";
@@ -13,10 +12,10 @@ import { toast } from "react-toastify";
 
 
 export default function Reserve({ setOpen, hotelId , TotalPrice}) {
-  const { selectedDates } = useContext(SearchContext);
+  const { selectedDates } = useSelector((state) => state.search);
+  const { user } = useSelector((state) => state.auth);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const[openCheckout,setOpenCheckout] = useState(false)
-  const { user, dispatch } = useContext(AuthContext);
 
   const handleSelect = (e) => {
     const { checked, value } = e.target;
