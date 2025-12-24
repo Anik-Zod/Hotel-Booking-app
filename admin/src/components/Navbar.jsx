@@ -1,73 +1,125 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaSearch, FaTh, FaExpand, FaBell, FaCog, FaBars, FaTimes, FaUser, FaSignOutAlt, FaHome, FaHotel, FaUsers } from "react-icons/fa";
+import {
+  FaSearch,
+  FaTh,
+  FaExpand,
+  FaBell,
+  FaCog,
+  FaBars,
+  FaTimes,
+  FaUser,
+  FaSignOutAlt,
+  FaHome,
+  FaHotel,
+  FaUsers,
+} from "react-icons/fa";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuthStore } from "../stores/auth.store";
 import { authClient } from "../../lib/auth-client";
+import { useClickOutside } from "../hooks/useClickOutside";
+import Notification from "./sideNav/Notification";
+import SettingsSidebar from "./sideNav/Setting";
+import Complain from "./sideNav/Complain";
+import { Dock } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout } = useAuthStore();
-  
+
   const [showPopup, setShowPopup] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const boxRef = useRef();
 
   const onLogout = async () => {
-    logout(); // immediately set user to null
+    logout();
     await authClient.signOut();
     navigate("/login");
   };
 
+  const [seenComplaints, setSeenComplaints] = useState(false);
+  const [seenNotifications, setSeenNotifications] = useState(false);
 
-  const navItems = [
-    { name: "Dashboard", path: "/", icon: <FaTh /> },
-    { name: "Users", path: "/users", icon: <FaUsers /> },
-    { name: "Hotels", path: "/hotels", icon: <FaHotel /> },
-    { name: "Profile", path: "/profile", icon: <FaUser /> },
-  ];
+  const [showNotification, setShowNotification] = useState(false);
+  const notificationRef = useRef(null);
+  useClickOutside(notificationRef, () => setShowNotification(false));
+
+  const complainRef = useRef(null);
+  const ignorecomplainRef = useRef(null);
+  const [showComplain, setShowComplain] = useState(false);
+  useClickOutside(complainRef, () => setShowComplain(false), ignorecomplainRef);
+
+  const [showSettings, setShowSettings] = useState(false);
+  const settingRef = useRef(null);
+  useClickOutside(settingRef, () => setShowSettings(false));
+
+  // Shared logic for toggling utilities
+  const toggleComplaints = () => {
+    setShowComplain((prev) => !prev);
+    setSeenComplaints(true);
+    if (showPopup) setShowPopup(false); // Close dropdown when opening sidebar
+  };
+
+  const toggleNotifications = () => {
+    setSeenNotifications(true);
+    setShowNotification((prev) => !prev);
+    if (showPopup) setShowPopup(false);
+  };
+
+  const toggleSettings = () => {
+    setShowSettings((prev) => !prev);
+    if (showPopup) setShowPopup(false);
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] bg-bg  text-textColor h-20 px-4 md:px-8 flex items-center justify-between  border-b border-primary/30">
-      
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-bg text-textColor h-20 px-4 md:px-8 flex items-center justify-between border-b border-primary/30">
       {/* --- LEFT: LOGO & BRAND --- */}
-          {/* Logo Section */}
-          <div className="flex translate-x-14 lg:translate-x-0 items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
-              <span className="font-black text-xl">B</span>
-            </div>
-            <Link to="/" className="text-2xl font-bold text-textColor tracking-tighter">
-              Booking<span className="text-primary font-light">App</span>
-            </Link>
-          </div>
-
-
+      <div className="flex translate-x-14 lg:translate-x-0 items-center gap-2 group">
+        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
+          <span className="font-black text-xl">B</span>
+        </div>
+        <Link to="/" className="text-2xl font-bold text-textColor tracking-tighter">
+          Booking<span className="text-primary font-light">App</span>
+        </Link>
+      </div>
 
       {/* --- RIGHT: UTILITIES & PROFILE --- */}
-      <div className="flex items-center gap-2 md:gap-5">
-        
-        {/* Utility Icons */}
+      <div className="flex items-center gap-2 md:gap-1">
+        {/* Utility Icons - DESKTOP ONLY */}
         <div className="hidden md:flex items-center gap-4 border-r border-white/10 pr-5 mr-2 text-slate-400">
-          <div className="relative cursor-pointer hover:text-white transition-colors">
-            <FaBell size={18} />
-            <span className="absolute -top-1.5 -right-1.5 bg-[var(--pink)] text-[9px] text-[var(--dark-bg)] font-black rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[var(--dark-bg)]">
-              3
-            </span>
+          <div onClick={toggleComplaints} className="relative cursor-pointer hover:text-white transition-colors">
+            <Dock size={21} />
+            {!seenComplaints && (
+              <span className="absolute -top-1.5 -right-1.5 bg-[var(--pink)] text-[9px] text-[var(--dark-bg)] font-black rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[var(--dark-bg)]">
+                4
+              </span>
+            )}
           </div>
-          <button className="hover:text-white transition-colors"><FaCog size={18} /></button>
+          <div onClick={toggleNotifications} className="relative cursor-pointer hover:text-white transition-colors">
+            <FaBell size={21} />
+            {!seenNotifications && (
+              <span className="absolute -top-1.5 -right-1.5 bg-[var(--pink)] text-[9px] text-[var(--dark-bg)] font-black rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[var(--dark-bg)]">
+                4
+              </span>
+            )}
+          </div>
+          <button onClick={toggleSettings} className="hover:text-white transition-colors">
+            <FaCog size={21} />
+          </button>
         </div>
 
         {/* User Profile Card */}
         {user ? (
           <div className="relative" ref={boxRef}>
-            <button 
+            <button
               onClick={() => setShowPopup(!showPopup)}
-              className={`flex items-center gap-3 px-4 py-2 rounded-full transition-all bg-global ${showPopup ? 'bg-white/10' : 'hover:bg-white/10'}`}
+              className={`flex items-center gap-3 px-4 py-2 rounded-full transition-all bg-global ${
+                showPopup ? "bg-white/10" : "hover:bg-white/10"
+              }`}
             >
               <img
-                src={user.image && user.image.startsWith('http') ? user.image : `https://ui-avatars.com/api/?name=${user.name || 'Admin'}`}
+                src={user.image?.startsWith("http") ? user.image : `https://ui-avatars.com/api/?name=${user.name || "Admin"}`}
                 className="w-9 h-9 rounded-full border-2 border-primary object-cover"
                 alt="avatar"
               />
@@ -80,20 +132,46 @@ const Navbar = () => {
             {/* Profile Dropdown */}
             <AnimatePresence>
               {showPopup && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 mt-3 w-56 bg-[var(--dark-bg)] border border-white/10 rounded-2xl shadow-2xl p-2 overflow-hidden"
+                  className="absolute right-0 mt-3 w-64 bg-[var(--dark-bg)] border border-white/10 rounded-2xl shadow-2xl p-2 overflow-hidden"
                 >
+                  {/* MOBILE ONLY UTILITIES */}
+                  <div className="md:hidden p-2 border-b border-white/5 mb-2">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-2 px-2">Quick Actions</p>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button onClick={toggleComplaints} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                        <div className="relative">
+                          <Dock size={20} />
+                          {!seenComplaints && <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />}
+                        </div>
+                        <span className="text-[10px] mt-1">Docks</span>
+                      </button>
+                      <button onClick={toggleNotifications} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                        <div className="relative">
+                          <FaBell size={20} />
+                          {!seenNotifications && <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />}
+                        </div>
+                        <span className="text-[10px] mt-1">Alerts</span>
+                      </button>
+                      <button onClick={toggleSettings} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                        <FaCog size={20} />
+                        <span className="text-[10px] mt-1">Settings</span>
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="p-3 mb-2 border-b border-white/5">
                     <p className="text-[10px] text-slate-400 uppercase font-bold">Account</p>
-                    <p className="text-sm truncate">{user.email || 'admin@voyager.com'}</p>
+                    <p className="text-sm truncate">{user.email || "admin@voyager.com"}</p>
                   </div>
-                  <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm bg-white/5 rounded-xl transition-colors">
-                    <FaUser size={14} className="text-[var(--accent)]" /> My Profile
+                  
+                  <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm hover:bg-white/5 rounded-xl transition-colors">
+                    <FaUser size={14} className="text-primary" /> My Profile
                   </button>
-                  <button 
+                  <button
                     onClick={onLogout}
                     className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-colors mt-1"
                   >
@@ -104,10 +182,21 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
         ) : (
-          <Link to="/login" className="bg-primary/40 text-textColor px-6 py-2 rounded-full font-bold text-sm hover:shadow-[0_0_20px_rgba(254,154,0,0.4)] transition-all">
+          <Link to="/login" className="bg-primary/40 text-textColor px-6 py-2 rounded-full font-bold text-sm transition-all">
             Login
           </Link>
         )}
+      </div>
+
+      {/* Slide-out Sidebars */}
+      <div ref={notificationRef} className="fixed z-[110] top-0 right-0 h-screen">
+        <Notification showNotification={showNotification} />
+      </div>
+      <div ref={complainRef} className="fixed z-[110] top-0 right-0 h-screen">
+        <Complain showComplaints={showComplain} />
+      </div>
+      <div ref={settingRef} className="fixed z-[110] top-0 right-0 h-screen">
+        <SettingsSidebar showSettings={showSettings} />
       </div>
     </nav>
   );

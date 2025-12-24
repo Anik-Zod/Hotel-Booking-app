@@ -10,9 +10,9 @@ import {
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
-import Users from "./pages/Users";
+import Users from "./pages/user/Users";
 import Login from "./pages/auth/Login";
-import User from "./pages/User";
+import User from "./pages/user/User";
 import Hotels from "./pages/Hotels";
 import Hotel from "./pages/Hotel";
 import Rooms from "./pages/Rooms";
