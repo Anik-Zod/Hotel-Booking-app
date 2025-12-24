@@ -190,13 +190,13 @@ const Navbar = () => {
 
       {/* Slide-out Sidebars */}
       <div ref={notificationRef} className="fixed z-[110] top-0 right-0 h-screen">
-        <Notification showNotification={showNotification} />
+        <Notification showNotification={showNotification} setShowNotification={setShowNotification}/>
       </div>
       <div ref={complainRef} className="fixed z-[110] top-0 right-0 h-screen">
-        <Complain showComplaints={showComplain} />
+        <Complain showComplaints={showComplain} setShowComplaints={setShowComplain} />
       </div>
       <div ref={settingRef} className="fixed z-[110] top-0 right-0 h-screen">
-        <SettingsSidebar showSettings={showSettings} />
+        <SettingsSidebar showSettings={showSettings} setShowSettings={setShowSettings} />
       </div>
     </nav>
   );

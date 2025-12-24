@@ -44,7 +44,7 @@ const defaultNotifications = [
 
 export default function NotificationDrawer({ 
   showNotification, 
-  onClose, 
+  setShowNotification, 
   notifications = defaultNotifications 
 }) {
   const unreadCount = notifications.filter((n) => n.unread).length;
@@ -85,7 +85,7 @@ export default function NotificationDrawer({
                 </div>
                 </div>
                 <button 
-                  onClick={onClose}
+                  onClick={() => setShowNotification(false)}
                   className="p-2.5 rounded-xl hover:bg-primary/10 text-textDull hover:text-primary transition-all duration-200"
                 >
                   <X size={20} />

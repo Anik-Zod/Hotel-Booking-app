@@ -54,7 +54,7 @@ const statusMap = {
   },
 };
 
-export default function Complain({ showComplaints, onClose }) {
+export default function Complain({ showComplaints, setShowComplaints, onClose }) {
   return (
     <div className="fixed inset-y-0 right-0 z-[120] flex pointer-events-none">
       <AnimatePresence>
@@ -88,7 +88,7 @@ export default function Complain({ showComplaints, onClose }) {
                 </div>
               </div>
               <button 
-                onClick={onClose}
+                onClick={()=> setShowComplaints(false)}
                 className="p-2.5 rounded-xl hover:bg-primary/10 text-textDull hover:text-primary transition-all duration-200"
               >
                 <X size={20} />
