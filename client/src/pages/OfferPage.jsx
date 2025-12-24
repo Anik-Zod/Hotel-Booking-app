@@ -106,7 +106,7 @@ const StunningBookingPage = () => {
     : OFFERS.filter(offer => offer.category === activeTab);
 
   return (
-    <div className="container bg-slate-950 text-slate-300 min-h-screen font-sans selection:bg-indigo-500/30 selection:text-white -mt-29">
+    <div className="lg:px-6 bg-slate-950 text-slate-300 min-h-screen font-sans selection:bg-indigo-500/30 selection:text-white -mt-29">
       
       {/* --- AMBIENT BACKGROUND GLOWS --- */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">

@@ -17,7 +17,7 @@ export default function GoogleLoginButton() {
       // Redirect user to Google login
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "http://localhost:5173", // where user should land after login
+        callbackURL: import.meta.env.VITE_FRONTEND_URL, // where user should land after login
       });
 
     } catch (err) {

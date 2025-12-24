@@ -15,7 +15,7 @@ export default function Navbar() {
   const handleLogout = async() => {
     await authClient.signOut()
     dispatch({ type: "LOGOUT" });
-    navigate("/login");
+    navigate("/auth");
   };
 
   // Close dropdown on click outside
