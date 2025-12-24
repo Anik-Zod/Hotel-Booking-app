@@ -114,7 +114,7 @@ export default function Sidebar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="fixed top-4 left-4 z-[110] p-2 md:p-4 bg-[#1e2536] rounded-xl text-white shadow-lg lg:hidden hover:bg-white/5 transition-colors duration-200"
+          className="fixed top-4 left-4 z-[110] p-2 md:p-4 bg-bg rounded-xl text-white shadow-lg lg:hidden hover:bg-white/5 transition-colors duration-200"
         >
           {isMobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
         </button>
@@ -127,7 +127,7 @@ export default function Sidebar() {
                 initial={{ w: 0 }}
                 animate={{ w: "100%" }}
                 exit={{ w: 0 }}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[105] md:hidden "
+                className="fixed inset-0  z-[105]  "
                 onClick={() => setIsMobileOpen(false)}
               />
 
@@ -137,7 +137,7 @@ export default function Sidebar() {
                 animate={{ width: 280, opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="fixed left-0 top-0 h-screen bg-[#1e2536] border-r border-white/5 flex flex-col z-[106] shadow-2xl overflow-hidden whitespace-nowrap"
+                className="fixed left-0 top-0 h-screen backdrop-blur-md border-r border-primary/30 flex flex-col z-[106] shadow-2xl overflow-hidden whitespace-nowrap"
               >
                 {/* Header */}
                 <div className="p-6 border-b border-white/10 min-w-[280px]">

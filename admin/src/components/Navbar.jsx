@@ -38,6 +38,9 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const popUpRef = useRef(null);
+  useClickOutside(popUpRef, () => setShowPopup(false), boxRef);
+
   const [seenComplaints, setSeenComplaints] = useState(false);
   const [seenNotifications, setSeenNotifications] = useState(false);
 
@@ -114,7 +117,7 @@ const Navbar = () => {
           <div className="relative" ref={boxRef}>
             <button
               onClick={() => setShowPopup(!showPopup)}
-              className={`flex items-center gap-3 px-4 py-2 rounded-full transition-all bg-global ${
+              className={`flex items-center gap-3 px-2 md:px-4 py-2 rounded-full transition-all bg-global ${
                 showPopup ? "bg-white/10" : "hover:bg-white/10"
               }`}
             >
@@ -133,30 +136,31 @@ const Navbar = () => {
             <AnimatePresence>
               {showPopup && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 mt-3 w-64 bg-[var(--dark-bg)] border border-white/10 rounded-2xl shadow-2xl p-2 overflow-hidden"
+                  ref={popUpRef}
+                  initial={{ opacity: 0,  }}
+                  animate={{ opacity: 1,   }}
+                  exit={{ opacity: 0 }}
+                  className="absolute -right-3 top-19 w-64 bg-bg border border-primary/30 rounded-lg shadow-md shadow-primary/30 p-2 overflow-hidden"
                 >
                   {/* MOBILE ONLY UTILITIES */}
                   <div className="md:hidden p-2 border-b border-white/5 mb-2">
                     <p className="text-[10px] text-slate-400 uppercase font-bold mb-2 px-2">Quick Actions</p>
                     <div className="grid grid-cols-3 gap-1">
-                      <button onClick={toggleComplaints} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                      <button onClick={toggleComplaints} className="bg-primary/20 flex flex-col items-center justify-center px-2 py-3 hover:bg-white/5 rounded-xl text-textColor hover:text-white transition-colors">
                         <div className="relative">
                           <Dock size={20} />
                           {!seenComplaints && <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />}
                         </div>
                         <span className="text-[10px] mt-1">Docks</span>
                       </button>
-                      <button onClick={toggleNotifications} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                      <button onClick={toggleNotifications} className="bg-primary/20 flex flex-col items-center justify-center px-2 py-3 hover:bg-white/5 rounded-xl text-textColor hover:text-white transition-colors">
                         <div className="relative">
                           <FaBell size={20} />
                           {!seenNotifications && <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />}
                         </div>
                         <span className="text-[10px] mt-1">Alerts</span>
                       </button>
-                      <button onClick={toggleSettings} className="flex flex-col items-center justify-center p-2 hover:bg-white/5 rounded-xl text-slate-400 hover:text-white transition-colors">
+                      <button onClick={toggleSettings} className="bg-primary/20 flex flex-col items-center justify-center px-2 py-3 hover:bg-white/5 rounded-xl text-textColor hover:text-white transition-colors">
                         <FaCog size={20} />
                         <span className="text-[10px] mt-1">Settings</span>
                       </button>
