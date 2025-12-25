@@ -82,7 +82,7 @@ const images = [
   const navigate = useNavigate()
 
   return (
-    <section className="py-8 bg-gradient-to-b container to-white ">
+    <section className="py-18 sm:py-8 bg-gradient-to-b container to-white ">
       <div className="max-w-7xl mx-auto ">
         {/* Header */}
 
