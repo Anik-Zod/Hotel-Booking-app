@@ -245,7 +245,7 @@ const Hotel = () => {
         {/* right flex  */}
         <div className="lg:col-span-1 lg:w-1/3 overflow-x-clip">
           {isReserveOpen && (
-            <div className="fixed  z-40 left-0 bottom-4 mt-28 w-max sm:mt-0 sm:left-1/2   sm:-translate-x-1/2 ">
+            <div className="fixed  z-40 left-0 bottom-4 mt-28 w-full  sm:mt-0 sm:left-1/2   sm:-translate-x-1/2 ">
               <Reserve
                 setOpen={setIsReserveOpen}
                 hotelId={id}
