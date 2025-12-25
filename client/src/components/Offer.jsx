@@ -86,7 +86,7 @@ export const Offer = () => {
                 underwater dining.
               </p>
             </div>
-            <button className="text-[#0f6268] hover:bg-[#004C51] hover:text-[#2aa5ad-] bg-white transition-all duration-300  px-8 py-4 rounded-[15px] font-black text-lg shadow-xl shrink-0">
+            <button className="text-[#0f6268] hover:bg-[#004C51] hover:text-white bg-white transition-all duration-300  px-8 py-4 rounded-[15px] font-black text-lg shadow-xl shrink-0">
               Book Now — $1,299
             </button>
           </div>

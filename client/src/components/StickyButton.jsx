@@ -6,7 +6,7 @@ function StickyButton() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="fixed bottom-10 right-10 z-[100]">
+    <div className="fixed bottom-10 right-10 z-50">
       <motion.div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
