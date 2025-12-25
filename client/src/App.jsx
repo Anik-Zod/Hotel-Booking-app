@@ -7,13 +7,13 @@ import List from "./pages/List";
 import Hotel from "./pages/Hotel";
 import Contact from "./pages/Contact"
 import Authentication from "./pages/auth/Authentication";
+import Success from "./pages/Success";
 
 import { authClient } from "../lib/auth-client";
 import { setUser } from "./store/authSlice";
 import FooterBanner from "./components/FooterBanner";
 import Navbar from "./components/Navbar";
 import OfferPage from "./pages/OfferPage";
-import Success from "./components/stripe/Success";
 import Failed from "./components/stripe/Failed";
 import ScrollToTop from "./hooks/ScrollToTop";
 import StickyButton from "./components/StickyButton";

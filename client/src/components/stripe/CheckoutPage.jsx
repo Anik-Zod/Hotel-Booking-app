@@ -26,13 +26,33 @@ export default function CheckoutPage({amount,items,dates ,selectedRooms}){
 
     const createIntent = async () => {
       try {
+        // Validate dates array
+        if (!dates || !Array.isArray(dates) || dates.length === 0) {
+          console.error("Invalid dates array");
+          setLoading(false);
+          return;
+        }
+
+        // Validate date values
+        const startDate = new Date(dates[0]);
+        const endDate = new Date(dates[dates.length - 1]);
+        
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+          console.error("Invalid date values");
+          setLoading(false);
+          return;
+        }
+
         const res = await axiosInstance.post("/stripe/create-payment-intent", {
           amount: amount,
           currency: "usd",
-          dates:dates,
-          selectedRooms:selectedRooms,
+          dates: [{
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString()
+          }],
+          selectedRooms: selectedRooms,
           customer_email: user.email,
-          userId:user._id
+          userId: user.id,
         });
         setClientSecret(res.data.clientSecret);
       } catch (err) {
@@ -52,7 +72,6 @@ export default function CheckoutPage({amount,items,dates ,selectedRooms}){
     <Elements stripe={stripePromise} options={{ clientSecret }}>
        <CheckoutForm  
           amount={amount} 
-          userId={user._id}
           items={items}
           dates={dates}
           selectedRooms={selectedRooms}

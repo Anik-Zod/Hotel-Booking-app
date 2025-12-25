@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./db.js";
 import hotelsRoute from "./routes/hotels.route.js";
 import roomsRoute from "./routes/rooms.route.js";
+import bookingRouter from "./routes/booking.route.js";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./utils/auth.js";
 import stripeRouter from "./routes/payment.route.js"
@@ -28,11 +29,12 @@ app.use(cookieParser());
 // Use express.json() for your other API routes
 
 // Your API routes
-app.all("/api/auth/*splat", toNodeHandler(auth))
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
-app.use('/api/stripe',stripeRouter)
-app.use('/api/users',usersRoute)
+app.use("/api/bookings", bookingRouter);
+app.use('/api/stripe', stripeRouter);
+app.use('/api/users', usersRoute);
 
 
 // Global error handler

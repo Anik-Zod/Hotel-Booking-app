@@ -10,7 +10,7 @@ export default function GoogleLoginButton() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { error, isAuthenticated } = useSelector((state) => state.auth);
-
+ 
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');

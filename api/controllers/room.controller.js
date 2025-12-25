@@ -50,7 +50,7 @@ export const updateRoomAvailability = async (req, res, next) => {
       { "roomNumbers._id": { $in: roomIds } },
       {
         $push: {
-          "roomNumbers.$[room].unavailableDates": { $each: dates },
+          "roomNumbers.$[room].unavailableDate": { $each: dates },
         },
       },
       {

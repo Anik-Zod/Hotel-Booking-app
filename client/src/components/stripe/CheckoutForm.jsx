@@ -4,6 +4,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import axiosInstance from "../../api/axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +13,12 @@ export default function CheckoutForm({
   amount,
   items,
   onError,
-  userId,
   dates,
   selectedRooms = [],
 }) {
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useSelector((state) => state.auth);
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -57,17 +58,48 @@ const handleSubmit = async (e) => {
 
       if (paymentIntent.status === "succeeded") {
         try {
+          // Update room availability first
           await axiosInstance.put(
-            `http://localhost:8800/api/rooms/availability`,
-            { roomIds:selectedRooms, dates }
+            `rooms/availability`,
+            { roomIds: selectedRooms, dates }
           );
 
-          toast.success("Payment successful & order placed!");
+          // Create booking record
+          const bookingData = {
+            userId: user.id,
+            roomIds: selectedRooms,
+            dates: {
+              startDate: new Date(dates[0]).toISOString(),
+              endDate: new Date(dates[dates.length - 1]).toISOString()
+            },
+            totalPrice: amount / 100,
+            paymentIntentId: paymentIntent.id
+          };
+
+          console.log('User from Redux:', user); // Debug log
+          console.log('Booking data:', bookingData); // Debug log
+
+          await axiosInstance.post(
+            `stripe/create-booking`,
+            bookingData
+          );
+
+          toast.success("Payment successful & booking confirmed!");
           navigate("/success");
 
         } catch (err) {
-          console.error("Failed to save order:", err);
-          toast.error("Payment succeeded but order was not saved");
+          console.error("Failed to complete booking:", err);
+          
+          // If booking creation fails, attempt to rollback room availability
+          try {
+            // Note: This is a simplified rollback - in production, you'd want a more robust solution
+            console.warn("Attempting to rollback room availability changes...");
+            // You could implement a rollback API endpoint here
+          } catch (rollbackErr) {
+            console.error("Rollback failed:", rollbackErr);
+          }
+          
+          toast.error("Payment succeeded but booking was not completed. Please contact support.");
         }
       }
     }
