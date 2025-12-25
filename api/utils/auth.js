@@ -30,16 +30,6 @@ export const auth = betterAuth({
     },
   },
 
-  // ————————— COOKIE SETTINGS —————————
-  advanced: {
-    // This applies to all Better Auth cookies (session, refresh, csrf, etc.)
-    defaultCookieAttributes: {
-      httpOnly: true,     // JS can’t access
-      secure: true,       // REQUIRED for SameSite=None
-      sameSite: "none",   // REQUIRED for cross‑site cookies
-      path: "/",
-    },
-  },
   baseURL: process.env.BETTER_AUTH_URL,
   socialProviders: {
     google: {
