@@ -30,7 +30,7 @@ function FooterBanner() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14">
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <div className="w-10 h-10 bg-yellow rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
               <span className="text-black font-black text-xl">B</span>
             </div>
 
@@ -38,7 +38,7 @@ function FooterBanner() {
               to="/"
               className="text-2xl font-bold text-blue tracking-tighter"
             >
-              Booking<span className="text-amber-500 font-light">App</span>
+              Booking<span className="text-yellow font-light">App</span>
             </Link>
           </div>
           <p className="text-sm/7 mt-6">
@@ -79,7 +79,7 @@ function FooterBanner() {
                 type="email"
                 placeholder="Enter your email"
               />
-              <button className=" bg-yellow-600 px-4 h-11 text-white rounded-r-md">
+              <button className=" bg-yellow px-4 h-11 text-white rounded-r-md">
                 Subscribe
               </button>
             </div>

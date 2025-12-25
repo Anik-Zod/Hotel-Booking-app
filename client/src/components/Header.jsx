@@ -104,7 +104,7 @@ const Header = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="ring-4 ring-[#ffb700] flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
+            className="ring-4 ring-yellow flex flex-col md:flex-row items-center gap-4 p-4 bg-white shadow-xl rounded-xl  mx-3  min-w-[390px] md:mx-10 mt-8 relative"
           >
             <div className="w-full">
               <CityInput setDestination={setDestination} />
@@ -116,7 +116,7 @@ const Header = () => {
 
             <Link to="/hotels" className="w-full md:w-auto">
               <button
-                className="flex gap-2 items-center justify-center bg-[#FE9A00] text-white w-full py-[9px] md:px-4 rounded-lg hover:bg-[#d48206] transition cursor-pointer"
+                className="flex gap-2 items-center justify-center bg-yellow text-white w-full py-[9px] md:px-4 rounded-lg hover:bg-[#d48206] transition cursor-pointer"
                 onClick={handleSearch}
               >
                 <FaSearch size={12} />

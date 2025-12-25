@@ -44,17 +44,17 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-[100] bg-slate-900/90 backdrop-blur-md border-b border-white/10 shadow-xl">
+    <nav className="lg:px-15 sticky top-0 z-[100] bg-blue backdrop-blur-md border-b border-white/10 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
           {/* Logo Section */}
           <div className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <div className="w-10 h-10 bg-yellow rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-300">
               <span className="text-black font-black text-xl">B</span>
             </div>
             <Link to="/" className="text-2xl font-bold text-white tracking-tighter">
-              Booking<span className="text-amber-500 font-light">App</span>
+              Booking<span className="text-yellow font-light">App</span>
             </Link>
           </div>
 
@@ -66,12 +66,12 @@ export default function Navbar() {
                 to={link.path}
                 
                 className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${
-                  location.pathname === link.path ? "text-amber-400" : "text-slate-300 hover:text-white"
+                  location.pathname === link.path ? "text-yellow" : "text-slate-300 hover:text-white"
                 }`}
               >
                 {link.name}
                 {location.pathname === link.path && (
-                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-400 rounded-full" />
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-yellow rounded-full" />
                 )}
               </Link>
             ))}
@@ -87,7 +87,7 @@ export default function Navbar() {
                     <img
                       src={user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`}
                       alt="profile"
-                      className="w-8 h-8 rounded-full border border-amber-500/50 object-cover"
+                      className="w-8 h-8 rounded-full border border-yellow/50 object-cover"
                     />
                     <span className="text-sm font-semibold text-white">{user.name}</span>
                     <ChevronDown size={14} className={`text-slate-400 transition-transform ${logoutopen ? 'rotate-180' : ''}`} />
@@ -115,7 +115,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   to="/auth"
-                  className="bg-amber-500 hover:bg-amber-400 text-black px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-amber-500/20"
+                  className="bg-yellow hover:bg-yellow text-black px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-yellow/20"
                 >
                   Join Now
                 </Link>

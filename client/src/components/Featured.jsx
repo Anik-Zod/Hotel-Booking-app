@@ -56,7 +56,13 @@ export default function Featured() {
   }
 
   return (
-    <section className="container">
+    <motion.section 
+      className="container"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
       <SectionHeader
         title="Featured Stays"
         highlight="Top Destinations"
@@ -67,20 +73,30 @@ export default function Featured() {
         ref={carouselRef}
         className="overflow-x-auto cursor-grab no-scrollbar"
         whileTap={{ cursor: "grabbing" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
       >
         <motion.div
           drag="x"
           dragConstraints={{ right: 0, left: -width }}
           className="flex space-x-6 py-6"
         >
-          {data.map((hotel) => (
-            <motion.div key={hotel.hotelId} className="min-w-[260px] ">
+          {data.map((hotel, index) => (
+            <motion.div 
+              key={hotel.hotelId} 
+              className="min-w-[260px]"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <TravelCard hotel={hotel} rating={getFakeRating()} />
             </motion.div>
           ))}
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -88,7 +104,9 @@ const TravelCard = ({ hotel, rating = 4.9 }) => {
   const navigate = useNavigate()
   return (
     <motion.div
-      whileHover={{ y: -8 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="group relative max-w-[300px] bg-white rounded-[24px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100/50 border border-gray-100"
     >
       {/* IMAGE CONTAINER */}
@@ -109,12 +127,16 @@ const TravelCard = ({ hotel, rating = 4.9 }) => {
           </div>
         </div>
 
-        <button className="absolute top-5 right-5 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-sm hover:bg-white transition-colors group/heart">
+        <motion.button 
+          className="absolute top-5 right-5 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-sm hover:bg-white transition-colors group/heart"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
           <Heart
             size={18}
             className="text-gray-400 group-hover/heart:text-red-500 group-hover/heart:fill-red-500 transition-all"
           />
-        </button>
+        </motion.button>
       </div>
 
       {/* CONTENT */}
@@ -179,11 +201,14 @@ const TravelCard = ({ hotel, rating = 4.9 }) => {
             </div>
           </div>
 
-          <button
-          onClick={()=>navigate(`/hotels/${hotel.hotelId}`)}
-          className="bg-gray-900 text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-blue-600 transition-colors shadow-lg shadow-gray-200">
+          <motion.button
+            onClick={()=>navigate(`/hotels/${hotel.hotelId}`)}
+            className="bg-gray-900 text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-yellow transition-colors shadow-lg shadow-gray-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Details
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>

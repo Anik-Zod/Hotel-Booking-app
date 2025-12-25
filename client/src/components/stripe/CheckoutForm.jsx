@@ -66,7 +66,7 @@ const handleSubmit = async (e) => {
 
           // Create booking record
           const bookingData = {
-            userId: user.id,
+            userId: user._id,
             roomIds: selectedRooms,
             dates: {
               startDate: new Date(dates[0]).toISOString(),

@@ -22,7 +22,7 @@ const HorizontalCard = ({ item }) => {
         <img
           src={item.photos[0]}
           alt={item.name}
-          className="max-h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className=" size-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className=" absolute top-2 left-2 space-y-2.5 text-xs">
 
