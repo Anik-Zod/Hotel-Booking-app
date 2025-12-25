@@ -38,6 +38,14 @@ export const auth = betterAuth({
       overrideUserInfoOnSignIn: true,
     },
   },
+  
+  advanced: {
+    useSecureCookies: true,            // Ensures cookies are Secure in prod
+    defaultCookieAttributes: {
+      sameSite: "none",                // Required for cross-site redirects
+      secure: true,
+    },
+  },
 
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
