@@ -39,10 +39,8 @@ export const auth = betterAuth({
       sameSite: "none",   // REQUIRED for cross‑site cookies
       path: "/",
     },
-    // Optional prefix for stronger security
-    cookiePrefix: "__Secure-better-auth",
   },
-
+  baseURL: process.env.BETTER_AUTH_URL,
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
