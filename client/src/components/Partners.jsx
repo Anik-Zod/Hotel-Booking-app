@@ -18,7 +18,7 @@ const items = [
 
 function Partners() {
   return (
-    <section className="py-16 sm:py-20  lg:py-24 bg-white overflow-hidden container mx-auto">
+    <section className="py-12  bg-white overflow-hidden container mx-auto">
 
       <SectionHeader
         title="Our Global"

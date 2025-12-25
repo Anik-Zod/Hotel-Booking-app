@@ -77,7 +77,7 @@ export const Offer = () => {
     },
   };
   return (
-    <section className="container py-12 md:py-20">
+    <section className="container py-12">
       {/* HEADER SECTION */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
         <div className="space-y-3">
