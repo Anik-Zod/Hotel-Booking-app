@@ -62,11 +62,11 @@ export default function PropertyList() {
   ];
 
 const images = [
-  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_700,h_500,c_fill,q_auto,f_auto,dpr_auto/v1766667549/hotel5_zx8pcx.jpg",
-  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_700,h_500,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel3_frdhhg.jpg",
-  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_700,h_500,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel3_dt8yz2.jpg",
-  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_700,h_500,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel_dyyzkg.jpg",
-  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_700,h_500,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel2_akxezp.jpg"
+  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_500,h_350,c_fill,q_auto,f_auto,dpr_auto/v1766667549/hotel5_zx8pcx.jpg",
+  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_500,h_350,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel3_frdhhg.jpg",
+  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_500,h_350,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel3_dt8yz2.jpg",
+  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_500,h_350,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel_dyyzkg.jpg",
+  "https://res.cloudinary.com/dj6y31jyx/image/upload/w_500,h_350,c_fill,q_auto,f_auto,dpr_auto/v1766667547/hotel2_akxezp.jpg"
 ];
 
 
@@ -82,7 +82,7 @@ const images = [
   const navigate = useNavigate()
 
   return (
-    <section className="py-20 bg-gradient-to-b container to-white ">
+    <section className="py-8 bg-gradient-to-b container to-white ">
       <div className="max-w-7xl mx-auto ">
         {/* Header */}
 
