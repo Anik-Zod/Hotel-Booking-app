@@ -13,7 +13,7 @@ function StickyButton() {
         // State-driven styling
         animate={{
           width: hovered ? "220px" : "64px",
-          backgroundColor: hovered ? "#FE9A00" : "#262E40", // Your specific Hex colors
+          backgroundColor: hovered ? "#f1ba0a" : "#00332C", // Your specific Hex colors
           boxShadow: hovered 
             ? "0 20px 25px -5px rgba(254, 154, 0, 0.3)" 
             : "0 10px 15px -3px rgba(0, 0, 0, 0.2)"

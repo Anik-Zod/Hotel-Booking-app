@@ -48,7 +48,7 @@ export default function MobileNav({
             initial="closed"
             animate="opened"
             exit="closed"
-            className="fixed right-0 top-0 h-screen w-full max-w-[340px] bg-[#262E40] border-l border-white/10 shadow-2xl flex flex-col z-[70] overflow-hidden"
+            className="fixed right-0 top-0 h-screen w-full max-w-[340px] bg-blue border-l border-white/10 shadow-2xl flex flex-col z-[70] overflow-hidden"
           >
             {/* Header: Increased height and cleaner typography */}
             <div className="flex items-center justify-between px-6 h-24 border-b border-white/5 bg-white/[0.02]">
@@ -75,7 +75,7 @@ export default function MobileNav({
                       onClick={() => setIsOpen(false)}
                       className={`group relative flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
                         isActive
-                          ? "bg-[#FE9A00] text-white shadow-lg shadow-[#FE9A00]/20"
+                          ? "bg-yellow text-white shadow-lg shadow-[#FE9A00]/20"
                           : "text-slate-400 hover:bg-white/5 hover:text-white"
                       }`}
                     >
