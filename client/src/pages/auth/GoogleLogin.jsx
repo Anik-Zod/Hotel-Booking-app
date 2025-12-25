@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser, clearError } from "../../store/authSlice";
+import { setUser, clearError } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { authClient } from "../../../lib/auth-client";
 import { useState } from "react";
@@ -22,10 +22,15 @@ export default function GoogleLoginButton() {
     dispatch(clearError());
 
     try {
-      await authClient.signIn.social({
+      const result = await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${import.meta.env.VITE_BACKEND_AUTH_URL}/auth/google/callback`,
+        callbackURL: window.location.origin,
       });
+      
+      if (result?.data?.user) {
+        dispatch(setUser(result.data.user));
+        navigate('/');
+      }
     } catch (err) {
       console.error('Google login failed:', err);
     } finally {
