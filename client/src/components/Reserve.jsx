@@ -180,7 +180,7 @@ export default function Reserve({ setOpen, hotelId , TotalPrice}) {
                       ${
                         available
                           ? "border-slate-300 bg-white cursor-pointer hover:border-blue-200 peer-checked:border-[#003B95] peer-checked:bg-blue-50/50 peer-checked:ring-4 peer-checked:ring-blue-100"
-                          : "border-red-200 bg-red-50 cursor-not-allowed opacity-60"
+                          : "border-red-400 bg-red-50 cursor-not-allowed opacity-60"
                       }
                     `}
                           >
@@ -188,16 +188,16 @@ export default function Reserve({ setOpen, hotelId , TotalPrice}) {
                               className={`text-lg font-black transition-colors ${
                                 available
                                   ? "text-slate-700 peer-checked:text-[#003B95]"
-                                  : "text-red-500"
+                                  : "text-red-600"
                               }`}
                             >
                               {roomNumber.number ||"no room"}
                             </span>
                             <span
-                              className={`text-[9px] font-black uppercase tracking-widest mt-1 ${
+                              className={`text-[10px] font-black uppercase tracking-widest mt-1 ${
                                 available
                                   ? "text-slate-400 peer-checked:text-[#003B95]"
-                                  : "text-red-400"
+                                  : "text-red-600"
                               }`}
                             >
                               {available ? "Select" : "Booked"}
