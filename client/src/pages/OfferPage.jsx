@@ -106,12 +106,12 @@ const StunningBookingPage = () => {
     : OFFERS.filter(offer => offer.category === activeTab);
 
   return (
-    <div className="lg:px-6 bg-slate-950 text-slate-300 min-h-screen font-sans selection:bg-indigo-500/30 selection:text-white -mt-29">
+    <div className="lg:px-6 bg-blue text-slate-300 min-h-screen font-sans selection:bg-indigo-500/30 selection:text-white -mt-29">
       
       {/* --- AMBIENT BACKGROUND GLOWS --- */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[20%] w-[1000px] h-[600px] bg-indigo-600/20 blur-[120px] rounded-full opacity-30 animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[800px] h-[600px] bg-rose-600/10 blur-[130px] rounded-full opacity-20" />
+        <div className="absolute top-[-10%] left-[20%] w-[1000px] h-[600px] bg-green-600/20 blur-[120px] rounded-full opacity-30 animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[800px] h-[600px] bg-green-600/10 blur-[130px] rounded-full opacity-20" />
       </div>
 
       {/* --- HERO SECTION --- */}
@@ -121,23 +121,23 @@ const StunningBookingPage = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-indigo-500/30 rounded-full backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-green-500/30 rounded-full backdrop-blur-sm"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest">Live Inventory Drop</span>
+              <span className="text-xs font-bold text-green-300 uppercase tracking-widest">Live Inventory Drop</span>
             </motion.div>
 
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight"
+              className="text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight text-green-300"
             >
               Get Discounts,<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-purple-400">
                 insane prices.
               </span>
             </motion.h1>
@@ -155,13 +155,13 @@ const StunningBookingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 text-green-300"
             >
-              <button className="bg-white text-slate-950 hover:bg-indigo-50 px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_-5px_rgba(255,255,255,0.5)]">
+              <button className="bg-white text-slate-950 hover:bg-green-50 px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_-5px_rgba(255,255,255,0.5)]">
                 Start Exploring
               </button>
               <button className="px-8 py-4 rounded-xl font-bold text-sm text-white border border-slate-700 hover:border-slate-500 hover:bg-slate-800 transition-all flex items-center gap-2">
-                 <Clock size={16} className="text-indigo-400"/> Flash Deals
+                 <Clock size={16} className="text-green-400"/> Flash Deals
               </button>
             </motion.div>
 
@@ -179,7 +179,7 @@ const StunningBookingPage = () => {
           
           {/* Hero Image Card */}
           <div className="relative group perspective-1000">
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-600 to-green-600 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
             <motion.div 
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
@@ -205,8 +205,8 @@ const StunningBookingPage = () => {
                     </div>
                     <div className="text-right">
                        <p className="text-slate-400 line-through text-sm font-medium">$3,200</p>
-                       <p className="text-3xl font-bold text-white tracking-tight">$1,450</p>
-                       <p className="text-indigo-400 text-xs font-bold mt-1">Total Savings: $1,750</p>
+                       <p className="text-3xl font-bold text-white tracking-tight">$1,450</p> 
+                       <p className="text-green-400 text-xs font-bold mt-1">Total Savings: $1,750</p>
                     </div>
                   </div>
                </div>
