@@ -1,82 +1,165 @@
-# Full Stack Hotel Booking App
+
+# 🏨 Hotel Booking FullStack Application
+
+A comprehensive, full-stack hotel booking solution featuring a modern user interface, secure payments, and a powerful admin dashboard. This project is built as a monorepo containing the backend API, user-facing client, and administrative panel.
+
+## ✨ Key Features
+
+### 🌍 Client (User Frontend)
+- **Seamless Booking Experience:** Intuitive interface for searching and booking hotels.
+- **Secure Payments:** Integrated with **Stripe** for safe and reliable transactions.
+- **Advanced Search:** Filter hotels by date, price, and location using `react-date-range`.
+- **Modern UI/UX:** Responsive design built with **Tailwind CSS**, featuring smooth animations with **Framer Motion** and **Lenis** scroll.
+- **State Management:** Robust state handling with **Redux Toolkit** and **React Query**.
+
+### 🛡️ Admin Dashboard
+- **Data Visualization:** Interactive charts and graphs powered by **Chart.js**.
+- **Management Tables:** Advanced data grids using **Material UI (MUI)** for managing bookings, users, and rooms.
+- **Real-time Updates:** Efficient data fetching and caching with **React Query**.
+- **State Management:** Lightweight and fast state management using **Zustand**.
+
+### 🔙 Backend (API)
+- **RESTful API:** Scalable Node.js & Express server.
+- **Database:** MongoDB with Mongoose for structured data modeling.
+- **Authentication:** Secure user and admin authentication using **JWT** and **Better-Auth**.
+- **Payment Processing:** Secure backend integration with **Stripe**.
+
+### 📸 Screenshots
+
+| Landing Page | Hotel Details |
+|:---:|:---:|
+| ![Landing Page](/path/to/landing-page.png) | ![Hotel Details](/path/to/hotel-details.png) |
+| **Admin Dashboard** | **Search Results** |
+| ![Admin Dashboard](/path/to/admin-dashboard.png) | ![Search Results](/path/to/search-results.png) |
 
 
-The Full Stack Hotel Booking App is a robust and scalable platform that allows users to seamlessly search, book, and manage hotel reservations. It ensures secure authentication, real-time booking validation, and an intuitive admin dashboard for efficient hotel management.
+---
 
-## 🚀 Features
+## 🛠️ Tech Stack
 
--  __JWT  - Protected Routes =__ Ensures secure access to protected pages and APIs.
+### Client (`/client`)
+- **Framework:** React 19 (Vite)
+- **Styling:** Tailwind CSS 4, Lucide React
+- **State & Fetching:** Redux Toolkit, TanStack Query
+- **Animations:** Motion, Lenis
+- **Forms & Dates:** React Date Range
 
-- __User Authentication =__ Register and log in securely using JWT-based authentication.
+### Admin (`/admin`)
+- **Framework:** React 19 (Vite)
+- **State & Fetching:** Zustand, TanStack Query
+- **Charts:** Chart.js, React Chartjs 2
+- **Styling:** Tailwind CSS 4, Tailwind Merge
 
-- __Hotel & Room Booking =__ Users can book rooms in hotels across various locations.
+### API (`/api`)
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB (Mongoose)
+- **Auth:** JWT, BCrypt, Better-Auth
+- **Payments:** Stripe
 
-- __Real-Time Booking Validation =__ Prevents double booking of already reserved rooms.
+---
 
-- __Automated Price Calculation =__ Room pricing is dynamically computed based on selected rooms and booking duration.
+## 🚀 Getting Started
 
-- __Admin Dashboard =__ Provides a feature-rich dashboard where admins can:
+Follow these instructions to set up the project locally.
 
-- __Create and manage user__
+### Prerequisites
+- **Node.js** (v18+ recommended)
+- **MongoDB** (Local or Atlas connection string)
+- **Git**
 
-- __Add and edit hotels and rooms__
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/hotel-booking-fullstack.git
+cd hotel-booking-fullstack
+```
 
-- __Visualize booking and revenue data using Recharts.__
+### 2. Backend Setup (`/api`)
+Navigate to the api directory and install dependencies:
+```bash
+cd api
+npm install
+```
 
-## 🛠 Tech Stack
+Create a `.env` file in the `api` directory with the following variables:
+```env
+PORT=8000
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+STRIPE_SECRET_KEY=your_stripe_secret_key
+```
 
-__Frontend :__ React, Tailwind CSS, Hooks (useState, useContext, useReducer, useLocation)
+Start the backend server:
+```bash
+npm start
+# or for development
+npm run dev
+```
 
-__Backend :__ Express.js, MongoDB
+### 3. Client Setup (`/client`)
+Open a new terminal, navigate to the client directory:
+```bash
+cd client
+npm install
+```
 
-__Authentication :__ JSON Web Tokens (JWT)
+Create a `.env` file in the `client` directory (if needed for public keys):
+```env
+VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+VITE_API_URL=http://localhost:8000/api
+```
 
-__Data Visualization :__ Recharts
+Start the client development server:
+```bash
+npm run dev
+```
 
-# 📸 Screenshots
+### 4. Admin Setup (`/admin`)
+Open a new terminal, navigate to the admin directory:
+```bash
+cd admin
+npm install
+```
 
-## 🏠 Home Page
-![image](https://github.com/user-attachments/assets/a152fb09-0e6e-4efa-8f27-2091b298d84c)
+Create a `.env` file in the `admin` directory:
+```env
+VITE_API_URL=http://localhost:8000/api
+```
 
+Start the admin development server:
+```bash
+npm run dev
+```
 
+---
 
-## 🔑 Login Page
-![image](https://github.com/user-attachments/assets/220478a0-3679-4bef-91cf-7ddbfc22f894)
+## 📂 Project Structure
 
-## Hotel Searching Page
-![image](https://github.com/user-attachments/assets/d5ebdef5-b8e1-41cc-9d6d-bc2121909e11)
+```bash
+Hotel_Booking_FullStack/
+├── api/             # Backend Node.js/Express server
+├── client/          # User-facing React application
+├── admin/           # Admin Dashboard React application
+└── README.md        # Project documentation
+```
 
+---
 
-## Hotel Detail Page
-![image](https://github.com/user-attachments/assets/df8766ea-6878-420a-949e-42ad58420b6b)
+## 🤝 Contributing
 
-## Available room select page
-![image](https://github.com/user-attachments/assets/efd4521c-a06f-4410-8d5b-9727d1904588)
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
 
-## 📊 Admin Dashboard
-![image](https://github.com/user-attachments/assets/69873aed-24cb-4d4f-acef-27c54dd0699b)
+## 📄 License
 
+This project is licensed under the ISC License.
 
-## All User pages
-![image](https://github.com/user-attachments/assets/bc47b7c7-8d90-4f15-8ca8-9485adadf26d)
+---
 
-
-## Profile Page
-![image](https://github.com/user-attachments/assets/89a1d702-016f-4573-a907-7c98cecc51a6)
-
-
-## Add new Hotel 
-![image](https://github.com/user-attachments/assets/c0eb7ac4-244d-4c0d-a07f-00e7d020cece)
-
-
-## 🤝 Contribution
-
-Contributions are welcome! Feel free to fork this repository and submit pull requests.
-
-📜 License
-
-This project is licensed under the MIT License.
-
-📧 Contact
-
-For any inquiries, reach out via phone/Whatsapp: 01996259365.  email:anikdas169@gmail.com
+<p align="center">
+  Made with ❤️ by [Your Name]
+</p>
