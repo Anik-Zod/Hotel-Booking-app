@@ -176,5 +176,5 @@ This project is licensed under the ISC License.
 ---
 
 <p align="center">
-  Made with ❤️ by [Your Name]
+   Project by Anik
 </p>
