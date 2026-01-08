@@ -39,9 +39,8 @@ const List = () => {
   };
   const url = `/hotels?cities=${selectedCities.join(
     ","
-  )}&types=${selectedTypes.join(",")}&min=${priceRange.min || 0}&max=${
-    priceRange.max || 999
-  }`;
+  )}&types=${selectedTypes.join(",")}&min=${priceRange.min || 0}&max=${priceRange.max || 999
+    }`;
 
   const { data, isLoading, isError, error } = useFetch("list", url);
   return (
@@ -151,7 +150,7 @@ const List = () => {
         </AnimatePresence>
 
         {/* Results List */}
-        <div className=" cursor-pointer  overflow-y-auto h-[730px] w-full no-scrollbar">
+        <div data-lenis-prevent className=" cursor-pointer  overflow-y-auto h-[730px] w-full no-scrollbar">
           {isLoading ? (
             <p className="text-center text-xl font-semibold text-[#003B95]">
               Loading...stays...
