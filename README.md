@@ -26,11 +26,26 @@ A comprehensive, full-stack hotel booking solution featuring a modern user inter
 
 ### 📸 Screenshots
 
-| Landing Page | Hotel Details |
+### 📸 Screenshots
+
+| Landing Page | landing Page |
 |:---:|:---:|
-| ![Landing Page](/path/to/landing-page.png) | ![Hotel Details](/path/to/hotel-details.png) |
-| **Admin Dashboard** | **Search Results** |
-| ![Admin Dashboard](/path/to/admin-dashboard.png) | ![Search Results](/path/to/search-results.png) |
+| <img width="1891" height="942" src="https://github.com/user-attachments/assets/1718c65f-0040-4481-bc29-34bec2cf9a90" /> | <img width="1891" height="949" src="https://github.com/user-attachments/assets/43d79216-4244-4b65-9fbf-2f425543d081" /> |
+
+| Filter Page | Hotel Page |
+|:---:|:---:|
+| <img width="1872" height="959" src="https://github.com/user-attachments/assets/3a710da5-99ca-4203-b01b-079461a17ab6" /> | <img width="1879" height="942" src="https://github.com/user-attachments/assets/2522814e-b8b3-4e17-9ac4-bc564180c61f" /> |
+
+| Contact Page | Payment Page |
+|:---:|:---:|
+| <img width="1909" height="919" alt="image" src="https://github.com/user-attachments/assets/21a7c4bb-5180-4b97-aa6d-fa2ddc40e29c" /> | <img width="1898" height="944" alt="image" src="https://github.com/user-attachments/assets/46fd891c-0e8c-47b5-abe5-ed738de5926d" /> |
+
+| Admin Login | Admin Home |
+|:---:|:---:|
+| <img width="1907" height="947" alt="image" src="https://github.com/user-attachments/assets/2012ef89-18c7-4bae-befd-7bc7cee08c46" /> | <img width="1896" height="959" alt="image" src="https://github.com/user-attachments/assets/070944c2-c930-44ac-9e22-14b002d1797b" /> |
+
+
+
 
 
 ---
