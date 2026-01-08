@@ -26,8 +26,6 @@ A comprehensive, full-stack hotel booking solution featuring a modern user inter
 
 ### 📸 Screenshots
 
-### 📸 Screenshots
-
 | Landing Page | landing Page |
 |:---:|:---:|
 | <img width="1891" height="942" src="https://github.com/user-attachments/assets/1718c65f-0040-4481-bc29-34bec2cf9a90" /> | <img width="1891" height="949" src="https://github.com/user-attachments/assets/43d79216-4244-4b65-9fbf-2f425543d081" /> |
